@@ -1,1 +1,43 @@
-<p>manager-dashboard works!</p>
+<div>
+    <div style="float: right;" class="col-md-3 col-sm-3 col-lg-3">
+      <span style="color: steelblue"> <b>Welcome <u> {{empName}} !</u></b></span>
+    </div>
+    <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark align-right">
+      <mdb-navbar-brand>
+        <a class="navbar-brand" href="http://troodontechnology.com/">
+          <img src="assets/img/TROOWORK.png" style="width: 10rem;">
+        </a>
+      </mdb-navbar-brand>
+      <links>
+        <div style="margin-left: 10%;margin-top: 1%">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <img class="imagesize nav-link" src="assets/icons/homepage.png"
+                [routerLink]="[{outlets:{ManagerOut:['welcomePage']}}]">
+            </li>
+            <li class="nav-item dropdown" style="margin-left: -1rem;">
+              <img class="imagesize nav-link" src="assets/icons/work order.png">
+              <div class="dropdown-content" style="margin-left:1rem;">
+                <!-- <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['CreateWorkOrder']}}]"><b>Create Work
+                    Order</b></a>
+                <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['createQuickOrder']}}]"><b>Create Quick
+                    Order</b></a>
+                <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['ViewWorkOrder']}}]"><b>View Work
+                    Order</b></a>
+                <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['CreateBatchWorkOrder']}}]"><b>Create Batch
+                    Work Order</b></a>
+                <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['ViewBatchWorkorder']}}]"><b>View Batch
+                    Work
+                    Order</b></a>
+                <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['WorkOrderType']}}]"><b>Work-Order
+                    Type</b></a>
+                <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['ViewServiceRequest']}}]"><b>View Service
+                    Request</b></a> -->
+              </div>
+            </li>
+          </ul>
+        </div>
+      </links>
+    </mdb-navbar>
+    <router-outlet name="ManagerOut"></router-outlet>
+  </div>

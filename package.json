@@ -3,7 +3,7 @@
   "version": "8.1.1",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "npm run-script build && node ./bin/www",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
