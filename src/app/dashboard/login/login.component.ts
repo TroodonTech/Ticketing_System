@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
               this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['welcomePage'] } }]);  // redirect to Manager
             }
             else if (profile.role === 'Employee') {
-              this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['Emp_welcomePage'] } }]); // redirect to Employee
+              this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['welcomePage'] } }]); // redirect to Employee
             }
         },
           res => {

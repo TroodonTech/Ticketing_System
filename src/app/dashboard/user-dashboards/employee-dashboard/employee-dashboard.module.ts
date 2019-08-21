@@ -12,7 +12,7 @@ const routes: Routes = [
       {
         path: 'welcomePage',
         outlet: 'EmployeeOut',
-        loadChildren: '../../user-welcome-pages/welcomepage/welcomepage.module#WelcomepageModule'
+        loadChildren: '../../user-welcome-pages/employee-welcome/employee-welcome.module#EmployeeWelcomeModule'
       }
     ]
   }
