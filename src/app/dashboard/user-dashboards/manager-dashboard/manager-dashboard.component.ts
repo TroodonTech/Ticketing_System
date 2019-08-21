@@ -43,11 +43,11 @@ export class ManagerDashboardComponent implements OnInit {
     // this.employeekey = profile.employeekey;
     // this.OrganizationID = profile.OrganizationID;
 
-    this.loginService
-      .getEmpNameForWelcomeMessage(this.employeekey, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.empName = data[0].EmpName;
-      });
+    // this.loginService
+    //   .getEmpNameForWelcomeMessage(this.employeekey, this.OrganizationID)
+    //   .subscribe((data: any[]) => {
+    //     this.empName = data[0].EmpName;
+    //   });
   }
 
 }
