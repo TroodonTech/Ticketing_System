@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { ManagerDashboardComponent } from './manager-dashboard.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import{CreateUserManagerModule} from '../../../manager/create-user-manager/create-user-manager.module'
+import{ManagerWelcomeModule} from '../../../dashboard/user-welcome-pages/manager-welcome/manager-welcome.module'
 
 const routes: Routes = [
   {
@@ -13,7 +13,7 @@ const routes: Routes = [
       {
         path: 'welcomePage',
         outlet: 'ManagerOut',
-        loadChildren: '../../user-welcome-pages/welcomepage/welcomepage.module#WelcomepageModule',
+        loadChildren: '../../../dashboard/user-welcome-pages/manager-welcome/manager-welcome.module#ManagerWelcomeModule',
 
       },
     ]}
