@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { ManagerDashboardComponent } from './manager-dashboard.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import{CreateUserManagerModule} from '../../../manager/create-user-manager/create-user-manager.module'
 
 const routes: Routes = [
   {
@@ -10,9 +11,9 @@ const routes: Routes = [
     component: ManagerDashboardComponent,
     children: [
       {
-        path: 'Buildview',
+        path: 'CreateUserManager',
         outlet: 'ManagerOut',
-        loadChildren: '../../../manager/inventory/building-view/building-view.module#BuildingViewModule',
+        loadChildren: '../../../manager/create-user-manager/create-user-manager.module#CreateUserManagerModule',
 
       }
     ]}
