@@ -10,11 +10,11 @@ const routes: Routes = [
     component: ManagerDashboardComponent,
     children: [
       {
-        path: 'Buildview',
+        path: 'welcomePage',
         outlet: 'ManagerOut',
-        loadChildren: '../../../manager/inventory/building-view/building-view.module#BuildingViewModule',
+        loadChildren: '../../user-welcome-pages/welcomepage/welcomepage.module#WelcomepageModule',
 
-      }
+      },
     ]}
   ];
 

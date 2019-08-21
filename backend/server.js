@@ -158,6 +158,33 @@ app.post('/authenticate', function (req, res) {
 
 });
 
+
+// app.get(securedpath + '/EmpNameForwelcomeMessage', function (req, res) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     var empid = url.parse(req.url, true).query['empid'];
+
+//     pool.getConnection(function (err, connection) {
+//         if (err) {
+
+//             console.log("Failed! Connection with Database spicnspan via connection pool failed");
+//         }
+//         else {
+//             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+//             connection.query('set @empid=?; call usp_EmpNameForwelcomeMessage(@empid)', [empid], function (err, rows) {
+//                 if (err) {
+//                     console.log("Problem with MySQL" + err);
+//                 }
+//                 else {
+//                     console.log("welcomeMessage...from server.." + JSON.stringify(rows[1]));
+//                     res.end(JSON.stringify(rows[1]));
+//                 }
+//             });
+//         }
+//         connection.release();
+//     });
+// });
+
+
 // *********************code for form uploads-web starts **********************
 //var multerUploadPath_photo = './webui/pho1';// use ../webui/uploads for cloud.
 var locationinTable = 'pho1/';
@@ -13331,31 +13358,7 @@ app.get(securedpath + '/emailForInspectionComp', function (req, res) {
     });
 });
 // varun code ends
-app.get(securedpath + '/welcomeMessage', function (req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
-    var empKey = url.parse(req.url, true).query['empKey'];
-    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
 
-    pool.getConnection(function (err, connection) {
-        if (err) {
-
-            console.log("Failed! Connection with Database spicnspan via connection pool failed");
-        }
-        else {
-            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @empkey=?;set @OrganizationID=?; call usp_welcomeMessage(@empkey,@OrganizationID)', [empKey, OrganizationID], function (err, rows) {
-                if (err) {
-                    console.log("Problem with MySQL" + err);
-                }
-                else {
-                    console.log("welcomeMessage...from server.." + JSON.stringify(rows[2]));
-                    res.end(JSON.stringify(rows[2]));
-                }
-            });
-        }
-        connection.release();
-    });
-});
 
 app.get(securedpath + '/valuesForPie', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -13385,30 +13388,7 @@ app.get(securedpath + '/valuesForPie', function (req, res) {
     });
 });
 
-app.get(securedpath + '/welcomeMessage', function (req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
-    var empKey = url.parse(req.url, true).query['empKey'];
 
-    pool.getConnection(function (err, connection) {
-        if (err) {
-
-            console.log("Failed! Connection with Database spicnspan via connection pool failed");
-        }
-        else {
-            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @empkey=?; call usp_welcomeMessage(@empkey)', [empKey], function (err, rows) {
-                if (err) {
-                    console.log("Problem with MySQL" + err);
-                }
-                else {
-                    console.log("welcomeMessage...from server.." + JSON.stringify(rows[1]));
-                    res.end(JSON.stringify(rows[1]));
-                }
-            });
-        }
-        connection.release();
-    });
-});
 
 app.post(securedpath + '/workorderByfilterPie', supportCrossOriginScript, function (req, res) {
 

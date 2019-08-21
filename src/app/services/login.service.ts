@@ -17,10 +17,10 @@ export class LoginService {
     return this.http.post(url, obj);
   }
   
-  // getEmpNameForWelcomeMessage(empkey, orgID) {
+  // getEmpNameForWelcomeMessage(empid) {
   //   return this
   //     .http
-  //     .get('http://localhost:3000/welcomeMessage?empKey=' + empkey + '&OrganizationID=' + orgID);
+  //     .get('http://localhost:3000/EmpNameForwelcomeMessage?empid=' + empid);
   // }
 
 }

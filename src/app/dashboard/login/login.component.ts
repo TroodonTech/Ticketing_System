@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
 
   login(username, password) {
     if (!username) {
+      debugger;
       alert("Enter User Name");
     }
     else if (!password) {
@@ -62,11 +63,11 @@ export class LoginComponent implements OnInit {
             this.name = profile.name;
             console.log("login successfull");
 
-            if (profile.role === 'client') {
-              this.router.navigate(['/SuperadminDashboard',{ outlets: { SuperAdminOut: ['welcomePage'] } }]); // redirect to superadmin
+            if (profile.role === 'Admin') {
+              this.router.navigate(['/AdminDashboard',{ outlets: { AdminOut: ['welcomePage'] } }]); // redirect to superadmin
             }
-            else if (profile.role === 'Admin') {
-              this.router.navigate(['/AdminDashboard',{ outlets: { AdminOut: ['welcomePage'] } }]);      // redirect to Admin
+            else if (profile.role === 'Client') {
+              this.router.navigate(['/ClientDashboard',{ outlets: { ClientOut: ['welcomePage'] } }]);      // redirect to Admin
             }
             else if (profile.role === 'Manager') {
               this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['welcomePage'] } }]);  // redirect to Manager
