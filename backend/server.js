@@ -15,7 +15,7 @@ var expressJwt = require('express-jwt');
 var bodyParser = require('body-parser');
 var nodemailer = require('nodemailer');
 var sgTransport = require('nodemailer-sendgrid-transport');
-var scheduler = require('node-schedule');
+// var scheduler = require('node-schedule');
 // var sendgrid = require('@sendgrid/mail');
 
 function supportCrossOriginScript(req, res, next) {
@@ -78,9 +78,6 @@ app.get('/file/:name', function (req, res, next) {
 
 });
 
-
-
-
 var pool = mysql.createPool({
     host: config.db.host,
     user: config.db.user,
@@ -122,7 +119,7 @@ DBPoolConnectionTry();
 
 /*************START MIGRATE CODE**********************************************************/
 var user_return = '';
-var employeekey_return = '';
+var employeeid_return = '';
 
 app.options('/authenticate', supportCrossOriginScript);
 
@@ -131,7 +128,7 @@ app.post('/authenticate', function (req, res) {
     var password = req.body.password;
     var profile = {};
 
-    connection.query('set @username=?;set @password=?;  call usp_addproduct(@username,@password)', [username,password], function (err, rows) {
+    connection.query('set @username=?;set @password=?;  call usp_login(@username,@password)', [username,password], function (err, rows) {
         if (err) {
             console.log("Problem with MySQL" + err);
         }
@@ -139,23 +136,16 @@ app.post('/authenticate', function (req, res) {
             console.log("NewItem  is  " + JSON.stringify(rows[2]));
 
             res.end(JSON.stringify(rows[2]));
-            user_return = employees[3][0]["UserId"];
-            organization = employees[3][0]["OrganizationName"];
-
-            username_return = employees[3][0]["UserName"];
-            role_return = employees[3][0]["UserRole"];
-
-            employeekey_return = employees[3][0]["EmployeeKey"];
-            isSupervisor = employees[3][0]["IsSupervisor"];
-            organizationID = employees[3][0]["OrganizationID"];
-
-
+            user_return = employees[2][0]["username"];
+            name_return = employees[2][0]["user"];
+            role_return = employees[2][0]["userrolename"];
+            employeeid_return = employees[2][0]["employee_id"];
 
             profile = {
-                user: user_return,
-                username: username_return,
+                username: user_return,
+                name: name_return,
                 role: role_return,
-                employeekey: employeekey_return,
+                employeeid: employeeid_return,
             };
             var jwttoken = jwt.sign(profile, jwtsecret, { expiresIn: '4h' });
 
@@ -12636,81 +12626,6 @@ app.get(securedpath + '/roomsForCreateBatchSchedule', function (req, res) {
 
 
 
-app.post(securedpath + '/saveScheduleReport', supportCrossOriginScript, function (req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
-    var newWOObj = {};
-    newWOObj = req.body;
-    var temproomid = newWOObj.temproomidlist;
-    var roomList = newWOObj.roomList;
-    var frequency = newWOObj.frequency;
-    var monCheck = newWOObj.monCheck;
-    var tueCheck = newWOObj.tueCheck;
-    var wedCheck = newWOObj.wedCheck;
-    var thuCheck = newWOObj.thuCheck;
-    var friCheck = newWOObj.friCheck;
-    var satCheck = newWOObj.satCheck;
-    var sunCheck = newWOObj.sunCheck;
-    var barCheck = newWOObj.barCheck;
-    var photCheck = newWOObj.photCheck;
-    var snapshot = newWOObj.snapshot;
-    var keepActivCheck = newWOObj.keepActiveCheck;
-    var workordertype = newWOObj.workordertype;
-
-    var empKey = newWOObj.empKey;
-    var batchScheduleNameKey = newWOObj.batchScheduleNameKey;
-    var workorderNotes = newWOObj.WorkorderNotes;
-    var OrganizationID = newWOObj.OrganizationID;
-    var fromdate = newWOObj.fromdate;
-    var todate = newWOObj.todate;
-    var scheduledTime = newWOObj.scheduleTime;
-
-    pool.getConnection(function (err, connection) {
-        if (err) {
-
-            console.log("Failed! Connection with Database spicnspan via connection pool failed");
-        }
-        else {
-            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query("set @temproomid =?; set @roomList =?; set @frequency =?; set @monCheck =?; set @tueCheck=?; set @wedCheck=?; set @thuCheck=?; set @friCheck=?; set @satCheck=?; set @sunCheck=?; set @barCheck=?; set @photCheck=?; set @workordertype=?; set @empKey=?; set @batchScheduleNameKey=?; set @workorderNotes=?;set @OrganizationID =?; set @fromdate =?; set @todate =?;set @scheduledTime =?; set @keepActivCheck=?; set @snapshot=?; call usp_saveScheduleReport(@temproomid,@roomList,@frequency,@monCheck,@tueCheck,@wedCheck,@thuCheck,@friCheck,@satCheck,@sunCheck,@barCheck,@photCheck,@workordertype,@empKey,@batchScheduleNameKey,@workorderNotes,@OrganizationID,@fromdate,@todate,@scheduledTime,@keepActivCheck,@snapshot)", [temproomid, roomList, frequency, monCheck, tueCheck, wedCheck, thuCheck, friCheck, satCheck, sunCheck, barCheck, photCheck, workordertype, empKey, batchScheduleNameKey, workorderNotes, OrganizationID, fromdate, todate, scheduledTime, keepActivCheck, snapshot], function (err, rows) {
-                if (err) {
-                    console.log("Problem with MySQL" + err);
-                }
-                else {
-
-                    res.end(JSON.stringify(rows[19]));
-                }
-            });
-        }
-        connection.release();
-    });
-});
-
-
-app.get(securedpath + '/viewScheduleReport', function (req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
-    var BatchScheduleNameKey = url.parse(req.url, true).query['BatchScheduleNameKey'];
-    var employeekey = url.parse(req.url, true).query['employeekey'];
-    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
-    pool.getConnection(function (err, connection) {
-        if (err) {
-
-            console.log("Failed! Connection with Database spicnspan via connection pool failed");
-        }
-        else {
-            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @BatchScheduleNameKey=?; set @employeekey=?;set @OrganizationID=?;  call usp_viewScheduleReport(@BatchScheduleNameKey,@employeekey,@OrganizationID)', [BatchScheduleNameKey, employeekey, OrganizationID], function (err, rows) {
-                if (err) {
-                    console.log("Problem with MySQL" + err);
-                }
-                else {
-
-                    res.end(JSON.stringify(rows[3]));
-                }
-            });
-        }
-        connection.release();
-    });
-});
 
 app.post(securedpath + '/viewMeettingTrainingByAllFilter', supportCrossOriginScript, function (req, res) {
 
@@ -14546,63 +14461,6 @@ app.post(securedpath + '/getscheduledroomsbybatchschedulename', function (req, r
 
 
 
-app.get(securedpath + '/getScheduleRoomslistByBatchScheduleNamekey', function (req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
-
-    var batchschedulenamekey = url.parse(req.url, true).query['batchschedulenamekey'];
-    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
-    var pageno = url.parse(req.url, true).query['pageno'];
-    var itemsperpage = url.parse(req.url, true).query['itemsperpage'];
-    pool.getConnection(function (err, connection) {
-        if (err) {
-
-            console.log("Failed! Connection with Database spicnspan via connection pool failed");
-        }
-        else {
-            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @pageno=?; set @itemsperpage=?; set @batchschedulenamekey=?; set @OrganizationID=?; call usp_getroomsforSchedulebybatchschedulenamekey(@pageno,@itemsperpage,@batchschedulenamekey,@OrganizationID)', [pageno, itemsperpage, batchschedulenamekey, OrganizationID], function (err, rows) {
-                if (err) {
-                    console.log("Problem with MySQL" + err);
-                }
-                else {
-                    console.log("getScheduleRoomslistByBatchScheduleNamekey " + JSON.stringify(rows[4]));
-                    res.end(JSON.stringify(rows[4]));
-                }
-            });
-        }
-        connection.release();
-    });
-});
-
-
-app.post(securedpath + '/deleteScheduledRoomslistbyscheduleroomid', function (req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
-
-    var workorderscheduleroomid = req.body.workorderscheduleroomid;
-    var OrganizationID = req.body.OrganizationID;
-    var employeekey = req.body.employeekey;
-    pool.getConnection(function (err, connection) {
-
-        if (err) {
-
-            console.log("Failed! Connection with Database spicnspan via connection pool failed");
-        }
-        else {
-            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @workorderscheduleroomid=?; set @employeekey=?;set @OrganizationID=?; call usp_deleteScheduledRoombyScheduledid(@workorderscheduleroomid,@employeekey,@OrganizationID)', [workorderscheduleroomid, employeekey, OrganizationID], function (err, rows) {
-                if (err) {
-                    console.log("Problem with MySQL" + err);
-                }
-                else {
-                    console.log("deleteScheduledRoomslistbyscheduleroomid " + JSON.stringify(rows[3]));
-                    res.end(JSON.stringify(rows[3]));
-                }
-            });
-        }
-        connection.release();
-    });
-});
-
 app.get(securedpath + '/getBatchScheduleMasterDetailService', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
 
@@ -14657,72 +14515,7 @@ app.get(securedpath + '/roomstempForCreateBatchSchedule', function (req, res) {
     });
 });
 
-app.post(securedpath + '/viewFilterRoomsforScheduleroom', supportCrossOriginScript, function (req, res) {
 
-    var newWOObj = {};
-    newWOObj = req.body;
-    var batchschedulenamekey = newWOObj.batchschedulenamekey;
-    var searchtype = newWOObj.searchtype;
-    var searchvalue = newWOObj.searchname;
-    var facilitykey = newWOObj.facilitykey;
-    var floorkey = newWOObj.floorkey;
-    var zonekey = newWOObj.zonekey;
-    var roomkey = newWOObj.roomkey;
-    var roomtypekey = newWOObj.roomTypeKey;
-    var floortypekey = newWOObj.floortypekey;
-    var OrganizationID = newWOObj.OrganizationID;
-
-
-    pool.getConnection(function (err, connection) {
-        if (err) {
-
-            console.log("Failed! Connection with Database spicnspan via connection pool failed");
-        }
-        else {
-            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query("set @batchschedulenamekey =?; set @searchtype =?; set @searchvalue =?; set @facilitykey=?; set @floorkey=?;set @zonekey=?;set @roomkey=?;set @roomtypekey=?;set @floortypekey=?;set @OrganizationID=?;call usp_getfilterroomsforSchedulebybatchschedulenamekey(@batchschedulenamekey,@searchtype,@searchvalue,@facilitykey,@floorkey,@zonekey,@roomkey,@roomtypekey,@floortypekey,@OrganizationID)", [batchschedulenamekey, searchtype, searchvalue, facilitykey, floorkey, zonekey, roomkey, roomtypekey, floortypekey, OrganizationID], function (err, rows) {
-                if (err) {
-                    console.log("Problem with MySQL" + err);
-                }
-                else {
-
-                    res.end(JSON.stringify(rows[10]));
-                }
-            });
-        }
-        connection.release();
-    });
-});
-// api for deleting inspection order starts:@Pooja
-
-app.post(securedpath + '/deleteInspectionOrders', supportCrossOriginScript, function (req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
-      
-    var deleteInspectionOrderList = req.body.deleteInspectionOrderList;
-    var employeekey = req.body.employeekey;
-    var OrganizationID = req.body.OrganizationID;
-    
-
-    pool.getConnection(function (err, connection) {
-        if (err) {
-
-            console.log("Failed! Connection with Database spicnspan via connection pool failed");
-        }
-        else {
-            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query("set @deleteInspectionOrderList =?; set @employeekey =?; set @OrganizationID =?; call usp_deleteInspectionOrder(@deleteInspectionOrderList,@employeekey,@OrganizationID)", [deleteInspectionOrderList,employeekey,OrganizationID], function (err, rows) {
-                if (err) {
-                    console.log("Problem with MySQL" + err);
-                }
-                else {
-
-                    res.end(JSON.stringify(rows[3]));
-                }
-            });
-        }
-        connection.release();
-    });
-});
 // api for deleting inspection order ends:@Pooja
 
 // app.post(securedpath + '/saveScheduleReport', supportCrossOriginScript, function (req, res) {
@@ -14772,110 +14565,7 @@ app.post(securedpath + '/deleteInspectionOrders', supportCrossOriginScript, func
 //     });
 // });
 
-app.post(securedpath + '/updateScheduleReport', supportCrossOriginScript, function (req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
-    var newWOObj = {};
-    newWOObj = req.body;
-    var workorderroomid = newWOObj.workorderroomidlist;
 
-    var roomList = newWOObj.roomList;
-    var frequency = newWOObj.frequency;
-    var monCheck = newWOObj.monCheck;
-    var tueCheck = newWOObj.tueCheck;
-    var wedCheck = newWOObj.wedCheck;
-    var thuCheck = newWOObj.thuCheck;
-    var friCheck = newWOObj.friCheck;
-    var satCheck = newWOObj.satCheck;
-    var sunCheck = newWOObj.sunCheck;
-    var barCheck = newWOObj.barCheck;
-    var photCheck = newWOObj.photCheck;
-    var snapshot = newWOObj.snapshot;
-    var keepActivCheck = newWOObj.keepActiveCheck;
-    var workordertype = newWOObj.workordertype;
-
-    var empKey = newWOObj.empKey;
-    var batchScheduleNameKey = newWOObj.batchScheduleNameKey;
-    var workorderNotes = newWOObj.WorkorderNotes;
-    var OrganizationID = newWOObj.OrganizationID;
-    var fromdate = newWOObj.fromdate;
-    var todate = newWOObj.todate;
-    var scheduledTime = newWOObj.scheduleTime;
-
-    pool.getConnection(function (err, connection) {
-        if (err) {
-
-            console.log("Failed! Connection with Database spicnspan via connection pool failed");
-        }
-        else {
-            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query("set @workorderroomid =?; set @roomList =?; set @frequency =?; set @monCheck =?; set @tueCheck=?; set @wedCheck=?; set @thuCheck=?; set @friCheck=?; set @satCheck=?; set @sunCheck=?; set @barCheck=?; set @photCheck=?; set @workordertype=?; set @empKey=?; set @batchScheduleNameKey=?; set @workorderNotes=?;set @OrganizationID =?; set @fromdate =?; set @todate =?;set @scheduledTime =?;set @keepActivCheck=?;set @snapshot=?; call usp_updateScheduleReport(@workorderroomid,@roomList,@frequency,@monCheck,@tueCheck,@wedCheck,@thuCheck,@friCheck,@satCheck,@sunCheck,@barCheck,@photCheck,@workordertype,@empKey,@batchScheduleNameKey,@workorderNotes,@OrganizationID,@fromdate,@todate,@scheduledTime,@keepActivCheck,@snapshot)", [workorderroomid, roomList, frequency, monCheck, tueCheck, wedCheck, thuCheck, friCheck, satCheck, sunCheck, barCheck, photCheck, workordertype, empKey, batchScheduleNameKey, workorderNotes, OrganizationID, fromdate, todate, scheduledTime, keepActivCheck, snapshot], function (err, rows) {
-                if (err) {
-                    console.log("Problem with MySQL" + err);
-                }
-                else {
-
-                    res.end(JSON.stringify(rows[20]));
-                }
-            });
-        }
-        connection.release();
-    });
-});
-
-
-//Scheduled rooms by Prakash Ends Here
-
-//Code for manual cronjob procedure call by Rodney starts here
-
-//Cronjob for MST
-app.get(securedpath + '/cronjobMST', function (req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
-    pool.getConnection(function (err, connection) {
-        if (err) {
-
-            console.log("Failed! Connection with Database spicnspan via connection pool failed");
-        }
-        else {
-            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('call usp_workOrdersBatchAddByEvent()', [], function (err, rows) {
-                if (err) {
-                    console.log("Problem with MySQL" + err);
-                }
-                else {
-                    console.log("cronjobMST " + JSON.stringify(rows[0]));
-                    console.log("cronjob mst success");
-                    res.end(JSON.stringify(rows[0]));
-                }
-            });
-        }
-        connection.release();
-    });
-});
-
-//Cronjob for CST
-app.get(securedpath + '/cronjobCST', function (req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
-    pool.getConnection(function (err, connection) {
-        if (err) {
-
-            console.log("Failed! Connection with Database spicnspan via connection pool failed");
-        }
-        else {
-            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('call usp_workOrdersBatchAddByEvent_CST()', [], function (err, rows) {
-                if (err) {
-                    console.log("Problem with MySQL" + err);
-                }
-                else {
-                    console.log("cronjobCST " + JSON.stringify(rows[0]));
-                    console.log("cronjob cst success");
-                    res.end(JSON.stringify(rows[0]));
-                }
-            });
-        }
-        connection.release();
-    });
-});
 //Code for manual cronjob procedure call by Rodney ends here
 //CronJob Details- Rodney starts here
 app.get(securedpath + '/cronjobworkorderCount', function (req, res) {
@@ -15178,70 +14868,6 @@ app.post(securedpath + '/getprofileimgapi', function (req, res) {
 //   });
 
 
-
-
-
-var rule = new scheduler.RecurrenceRule();
-rule.hour = 7;
-rule.minute = 00;
-rule.second = 00;
-rule.dayOfWeek = new scheduler.Range(0, 6);
-
-scheduler.scheduleJob(rule, function () {
-
-
-    pool.getConnection(function (err, connection) {
-        if (err) {
-
-            console.log("Failed! Connection with Database spicnspan via connection pool failed");
-        } else {
-            //            console.log("WoooooW!!!!****************************Scheduler Works");
-            connection.query('call usp_workOrdersBatchAddByEvent()', [], function (err, rows) {
-
-
-                if (err) {
-                    console.log("Problem with MySQL" + err);
-                }
-                else {
-                    console.log("Scheduler...from server..");
-
-                }
-            });
-        }
-        connection.release();
-    });
-});
-
-var rule1 = new scheduler.RecurrenceRule();
-rule1.hour = 5;
-rule1.minute = 00;
-rule1.second = 00;
-rule1.dayOfWeek = new scheduler.Range(0, 6);
-
-scheduler.scheduleJob(rule1, function () {
-
-
-    pool.getConnection(function (err, connection) {
-        if (err) {
-
-            console.log("Failed! Connection with Database spicnspan via connection pool failed");
-        } else {
-
-            connection.query('call usp_workOrdersBatchAddByEvent_CST()', [], function (err, rows) {
-
-
-                if (err) {
-                    console.log("Problem with MySQL" + err);
-                }
-                else {
-                    console.log("Scheduler...from server..");
-
-                }
-            });
-        }
-        connection.release();
-    });
-});
 
 
 app.get(securedpath + '/allWorkOrderTypeWithOutQuickNew', function (req, res) {

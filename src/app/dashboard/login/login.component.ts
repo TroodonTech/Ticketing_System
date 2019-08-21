@@ -12,13 +12,9 @@ export class LoginComponent implements OnInit {
 
   tokenobj;
   role: String;
-  name: String;
-  employeekey: Number;
-  IsSupervisor: Number;
-  OrganizationID: Number;
-  isAuthenticated: boolean;
-  rev_orgid:Number=103;
-  room_key:Number=100;
+  username: String;
+  name:String;
+  employeeid;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -61,8 +57,9 @@ export class LoginComponent implements OnInit {
             var encodedProfile = this.tokenobj.token.split('.')[1];
             var profile = JSON.parse(this.url_base64_decode(encodedProfile));
             this.role = profile.role;
-            this.name = profile.username;
-            this.employeekey = profile.employeekey;
+            this.username = profile.username;
+            this.employeeid = profile.employeeid;
+            this.name = profile.name;
             console.log("login successfull");
 
             if (profile.role === 'client') {
