@@ -8,20 +8,19 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  login(userName, passWord, tenantID) {
-    const uri = 'http://localhost:3000/authenticate';
+  login(username, password) {
+    const url = 'http://localhost:3000/authenticate';
     const obj = {
-      uname: userName,
-      pwd: passWord,
-      tid: tenantID
+      username: username,
+      password: password
     };
-    return this.http.post(uri, obj);
+    return this.http.post(url, obj);
   }
   
-  getEmpNameForWelcomeMessage(empkey, orgID) {
-    return this
-      .http
-      .get('http://localhost:3000/welcomeMessage?empKey=' + empkey + '&OrganizationID=' + orgID);
-  }
+  // getEmpNameForWelcomeMessage(empkey, orgID) {
+  //   return this
+  //     .http
+  //     .get('http://localhost:3000/welcomeMessage?empKey=' + empkey + '&OrganizationID=' + orgID);
+  // }
 
 }

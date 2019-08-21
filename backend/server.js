@@ -122,118 +122,51 @@ DBPoolConnectionTry();
 
 /*************START MIGRATE CODE**********************************************************/
 var user_return = '';
-var pass_return = '';
 var employeekey_return = '';
-var isSupervisor = '';
-var organization = '';
-var organizationID = '';
+
 app.options('/authenticate', supportCrossOriginScript);
 
-app.post('/authenticate', supportCrossOriginScript, function (req, res) {
-
-
-    var userid = req.body.uname;
-
-    var password = req.body.pwd;
-    var tenantId = req.body.tid;
-
+app.post('/authenticate', function (req, res) {
+    var username = req.body.username;
+    var password = req.body.password;
     var profile = {};
 
-    DBPoolConnectionTry();
-    pool.getConnection(function (err, connection) {
+    connection.query('set @username=?;set @password=?;  call usp_addproduct(@username,@password)', [username,password], function (err, rows) {
         if (err) {
-
-            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+            console.log("Problem with MySQL" + err);
         }
         else {
-            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query("set @u_name=?;set @pwdd=?; set @tenantId=?; call usp_userLogin(@u_name,@pwdd,@tenantId)", [userid, password, tenantId], function (err, employees) {
-                if (err) {
-                    console.log("INSIDE errr() condition in /authenticate " + JSON.stringify(err));
-                }
-                console.log("entire response  " + JSON.stringify(employees));
+            console.log("NewItem  is  " + JSON.stringify(rows[2]));
 
-                if (!employees[3][0]) {// if returns a void json like '[]'
+            res.end(JSON.stringify(rows[2]));
+            user_return = employees[3][0]["UserId"];
+            organization = employees[3][0]["OrganizationName"];
 
-                    console.log('Wrong user or password');
+            username_return = employees[3][0]["UserName"];
+            role_return = employees[3][0]["UserRole"];
 
-                    res.end('Wrong user or password');
-                    return;
-                } else {
-                    console.log('Employee : ' + employees[3][0]["UserName"]);
-
-                    user_return = employees[3][0]["UserId"];
-                    organization = employees[3][0]["OrganizationName"];
-
-                    username_return = employees[3][0]["UserName"];
-                    role_return = employees[3][0]["UserRole"];
-
-                    employeekey_return = employees[3][0]["EmployeeKey"];
-                    isSupervisor = employees[3][0]["IsSupervisor"];
-                    organizationID = employees[3][0]["OrganizationID"];
+            employeekey_return = employees[3][0]["EmployeeKey"];
+            isSupervisor = employees[3][0]["IsSupervisor"];
+            organizationID = employees[3][0]["OrganizationID"];
 
 
 
-                    profile = {
-                        user: user_return,
-                        username: username_return,
-                        role: role_return,
-                        employeekey: employeekey_return,
-                        //            password: pass_return,
-                        IsSupervisor: isSupervisor,
-                        Organization: organization,
-                        OrganizationID: organizationID
-                    };
-                }
-                // We are sending the profile inside the token
-                var jwttoken = jwt.sign(profile, jwtsecret, { expiresIn: '4h' });
+            profile = {
+                user: user_return,
+                username: username_return,
+                role: role_return,
+                employeekey: employeekey_return,
+            };
+            var jwttoken = jwt.sign(profile, jwtsecret, { expiresIn: '4h' });
 
-                res.cookie('refresh-token', jwttoken, 'httpOnly', 'secure')   //, 'secure','httpOnly')  '1h' //use for https
-                    .json({ token: jwttoken });
-                console.log("jwttoken" + jwttoken);
-            });
+            res.cookie('refresh-token', jwttoken, 'httpOnly', 'secure')   //, 'secure','httpOnly')  '1h' //use for https
+                .json({ token: jwttoken });
+            console.log("jwttoken" + jwttoken);
         }
-        connection.release();
+        res.end();
     });
+
 });
-
-
-
-//method to verify jwt token. all secured path will pass thru here
-// function jwtCheck(req, res, next) {
-//     var token = '';
-//     var accesstoken = req.body.token || req.query.token || req.headers['x-access-token'] || req.headers['x-auth-token'] || req.headers['authorization'];
-//     var refreshtoken = req.cookies['refresh-token'];
-//     //var refreshtoken = req.headers['cookie']; //also an option, but have to extract specific cookie from all cookies. comes in name:value pairs.
-// //    console.log('headers<=>' + accesstoken); //req.headers['cookie']);
-// //    console.log('for token verification -- cookies<=>' + refreshtoken); //req.cookies['access-token']);
-//     //jwttoken = '';
-//     if (refreshtoken) {
-//         token = refreshtoken;
-// //        console.log("got valid refresh token "+token);
-//     } else {
-//         token = accesstoken;
-// //        console.log("got access token as "+token);
-//     }
-//     console.log("Verifying received token " + token);
-//     jwt.verify(token, jwtsecret, function (err, decoded) {
-//         if (err) {
-//             console.log(err);
-//             return res.json({success: false, message: 'Failed to authenticate token.'});
-//         } else {
-//             // if everything is good, save to request for use in other routes
-//             req.decoded = decoded;
-// //            console.log('decoded------->' + JSON.stringify(decoded));
-// //            console.log('iat:' + new Date(1482535287));
-// //            console.log('exat:' + new Date(1482553287));
-//             //return res.json({ success: true, message: 'Authenticated successfully.' });    
-//             next();
-//         }
-//     });
-// }
-
-// app.use(securedpath, jwtCheck);
-
 
 // *********************code for form uploads-web starts **********************
 //var multerUploadPath_photo = './webui/pho1';// use ../webui/uploads for cloud.

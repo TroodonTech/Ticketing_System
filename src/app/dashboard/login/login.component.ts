@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -7,7 +10,81 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  tokenobj;
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+  isAuthenticated: boolean;
+  rev_orgid:Number=103;
+  room_key:Number=100;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+  
+  loginForm: FormGroup; 
+  constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router) {
+
+    this.loginForm = fb.group({
+      username: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(8)]]
+    });
+  }
+
+  login(username, password) {
+    if (!username) {
+      alert("Enter User Name");
+    }
+    else if (!password) {
+      alert("Enter Password");
+    } 
+    else {
+      this.loginService
+        .login(username, password)
+        .subscribe((data: any[]) => {
+          this.tokenobj = data;
+            var encodedProfile = this.tokenobj.token.split('.')[1];
+            var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+            this.role = profile.role;
+            this.name = profile.username;
+            this.employeekey = profile.employeekey;
+            console.log("login successfull");
+
+            if (profile.role === 'client') {
+              this.router.navigate(['/SuperadminDashboard',{ outlets: { SuperAdminOut: ['welcomePage'] } }]); // redirect to superadmin
+            }
+            else if (profile.role === 'Admin') {
+              this.router.navigate(['/AdminDashboard',{ outlets: { AdminOut: ['welcomePage'] } }]);      // redirect to Admin
+            }
+            else if (profile.role === 'Manager') {
+              this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['welcomePage'] } }]);  // redirect to Manager
+            }
+            else if (profile.role === 'Employee') {
+              this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['Emp_welcomePage'] } }]); // redirect to Employee
+            }
+        },
+          res => {
+            if (res.error.text === "Wrong user or password") {
+              alert("Invalid login credentials. Please enter correct credentials to login...");
+            }
+          });
+    }
+  }
 
   ngOnInit() {
   }
