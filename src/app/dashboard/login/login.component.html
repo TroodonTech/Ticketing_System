@@ -16,25 +16,33 @@
 <br>
 <button mdbBtn type="button" gradient="aqua" rounded="true" mdbWavesEffect>Aqua</button>
 </div> -->
+<div class="row">
+    <div class="col-md-4 top_margin" style="padding-left: 1.5rem"></div>
+    <!-- <div class=" col-md-4 top_margin"> -->
 <div class="background-wrap">
     <div class="background"></div>
   </div>
   
-  <form id="accesspanel" action="login" method="post">
+  <form id="accesspanel" action="login" [formGroup]="loginForm" method="post">
     <h1 id="litheader">LOGIN</h1>
     
     <div class="inset">
       <p>
-        <input type="text"  [(ngModel)]="username" placeholder="USERNAME">
+        <input type="text" name="username" formControlName="username" [(ngModel)]="username"class="form-control" placeholder="USERNAME">
       </p>
       <p>
-        <input type="password" [(ngModel)]="password" placeholder="PASSWORD">
+        <input type="password" name="password" formControlName="password" class="form-control" [(ngModel)]="password"placeholder="PASSWORD">
       </p>
      
       <!-- <input class="loginLoginValue" type="hidden" name="service" value="login" /> -->
     </div>
     <p>
-      <button mdbBtn type="button" (click)="login()" style="margin-left: 30%;height: 100%;
+      <button mdbBtn type="button" (click)="login(username,password)" style="margin-left: 30%;height: 100%;
 margin-right: auto;background-color:slategray "  rounded="true" mdbWavesEffect>SUBMIT</button>
     </p>
   </form>
+  <!-- </div> -->
+
+  <div class=" col-md-4 top_margin"></div>
+ 
+</div>
