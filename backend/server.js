@@ -119,7 +119,46 @@ app.get('/getpriority', function (req, res) {
     });
 
 });
+////////////////////raima
+app.get('/getuserroletype', function (req, res) {
 
+    connection.query('call usp_getuserroletype()', function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("addnamess  is  " + JSON.stringify(rows[0]));
+
+            res.end(JSON.stringify(rows[0]));
+        }
+        res.end();
+    });
+
+});
+app.post('/addemployee', supportCrossOriginScript, function (req, res) {
+    var FirstName = req.body.FirstName;
+    var LastName = req.body.LastName;
+    var MiddleName = req.body.MiddleName;
+    var Address = req.body.Address;
+    var Phone = req.body.Phone;
+    var MiddleName = req.body.EmailID;
+    var UserRoleType=req.body.UserRoleType;
+
+    connection.query('set @FirstName=?;set @LastName=?;set @MiddleName=?;set @Address=?;set @Phone=?;set @EmailID=?;set @UserRoleType=?;call usp_submitissue(@FirstName,@LastName,@MiddleName,@Address,@Phone,@EmailID,@UserRoleType)', [FirstName, LastName, MiddleName,Address,Phone,EmailID,UserRoleType], function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("NewItem  is  " + JSON.stringify(rows[6]));
+
+            res.end(JSON.stringify(rows[3]));
+        }
+        res.end();
+    });
+
+});
+
+//////////////////////////////
 
 app.options('/submitIssue', supportCrossOriginScript);
 app.post('/submitIssue', supportCrossOriginScript, function (req, res) {

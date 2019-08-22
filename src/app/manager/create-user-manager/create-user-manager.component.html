@@ -19,7 +19,7 @@
             <div class="form-group">
                 <label>Address Line </label>
                 <textarea style="width: 76% !important;max-width: 100%;" class="form-control rounded-0  col-sm-9 col-md-9 col-lg-9"
-                  maxlength="85" [(ngModel)]="AddressLine1" placeholder="Address Line1" id="exampleFormControlTextarea1" rows="5"></textarea>
+                  maxlength="85" [(ngModel)]="Address" placeholder="Address Line1" id="exampleFormControlTextarea1" rows="5"></textarea>
               </div>
 
           </div>
@@ -31,7 +31,7 @@
             </div>
             <div class="form-group" >
                 <label>UserRoleType</label><br>
-                <select name="Gender" [(ngModel)]="Gender" class="form-control col-sm-9 col-md-9 col-lg-9" placeholder="UserRoleType" [value]="value" >
+                <select name="Gender" [(ngModel)]="UserRoleType" class="form-control col-sm-9 col-md-9 col-lg-9" placeholder="UserRoleType" [value]="value" >
                   <option value="">--Select--</option>
                   <option value="Male">Employee</option>
                   <option value="Female">Client</option>
@@ -40,7 +40,7 @@
               </div>
             <div class="form-group">
                 <label> Phone Number*</label>
-                <input type="text" style="width: 76%;max-width: 100%;" name="PrimaryPhone" [(ngModel)]="PrimaryPhone" minlength=10
+                <input type="text" style="width: 76%;max-width: 100%;" name="PrimaryPhone" [(ngModel)]="Phone" minlength=10
                   (keypress)="numberValid($event)" maxlength="15" class="form-control col-sm-9 col-md-9 col-lg-9" placeholder="Phone Number"
                   #Primaryphone="ngModel">
                 <div *ngIf="Primaryphone.errors?.minlength" style="color: red;">
