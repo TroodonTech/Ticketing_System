@@ -10,9 +10,9 @@ const routes: Routes = [
     component: EmployeeDashboardComponent,
     children: [
       {
-        // path: 'welcomePage',
-        // outlet: 'EmployeeOut',
-        // loadChildren: '../../user-welcome-pages/welcomepage/welcomepage.module#WelcomepageModule'
+        path: 'welcomePage',
+        outlet: 'EmployeeOut',
+        loadChildren: '../../user-welcome-pages/employee-welcome/employee-welcome.module#EmployeeWelcomeModule'
       }
     ]
   }

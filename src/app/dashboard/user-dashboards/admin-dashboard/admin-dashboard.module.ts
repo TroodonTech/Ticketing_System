@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminDashboardComponent } from './admin-dashboard.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import{AdminWelcomeModule} from '../../user-welcome-pages/admin-welcome/admin-welcome.module'
 
 const routes: Routes = [
   {
@@ -10,9 +11,9 @@ const routes: Routes = [
     component: AdminDashboardComponent,
     children: [
       {
-        // path: 'welcomePage',
-        // outlet: 'AdminOut',
-        // loadChildren: '../../user-welcome-pages/welcomepage/welcomepage.module#WelcomepageModule'
+        path: 'welcomePage',
+        outlet: 'AdminOut',
+        loadChildren: '../../user-welcome-pages/admin-welcome/admin-welcome.module#AdminWelcomeModule'
       }
     ]
   }

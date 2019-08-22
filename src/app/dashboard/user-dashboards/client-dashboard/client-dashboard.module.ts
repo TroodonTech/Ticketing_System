@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { ClientDashboardComponent } from './client-dashboard.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import{ClientWelcomeModule } from '../../user-welcome-pages/client-welcome/client-welcome.module'
 
 const routes: Routes = [
   {
@@ -10,9 +11,9 @@ const routes: Routes = [
     component: ClientDashboardComponent,
     children: [
       {
-        // path: 'welcomePage',
-        // outlet: 'ClientOut',
-        // loadChildren: '../../user-welcome-pages/welcomepage/welcomepage.module#WelcomepageModule'
+        path: 'welcomePage',
+        outlet: 'ClientOut',
+        loadChildren: '../../user-welcome-pages/client-welcome/client-welcome.module#ClientWelcomeModule'
       }
     ]
   }

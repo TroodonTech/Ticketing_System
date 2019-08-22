@@ -1,1 +1,29 @@
-<p>create-user works!</p>
+<div class="row">
+    <div class="col-md-4 top_margin" style="padding-left: 1.5rem"></div>
+<div class="background-wrap">
+    <div class="background"></div>
+  </div>
+  
+  <form id="accesspanel" action="login" [formGroup]="loginForm" method="post">
+    <h1 id="litheader">LOGIN</h1>
+    
+    <div class="inset">
+      <p>
+        <input type="text" name="username" formControlName="username" [(ngModel)]="username"class="form-control" placeholder="USERNAME">
+      </p>
+      <p>
+        <input type="password" name="password" formControlName="password" class="form-control" [(ngModel)]="password" placeholder="PASSWORD">
+      </p>
+     
+     
+    </div>
+    <p>
+      <button mdbBtn type="button" (click)="login(username,password)" style="margin-left: 30%;height: 100%;
+margin-right: auto;background-color:slategray "  rounded="true" mdbWavesEffect>SUBMIT</button>
+    </p>
+  </form>
+  
+  <div class=" col-md-4 top_margin"></div>
+ 
+</div>
+
