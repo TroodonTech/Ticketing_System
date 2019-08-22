@@ -15,13 +15,14 @@ export class IssueService {
     return this.
     http.get('http://localhost:3000/getpriority');
   }
-  submitIssue(issuetype,descrip,priority){
+  submitIssue(issuetype,descrip,priority,employeeid){
 
     const url = 'http://localhost:3000/submitIssue';
     const obj = {
       issuetype: issuetype,
       descrip: descrip,
-      priority: priority
+      priority: priority,
+      employeeid:employeeid
     };
 
     return this.http.post(url, obj);
@@ -38,8 +39,14 @@ export class IssueService {
     return this.
     http.get('http://localhost:3000/getMessages?issueid=' +issueid);
   }
-  saveMessage(newmessage){
-    return this.
-    http.get('http://localhost:3000/getMessages?newmessage=' +newmessage);
+  saveMessage(newmessage,employeeid,issueid){
+    const url = 'http://localhost:3000/saveMessage';
+    const obj = {
+      newmessage: newmessage,
+      employeeid: employeeid,
+      issueid:issueid
+    };
+
+    return this.http.post(url, obj);
   }
 }

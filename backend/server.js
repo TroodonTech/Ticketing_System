@@ -165,15 +165,16 @@ app.post('/submitIssue', supportCrossOriginScript, function (req, res) {
     var issuetype = req.body.issuetype;
     var descrip = req.body.descrip;
     var priority = req.body.priority;
+    var employeeid = req.body.employeeid;
 
-    connection.query('set @issuetype=?;set @descrip=?;set @priority=?;  call usp_submitissue(@issuetype,@descrip,@priority)', [issuetype, descrip, priority], function (err, rows) {
+    connection.query('set @issuetype=?;set @descrip=?;set @priority=?;set @employeeid=?;  call usp_submitissue(@issuetype,@descrip,@priority,@employeeid)', [issuetype, descrip, priority,employeeid], function (err, rows) {
         if (err) {
             console.log("Problem with MySQL" + err);
         }
         else {
-            console.log("NewItem  is  " + JSON.stringify(rows[3]));
+            console.log("NewItem  is  " + JSON.stringify(rows[4]));
 
-            res.end(JSON.stringify(rows[3]));
+            res.end(JSON.stringify(rows[4]));
         }
         res.end();
     });
@@ -229,6 +230,26 @@ app.get('/getMessages', function (req, res) {
             console.log("prodnames  is  " + JSON.stringify(rows[1]));
 
             res.end(JSON.stringify(rows[1]));
+        }
+        res.end();
+    });
+
+});
+
+app.options('/saveMessage', supportCrossOriginScript);
+app.post('/saveMessage', supportCrossOriginScript, function (req, res) {
+    var newmessage = req.body.newmessage;
+    var employeeid = req.body.employeeid;
+    var issueid = req.body.issueid;
+
+    connection.query('set @newmessage=?;set @employeeid=?;set @issueid=?;  call usp_saveMessage(@newmessage,@employeeid,@issueid)', [newmessage,employeeid,issueid], function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("NewItem  is  " + JSON.stringify(rows[3]));
+
+            res.end(JSON.stringify(rows[3]));
         }
         res.end();
     });

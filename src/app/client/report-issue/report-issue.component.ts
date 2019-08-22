@@ -61,20 +61,21 @@ export class ReportIssueComponent implements OnInit {
 
   ReportIssue() {
     if (!(this.issuetype)) {
-      alert("Please choose issuetype");
+      alert("Please choose Issue Type");
       return;
     }
     else if(!(this.Description)){
-      alert("Please choose Description");
+      alert("Please enter Description");
       return;
     }
     else if(!(this.priority)){
-      alert("Please choose priority");
+      alert("Please choose Priority");
       return;
     }
-    this.issueservice.submitIssue(this.issuetype,this.Description,this.priority)
+    this.issueservice.submitIssue(this.issuetype,this.Description,this.priority,this.employeeid)
     .subscribe((data: any[]) => {
       alert('Issue Reported Successfully!');
+      this.router.navigate(['/ClientDashboard', { outlets: { ClientOut: ['ViewIssues'] } }]);
     });
     // this.addUrl = '?formtypeId=' + this.FormtypeId + '&formDesc=' + this.DescName + '&empkey=' + this.employeekey + '&OrganizationID=' + this.OrganizationID;
     // this.uploader.onBeforeUploadItem = (item) => {

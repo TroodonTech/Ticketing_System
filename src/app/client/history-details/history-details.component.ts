@@ -46,18 +46,25 @@ export class HistoryDetailsComponent implements OnInit {
     this.route.params.subscribe(params => this.issueid$ = params.issueid);
    }
 
-   SaveMessage(){
+   saveMessage(){
+
+    if (!(this.newmessage)) {
+      alert("Please enter any message");
+      return;
+    }
 
     this.issueservice
-    .saveMessage(this.newmessage)
+    .saveMessage(this.newmessage,this.employeeid,this.issueid$)
     .subscribe((data: any[]) => {
-      this.HistoryDetails = data[0];
+      alert("Message sent successfully!")
+      this.router.navigate(['/ClientDashboard', { outlets: { ClientOut: ['ViewIssues'] } }]);
     });
 
    }
-   goBack(){
+   goBack() {
+      this.router.navigate(['/ClientDashboard', { outlets: { ClientOut: ['ViewIssues'] } }]);
+    }
 
-   }
   ngOnInit() {
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
