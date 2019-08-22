@@ -10,9 +10,9 @@ const routes: Routes = [
     component: AdminDashboardComponent,
     children: [
       {
-        path: 'welcomePage',
-        outlet: 'AdminOut',
-        loadChildren: '../../user-welcome-pages/welcomepage/welcomepage.module#WelcomepageModule'
+        // path: 'welcomePage',
+        // outlet: 'AdminOut',
+        // loadChildren: '../../user-welcome-pages/welcomepage/welcomepage.module#WelcomepageModule'
       }
     ]
   }

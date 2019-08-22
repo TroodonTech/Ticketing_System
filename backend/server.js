@@ -13,9 +13,9 @@ var jwtsecret = config.app.jwtsecret;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.set('port', process.env.PORT || 3000);
-app.use(express.static(path.join(__dirname, 'dist/mdb-angular-free')));
-app.listen(app.get('port'), function() {
-	console.log("Express server listening on port " + app.get('port'));
+app.use(express.static(path.join(__dirname, '../dist/mdb-angular-free')));
+app.listen(app.get('port'), function () {
+    console.log("Express server listening on port " + app.get('port'));
 });
 var config = {};
 config.db = {};
@@ -33,7 +33,12 @@ var connection = mysql.createConnection({
     multipleStatements: true
 });
 
-
+function supportCrossOriginScript(req, res, next) {
+    res.status(200);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Content-Type");
+    next();
+}
 
 var user_return = '';
 var employeeid_return = '';
@@ -77,58 +82,50 @@ var employeeid_return = '';
 //                 }
 //                 res.end();
 //             });
-    
+
 // });
-
-app.post('/authenticate', function (req, res) {
-    var usrnme = url.parse(req.url, true).query['username'];
-
-    var pswd = url.parse(req.url, true).query['password'];
-
-    pool.getConnection(function (err, connection) {
+app.options('/authenticate', supportCrossOriginScript);
+app.post('/authenticate', supportCrossOriginScript, function (req, res) {
+    // var usrnme = url.parse(req.url, true).query['username'];
+    // var pswd = url.parse(req.url, true).query['password'];
+    var usrnme = req.body.username;
+    var pswd = req.body.password;
+    console.log("usrnme " + usrnme + " pswd " + pswd);
+    connection.query('set @usrnme=?;set @pswd=?; call usp_login(@usrnme,@pswd)', [usrnme, pswd], function (err, employees) {
         if (err) {
+            console.log("INSIDE errr() condition in /authenticate " + JSON.stringify(err));
+        }
+        console.log("entire response  " + JSON.stringify(employees));
 
-            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        if (!employees[2][0]) {// if returns a void json like '[]'
+
+            console.log('Wrong user or password');
+
+            res.end('Wrong user or password');
+            return;
         }
         else {
-            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @usrnme=?;set @pswd=?; call usp_login(@usrnme,@pswd)', [usrnme, pswd], function (err, rows) {
-                if (err) {
-                    console.log("INSIDE errr() condition in /authenticate " + JSON.stringify(err));
-                }
-                console.log("entire response  " + JSON.stringify(employees));
+            user_return = employees[2][0]["username"];
+            name_return = employees[2][0]["user"];
+            role_return = employees[2][0]["userrolename"];
+            employeeid_return = employees[2][0]["employee_id"];
 
-                if (!employees[2][0]) {// if returns a void json like '[]'
+            profile = {
+                username: user_return,
+                name: name_return,
+                role: role_return,
+                employeeid: employeeid_return,
+            };
+            var jwttoken = jwt.sign(profile, jwtsecret, { expiresIn: '4h' });
 
-                    console.log('Wrong user or password');
+            res.cookie('refresh-token', jwttoken, 'httpOnly', 'secure')
+                .json({ token: jwttoken });
+            console.log("jwttoken" + jwttoken);
 
-                    res.end('Wrong user or password');
-                    return;
-                } else {
-                        user_return = employees[2][0]["username"];
-                        name_return = employees[2][0]["user"];
-                        role_return = employees[2][0]["userrolename"];
-                        employeeid_return = employees[2][0]["employee_id"];
-
-                        profile = {
-                            username: user_return,
-                            name: name_return,
-                            role: role_return,
-                            employeeid: employeeid_return,
-                        };
-                        var jwttoken = jwt.sign(profile, jwtsecret, { expiresIn: '4h' });
-
-                        res.cookie('refresh-token', jwttoken, 'httpOnly', 'secure') 
-                            .json({ token: jwttoken });
-                        console.log("jwttoken" + jwttoken);
-
-
-                    res.end(JSON.stringify(rows[2]));
-                }
-                res.end();
-            });
+            console.log("NewItem  is  " + JSON.stringify(employees[2]));
+            res.end(JSON.stringify(employees[2]));
         }
-        connection.release();
+        res.end();
     });
 });
 
@@ -147,7 +144,7 @@ app.post('/addproduct', function (req, res) {
     var adExpiryDate = req.body.addExpiryDate;
     //  var Mark = url.parse(req.url, true).query['Mark'];
     // console.log("/insertItem@prid"+prid+'@bno'+bno+'@edate'+edate+'@qn'+qn+'@price'+price);
-    connection.query('set @adduser=?;set @addtype=?;set @addname=?; set @addquantity=?; set @addprice=?; set @addescription=?; set @adExpiryDate=?; call usp_addproduct(@adduser,@addtype,@addname,@addquantity,@addprice,@addescription,@adExpiryDate)', [adduser,addtype,addname, addquantity, addprice, addescription, adExpiryDate], function (err, rows) {
+    connection.query('set @adduser=?;set @addtype=?;set @addname=?; set @addquantity=?; set @addprice=?; set @addescription=?; set @adExpiryDate=?; call usp_addproduct(@adduser,@addtype,@addname,@addquantity,@addprice,@addescription,@adExpiryDate)', [adduser, addtype, addname, addquantity, addprice, addescription, adExpiryDate], function (err, rows) {
         if (err) {
             console.log("Problem with MySQL" + err);
         }
@@ -165,34 +162,34 @@ app.get('/showapi', function (req, res) {
     //  var pswd = url.parse(req.url, true).query['Paswrd'];
     //   console.log("email="+email+ ",pswd="+pswd);
 
-            connection.query('call usp_view()', function (err, rows) {
-                if (err) {
-                    console.log("Problem with MySQL" + err);
-                }
-                else {
-                    console.log("addnamess  is  " + JSON.stringify(rows[0]));
+    connection.query('call usp_view()', function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("addnamess  is  " + JSON.stringify(rows[0]));
 
-                    res.end(JSON.stringify(rows[0]));
-                }
-                res.end();
-            });
-    
+            res.end(JSON.stringify(rows[0]));
+        }
+        res.end();
+    });
+
 });
 
 app.get('/search', function (req, res) {
-        var word = url.parse(req.url, true).query['value'];
-            connection.query('set @word=?;call usp_find(@word)',[word], function (err, rows) {
-                if (err) {
-                    console.log("Problem with MySQL" + err);
-                }
-                else {
-                    console.log("prodnames  is  " + JSON.stringify(rows[0]));
+    var word = url.parse(req.url, true).query['value'];
+    connection.query('set @word=?;call usp_find(@word)', [word], function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("prodnames  is  " + JSON.stringify(rows[0]));
 
-                    res.end(JSON.stringify(rows[1]));
-                }
-                res.end();
-            });
-    
+            res.end(JSON.stringify(rows[1]));
+        }
+        res.end();
+    });
+
 });
 
 app.get('/buyviewapi', function (req, res) {
@@ -214,7 +211,7 @@ app.get('/buyviewapi', function (req, res) {
 app.get('/incartapi', function (req, res) {
     var proid = url.parse(req.url, true).query['productid'];
     var quan = url.parse(req.url, true).query['Quantity'];
-    connection.query('set @proid=?;set @quan=?; call usp_insertintocart(@proid,@quan)',[proid,quan], function (err, rows) {
+    connection.query('set @proid=?;set @quan=?; call usp_insertintocart(@proid,@quan)', [proid, quan], function (err, rows) {
         if (err) {
             console.log("Problem with MySQL" + err);
         }
@@ -247,7 +244,7 @@ app.get('/updateuser', function (req, res) {
     var firstname = url.parse(req.url, true).query['FirstName'];
     var lastname = url.parse(req.url, true).query['LastName'];
     var id = url.parse(req.url, true).query['ID'];
-    connection.query('set @emailaddress=?;set @firstname=?;set @lastname=?;set @id=?; call usp_updateuser(@emailaddress,@firstname,@lastname,@id)',[emailaddress,firstname,lastname,id], function (err, rows) {
+    connection.query('set @emailaddress=?;set @firstname=?;set @lastname=?;set @id=?; call usp_updateuser(@emailaddress,@firstname,@lastname,@id)', [emailaddress, firstname, lastname, id], function (err, rows) {
         if (err) {
             console.log("Problem with MySQL" + err);
         }
@@ -265,7 +262,7 @@ app.get('/purchaseapi', function (req, res) {
     var cartid = url.parse(req.url, true).query['cartid'];
     var cartquan = url.parse(req.url, true).query['cartquantity'];
     var amount = url.parse(req.url, true).query['sum'];
-    connection.query('set @productid=?;set @cartquan=?;set @amount=?; set @cartid=?; call usp_insertintopurchase(@productid,@cartquan,@amount,@cartid)',[productid,cartquan,amount,cartid], function (err, rows) {
+    connection.query('set @productid=?;set @cartquan=?;set @amount=?; set @cartid=?; call usp_insertintopurchase(@productid,@cartquan,@amount,@cartid)', [productid, cartquan, amount, cartid], function (err, rows) {
         if (err) {
             console.log("Problem with MySQL" + err);
         }
@@ -281,7 +278,7 @@ app.get('/purchaseapi', function (req, res) {
 
 app.get('/removeapi', function (req, res) {
     var cartid = url.parse(req.url, true).query['idcart'];
-    connection.query('set @cartid=?; call usp_removecart(@cartid)',[cartid], function (err, rows) {
+    connection.query('set @cartid=?; call usp_removecart(@cartid)', [cartid], function (err, rows) {
         if (err) {
             console.log("Problem with MySQL" + err);
         }
@@ -318,7 +315,7 @@ app.get('/removeapi', function (req, res) {
 // });
 app.get('/removeproapi', function (req, res) {
     var prodid = url.parse(req.url, true).query['productid'];
-    connection.query('set @prodid=?; call usp_removeproduct(@prodid)',[prodid], function (err, rows) {
+    connection.query('set @prodid=?; call usp_removeproduct(@prodid)', [prodid], function (err, rows) {
         if (err) {
             console.log("Problem with MySQL" + err);
         }

@@ -10,9 +10,9 @@ const routes: Routes = [
     component: ClientDashboardComponent,
     children: [
       {
-        path: 'welcomePage',
-        outlet: 'ClientOut',
-        loadChildren: '../../user-welcome-pages/welcomepage/welcomepage.module#WelcomepageModule'
+        // path: 'welcomePage',
+        // outlet: 'ClientOut',
+        // loadChildren: '../../user-welcome-pages/welcomepage/welcomepage.module#WelcomepageModule'
       }
     ]
   }
