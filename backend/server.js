@@ -42,52 +42,8 @@ function supportCrossOriginScript(req, res, next) {
 
 var user_return = '';
 var employeeid_return = '';
-// app.get('/authenticate', function (req, res) {
-//     var usrnme = url.parse(req.url, true).query['username'];
-//     var pswd = url.parse(req.url, true).query['password'];
-//     var profile = {};
-
-//             connection.query('set @usrnme=?;set @pswd=?;call usp_login(@usrnme,@pswd)',[usrnme,pswd], function (err, employees) {
-//                 if (err) {
-//                     console.log("INSIDE errr() condition in /authenticate " + JSON.stringify(err));
-//                 }
-//                 console.log("entire response  " + JSON.stringify(employees));
-
-//                 if (!employees[2][0]) {// if returns a void json like '[]'
-
-//                     console.log('Wrong user or password');
-
-//                     res.end('Wrong user or password');
-//                     return;
-//                 } else {
-//                         user_return = employees[2][0]["username"];
-//                         name_return = employees[2][0]["user"];
-//                         role_return = employees[2][0]["userrolename"];
-//                         employeeid_return = employees[2][0]["employee_id"];
-
-//                         profile = {
-//                             username: user_return,
-//                             name: name_return,
-//                             role: role_return,
-//                             employeeid: employeeid_return,
-//                         };
-//                         var jwttoken = jwt.sign(profile, jwtsecret, { expiresIn: '4h' });
-
-//                         res.cookie('refresh-token', jwttoken, 'httpOnly', 'secure') 
-//                             .json({ token: jwttoken });
-//                         console.log("jwttoken" + jwttoken);
-
-
-//                     res.end(JSON.stringify(rows[2]));
-//                 }
-//                 res.end();
-//             });
-
-// });
 app.options('/authenticate', supportCrossOriginScript);
 app.post('/authenticate', supportCrossOriginScript, function (req, res) {
-    // var usrnme = url.parse(req.url, true).query['username'];
-    // var pswd = url.parse(req.url, true).query['password'];
     var usrnme = req.body.username;
     var pswd = req.body.password;
     console.log("usrnme " + usrnme + " pswd " + pswd);
@@ -110,13 +66,13 @@ app.post('/authenticate', supportCrossOriginScript, function (req, res) {
             role_return = employees[2][0]["userrolename"];
             employeeid_return = employees[2][0]["employee_id"];
 
-            profile = {
+            profile1 = {
                 username: user_return,
                 name: name_return,
                 role: role_return,
                 employeeid: employeeid_return,
             };
-            var jwttoken = jwt.sign(profile, jwtsecret, { expiresIn: '4h' });
+            var jwttoken = jwt.sign(profile1, jwtsecret, { expiresIn: '4h' });
 
             res.cookie('refresh-token', jwttoken, 'httpOnly', 'secure')
                 .json({ token: jwttoken });
@@ -131,38 +87,9 @@ app.post('/authenticate', supportCrossOriginScript, function (req, res) {
 
 
 
+app.get('/getIssueType', function (req, res) {
 
-
-
-app.post('/addproduct', function (req, res) {
-    var adduser = req.body.addpuser;
-    var addtype = req.body.addptype;
-    var addname = req.body.addpname;
-    var addquantity = req.body.addpquantity;
-    var addprice = req.body.addpprice;
-    var addescription = req.body.adddescription;
-    var adExpiryDate = req.body.addExpiryDate;
-    //  var Mark = url.parse(req.url, true).query['Mark'];
-    // console.log("/insertItem@prid"+prid+'@bno'+bno+'@edate'+edate+'@qn'+qn+'@price'+price);
-    connection.query('set @adduser=?;set @addtype=?;set @addname=?; set @addquantity=?; set @addprice=?; set @addescription=?; set @adExpiryDate=?; call usp_addproduct(@adduser,@addtype,@addname,@addquantity,@addprice,@addescription,@adExpiryDate)', [adduser, addtype, addname, addquantity, addprice, addescription, adExpiryDate], function (err, rows) {
-        if (err) {
-            console.log("Problem with MySQL" + err);
-        }
-        else {
-            console.log("NewItem  is  " + JSON.stringify(rows[5]));
-
-            res.end(JSON.stringify(rows[7]));
-        }
-        res.end();
-    });
-
-});
-app.get('/showapi', function (req, res) {
-    // var email = url.parse(req.url, true).query['value'];
-    //  var pswd = url.parse(req.url, true).query['Paswrd'];
-    //   console.log("email="+email+ ",pswd="+pswd);
-
-    connection.query('call usp_view()', function (err, rows) {
+    connection.query('call usp_getIssueType()', function (err, rows) {
         if (err) {
             console.log("Problem with MySQL" + err);
         }
@@ -175,6 +102,46 @@ app.get('/showapi', function (req, res) {
     });
 
 });
+
+app.get('/getpriority', function (req, res) {
+
+    connection.query('call usp_getpriority()', function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("addnamess  is  " + JSON.stringify(rows[0]));
+
+            res.end(JSON.stringify(rows[0]));
+        }
+        res.end();
+    });
+
+});
+
+
+app.options('/submitIssue', supportCrossOriginScript);
+app.post('/submitIssue', supportCrossOriginScript, function (req, res) {
+    var issuetype = req.body.issuetype;
+    var descrip = req.body.descrip;
+    var priority = req.body.priority;
+
+    connection.query('set @issuetype=?;set @descrip=?;set @priority=?;  call usp_submitissue(@issuetype,@descrip,@priority)', [issuetype, descrip, priority], function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("NewItem  is  " + JSON.stringify(rows[3]));
+
+            res.end(JSON.stringify(rows[3]));
+        }
+        res.end();
+    });
+
+});
+
+
+
 
 app.get('/search', function (req, res) {
     var word = url.parse(req.url, true).query['value'];

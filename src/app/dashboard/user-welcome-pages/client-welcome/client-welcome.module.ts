@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import{ClientWelcomeComponent} from './client-welcome.component';
+import { ClientWelcomeComponent } from './client-welcome.component';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
@@ -14,7 +14,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [ClientWelcomeComponent],
   imports: [
-    CommonModule,,RouterModule.forChild(routes)
+    CommonModule,RouterModule.forChild(routes)
   ]
 })
 export class ClientWelcomeModule { }

@@ -56,6 +56,7 @@ export class LoginComponent implements OnInit {
         .login(username, password)
         .subscribe((data: any[]) => {
           this.tokenobj = data;
+          console.log('data====' + data);
             var encodedProfile = this.tokenobj.token.split('.')[1];
             var profile = JSON.parse(this.url_base64_decode(encodedProfile));
             this.role = profile.role;

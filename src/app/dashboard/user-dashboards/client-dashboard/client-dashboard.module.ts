@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ClientDashboardComponent } from './client-dashboard.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import{ClientWelcomeModule } from '../../user-welcome-pages/client-welcome/client-welcome.module'
+import { ReportIssueModule } from "../../../client/report-issue/report-issue.module";
 
 const routes: Routes = [
   {
@@ -14,7 +15,13 @@ const routes: Routes = [
         path: 'welcomePage',
         outlet: 'ClientOut',
         loadChildren: '../../user-welcome-pages/client-welcome/client-welcome.module#ClientWelcomeModule'
-      }
+      },
+      {
+        path: 'ReportIssue',
+        outlet: 'ClientOut',
+        loadChildren: '../../../client/report-issue/report-issue.module#ReportIssueModule'
+      },
+      
     ]
   }
 ];
