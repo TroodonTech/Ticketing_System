@@ -180,7 +180,23 @@ app.post('/submitIssue', supportCrossOriginScript, function (req, res) {
 });
 
 
+app.get('/getHistory', function (req, res) {
 
+    var employeeid = url.parse(req.url, true).query['employeeid'];
+    
+    connection.query('set @employeeid=?; call usp_getHistory(@employeeid)',[employeeid], function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("prodnames  is  " + JSON.stringify(rows[1]));
+
+            res.end(JSON.stringify(rows[1]));
+        }
+        res.end();
+    });
+
+});
 
 app.get('/search', function (req, res) {
     var word = url.parse(req.url, true).query['value'];
@@ -198,21 +214,7 @@ app.get('/search', function (req, res) {
 
 });
 
-app.get('/buyviewapi', function (req, res) {
-    // var userid = url.parse(req.url, true).query['USERID'];
-    connection.query('call usp_buyview()', function (err, rows) {
-        if (err) {
-            console.log("Problem with MySQL" + err);
-        }
-        else {
-            console.log("prodnames  is  " + JSON.stringify(rows[1]));
 
-            res.end(JSON.stringify(rows[0]));
-        }
-        res.end();
-    });
-
-});
 
 app.get('/incartapi', function (req, res) {
     var proid = url.parse(req.url, true).query['productid'];

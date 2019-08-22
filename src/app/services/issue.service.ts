@@ -26,4 +26,8 @@ export class IssueService {
 
     return this.http.post(url, obj);
   }
+  getHistory(employeeid){
+    return this.
+    http.get('http://localhost:3000/getHistory?employeeid=' +employeeid);
+  }
 }

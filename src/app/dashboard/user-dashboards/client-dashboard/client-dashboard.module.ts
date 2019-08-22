@@ -5,6 +5,8 @@ import { ClientDashboardComponent } from './client-dashboard.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import{ClientWelcomeModule } from '../../user-welcome-pages/client-welcome/client-welcome.module'
 import { ReportIssueModule } from "../../../client/report-issue/report-issue.module";
+import { ViewIssuesModule } from "../../../client/view-issues/view-issues.module";
+import { HistoryDetailsModule } from "../../../client/history-details/history-details.module";
 
 const routes: Routes = [
   {
@@ -20,6 +22,16 @@ const routes: Routes = [
         path: 'ReportIssue',
         outlet: 'ClientOut',
         loadChildren: '../../../client/report-issue/report-issue.module#ReportIssueModule'
+      },
+      {
+        path: 'ViewIssues',
+        outlet: 'ClientOut',
+        loadChildren: '../../../client/view-issues/view-issues.module#ViewIssuesModule'
+      },
+      {
+        path: 'ViewIssues/HistoryDetails/:issueid',
+        outlet: 'ClientOut',
+        loadChildren: '../../../client/history-details/history-details.module#HistoryDetailsModule'
       },
       
     ]
