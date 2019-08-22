@@ -1,14 +1,14 @@
 var express = require('express'),
     path = require('path'),
     http = require('http');
-var config = require('./config');
+// var config = require('./config');
 var mysql = require("mysql");
 var url = require('url');
 var bodyParser = require('body-parser');
 var jwt = require('jsonwebtoken');
 
 var app = express();
-var jwtsecret = config.app.jwtsecret;
+var jwtsecret = '936ee7cf-b0f6-4140-909b-926694c2ac80';
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -20,7 +20,8 @@ app.listen(app.get('port'), function () {
 var config = {};
 config.db = {};
 
-config.db.host = "192.168.1.113";
+// config.db.host = "192.168.1.113";
+config.db.host = "localhost";
 config.db.user = "root";
 config.db.password = "root";
 config.db.database = "ticketingsystem";
@@ -146,6 +147,42 @@ app.get('/getHistory', function (req, res) {
     var employeeid = url.parse(req.url, true).query['employeeid'];
     
     connection.query('set @employeeid=?; call usp_getHistory(@employeeid)',[employeeid], function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("prodnames  is  " + JSON.stringify(rows[1]));
+
+            res.end(JSON.stringify(rows[1]));
+        }
+        res.end();
+    });
+
+});
+
+app.get('/getHistoryDetails', function (req, res) {
+
+    var issueid = url.parse(req.url, true).query['issueid'];
+    
+    connection.query('set @issueid=?; call usp_getHistoryDetails(@issueid)',[issueid], function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("prodnames  is  " + JSON.stringify(rows[1]));
+
+            res.end(JSON.stringify(rows[1]));
+        }
+        res.end();
+    });
+
+});
+
+app.get('/getMessages', function (req, res) {
+
+    var issueid = url.parse(req.url, true).query['issueid'];
+    
+    connection.query('set @issueid=?; call usp_getMessages(@issueid)',[issueid], function (err, rows) {
         if (err) {
             console.log("Problem with MySQL" + err);
         }

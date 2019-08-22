@@ -30,4 +30,16 @@ export class IssueService {
     return this.
     http.get('http://localhost:3000/getHistory?employeeid=' +employeeid);
   }
+  getHistoryDetails(issueid){
+    return this.
+    http.get('http://localhost:3000/getHistoryDetails?issueid=' +issueid);
+  }
+  getMessages(issueid){
+    return this.
+    http.get('http://localhost:3000/getMessages?issueid=' +issueid);
+  }
+  saveMessage(newmessage){
+    return this.
+    http.get('http://localhost:3000/getMessages?newmessage=' +newmessage);
+  }
 }

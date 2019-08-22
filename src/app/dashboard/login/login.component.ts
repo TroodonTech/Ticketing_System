@@ -57,6 +57,9 @@ export class LoginComponent implements OnInit {
         .subscribe((data: any[]) => {
           this.tokenobj = data;
           console.log('data====' + data);
+          localStorage.setItem('token', this.tokenobj.token);
+          window.sessionStorage.token = this.tokenobj.token;
+          window.localStorage['token'] = this.tokenobj.token;
             var encodedProfile = this.tokenobj.token.split('.')[1];
             var profile = JSON.parse(this.url_base64_decode(encodedProfile));
             this.role = profile.role;
