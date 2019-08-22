@@ -1,18 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LoginService } from '../../services/login.service';
+import { ActivatedRoute, Router } from "@angular/router";
+import{UserService} from '../../services/user.service'
+
 @Component({
   selector: 'app-create-user-manager',
   templateUrl: './create-user-manager.component.html',
   styleUrls: ['./create-user-manager.component.scss']
 })
 export class CreateUserManagerComponent implements OnInit {
-  tokenobj;
+ 
+  UserRoleType;
+  FirstName: String;
+  LastName: String;
+  MiddleName: String;
+  Address: any;
+  Phone: any;
+  EmailID: any;
+  roleTypeKey = 0;
   role: String;
-  username: String;
-  name:String;
+  name: String;
+  RoleTypeList;
   employeeid;
+  username;
+  
+
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -30,58 +41,54 @@ export class CreateUserManagerComponent implements OnInit {
     }
     return window.atob(output);
   }
-  
-  loginForm: FormGroup; 
-  constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router) {
 
-    this.loginForm = fb.group({
-      username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(8)]]
+  
+
+  constructor(private route: ActivatedRoute, private UserService: UserService, private router: Router) { }
+
+  createEmployee() {
+    
+    if (!(this.UserRoleType)) {
+      alert("User Role Type is not provided !");
+      return;
+    }
+  
+    if (!(this.FirstName )|| !this.FirstName.trim()) {
+      alert("First Name is not provided !");
+      return;
+    }
+    if (!(this.LastName) || !this.LastName.trim()) {
+      alert("Last Name is not provided !");
+      return;
+    }
+  
+    if (!(this.Phone) || !this.Phone.trim()) {
+      alert("Primary Phone is not provided !");
+      return;
+    }
+    this.UserService.insertion(this.FirstName, this.LastName, this.MiddleName, this.Address, this.Phone, this.EmailID,this.UserRoleType)
+    .subscribe((data: any[]) => {
+      alert("Successfull");
+      //this.routerobj.navigateByUrl('admin')
+    });
+  }
+    
+  
+  ngOnInit() {
+
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.username = profile.username;
+    this.employeeid = profile.employeeid;
+    this.name = profile.name;
+
+    this.UserService
+    .getuserroletype()
+    .subscribe((data: any[]) => {
+      this.RoleTypeList = data;
     });
   }
 
-  login(username, password) {
-    if (!username) {
-      debugger;
-      alert("Enter User Name");
-    }
-    else if (!password) {
-      alert("Enter Password");
-    } 
-    else {
-      this.loginService
-        .login(username, password)
-        .subscribe((data: any[]) => {
-          this.tokenobj = data;
-            var encodedProfile = this.tokenobj.token.split('.')[1];
-            var profile = JSON.parse(this.url_base64_decode(encodedProfile));
-            this.role = profile.role;
-            this.username = profile.username;
-            this.employeeid = profile.employeeid;
-            this.name = profile.name;
-            console.log("login successfull");
-
-            if (profile.role === 'Admin') {
-              this.router.navigate(['/AdminDashboard',{ outlets: { AdminOut: ['welcomePage'] } }]); // redirect to superadmin
-            }
-            else if (profile.role === 'Client') {
-              this.router.navigate(['/ClientDashboard',{ outlets: { ClientOut: ['welcomePage'] } }]);      // redirect to Admin
-            }
-            else if (profile.role === 'Manager') {
-              this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['welcomePage'] } }]);  // redirect to Manager
-            }
-            else if (profile.role === 'Employee') {
-              this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['welcomePage'] } }]); // redirect to Employee
-            }
-        },
-          res => {
-            if (res.error.text === "Wrong user or password") {
-              alert("Invalid login credentials. Please enter correct credentials to login...");
-            }
-          });
-    }
-  }
-
-  ngOnInit() {
-  }
 }
