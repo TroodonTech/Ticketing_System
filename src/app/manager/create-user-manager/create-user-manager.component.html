@@ -1,1 +1,54 @@
-<p>create-user-manager works!</p>
+<div class="card " >
+    <div class="card-image">
+      <!-- <img src="assets/welcome.png"> -->
+      <span class="card-title">Card Title</span>
+    </div>
+    <div class="card-content">
+            <div class="row">
+                    <div class="col-md-4 top_margin" style="padding-left: 1.5rem"></div>
+                <div class="background-wrap">
+                    <div class="background"></div>
+                  </div>
+                  
+                  <form id="accesspanel" action="login" [formGroup]="loginForm" method="post">
+                    <h1 id="litheader">CREATE USER</h1>
+                    
+                    <div class="inset">
+                      <p>
+                        <input type="text" name="username" formControlName="username" [(ngModel)]="username"class="form-control" placeholder="Employee Name">
+                      </p>
+                      <p>
+                        <input type="password" name="password" formControlName="password" class="form-control" [(ngModel)]="password" placeholder="Middle Name">
+                      </p>
+                      <p>
+                            <input type="password" name="password" formControlName="password" class="form-control" [(ngModel)]="password" placeholder="Last Name">
+                        </p>
+                      <p>
+                             <input type="password" name="password" formControlName="password" class="form-control" [(ngModel)]="password" placeholder="Address">
+                         </p>
+                        <p>
+                           <input type="password" name="password" formControlName="password" class="form-control" [(ngModel)]="password" placeholder="Phone No">
+                          </p>
+                          <p>
+                                  <input type="password" name="password" formControlName="password" class="form-control" [(ngModel)]="password" placeholder="Phone No">
+                            </p>
+                         
+                     
+                    </div>
+                    <p>
+                      <button mdbBtn type="button" (click)="login(username,password)" style="margin-left: 30%;height: 100%;
+                margin-right: auto;background-color:slategray "  rounded="true" mdbWavesEffect>SUBMIT</button>
+                    </p>
+                  </form>
+                  
+                  <div class=" col-md-4 top_margin"></div>
+                 
+                </div> -->
+                
+      <!-- <p>I am a very simple card. I am good at containing small bits of information.
+      I am convenient because I require little markup to use effectively.</p> -->
+    </div>
+    <div class="card-action">
+      <a href="#">This is a link</a>
+    </div>
+  </div>

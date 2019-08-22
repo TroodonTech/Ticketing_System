@@ -1,4 +1,4 @@
-
+<!-- 
 <div class="row">
     <div class="col-md-4 top_margin" style="padding-left: 1.5rem"></div>
 <div class="background-wrap">
@@ -26,7 +26,10 @@ margin-right: auto;background-color:slategray "  rounded="true" mdbWavesEffect>S
   
   <div class=" col-md-4 top_margin"></div>
  
-</div>
+</div> -->
+
+
+
 <!-- <div class="row">
   <div class="column">
     <div class="card">.esfdghjnkm.</div>
@@ -48,9 +51,9 @@ margin-right: auto;background-color:slategray "  rounded="true" mdbWavesEffect>S
     <p>Architect & Engineer</p> 
   </div>
 </div> -->
-<!-- <div class="row">
-  <div class="col s12 m7">
-    <div class="card">
+
+
+    <!-- <div class="card " >
       <div class="card-image">
         <img src="assets/welcome.png">
         <span class="card-title">Card Title</span>
@@ -62,10 +65,12 @@ margin-right: auto;background-color:slategray "  rounded="true" mdbWavesEffect>S
       <div class="card-action">
         <a href="#">This is a link</a>
       </div>
-    </div>
-  </div>
-</div>
-   -->
-  
+    </div> -->
+    <form id="accesspanel" action="login" [formGroup]="loginForm" method="post">
+<input type="text" formControlName="username"  [(ngModel)]="username">
+<input type="text"  formControlName="password" [(ngModel)]="password">
+<button type="button"  (click)="login(username,password)" >submit</button>
+   
+</form>
  
 
