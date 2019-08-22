@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { ManagerDashboardComponent } from './manager-dashboard.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import{ManagerWelcomeModule} from '../../../dashboard/user-welcome-pages/manager-welcome/manager-welcome.module'
+import{CreateUserManagerModule} from '../../../manager/create-user-manager/create-user-manager.module'
 
 const routes: Routes = [
   {
@@ -16,6 +16,26 @@ const routes: Routes = [
         loadChildren: '../../../dashboard/user-welcome-pages/manager-welcome/manager-welcome.module#ManagerWelcomeModule',
 
       },
+      
+      {
+        path: 'CreateUser',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/create-user-manager/create-user-manager.module#CreateUserManagerModule',
+
+      },
+      {
+        path: 'ViewUser',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/view-user-manager/view-user-manager.module#ViewUserManagerModule',
+
+      },
+      {
+        path: 'EditUser',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/edit-user-manager/edit-user-manager.module#EditUserManagerModule',
+
+      },
+      
     ]}
   ];
 
