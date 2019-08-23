@@ -45,7 +45,7 @@
         <thead class="tableHead">
           <th> Reference Number </th>
           <th> Submitted Date </th>
-          <th> Issue Type </th>
+          <th> Issue </th>
           <th> Priority </th>
           <th> Status </th>
           <th> Details </th>
@@ -54,7 +54,7 @@
           <tr *ngFor="let x of historydetails">
             <td>{{ x.ticketnumber }}</td>
             <td>{{ x.submitteddate }}</td>
-            <td>{{ x.issuetype }}</td>
+            <td>{{ x.description }}</td>
             <td>{{ x.prioritytype }}</td>
             <td>{{ x.status }}</td>
             <td>

@@ -60,11 +60,11 @@ export class ReportIssueComponent implements OnInit {
   }
 
   ReportIssue() {
-    if (!(this.issuetype)) {
-      alert("Please choose Issue Type");
-      return;
-    }
-    else if(!(this.Description)){
+    // if (!(this.issuetype)) {
+    //   alert("Please choose Issue Type");
+    //   return;
+    // }
+    if(!(this.Description)){
       alert("Please enter Description");
       return;
     }
@@ -72,7 +72,7 @@ export class ReportIssueComponent implements OnInit {
       alert("Please choose Priority");
       return;
     }
-    this.issueservice.submitIssue(this.issuetype,this.Description,this.priority,this.employeeid)
+    this.issueservice.submitIssue(this.Description,this.priority,this.employeeid)
     .subscribe((data: any[]) => {
       alert('Issue Reported Successfully!');
       this.router.navigate(['/ClientDashboard', { outlets: { ClientOut: ['ViewIssues'] } }]);

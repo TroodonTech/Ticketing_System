@@ -5,7 +5,7 @@
     <div class="background"></div>
   </div>
   
-  <form id="accesspanel" action="login" [formGroup]="loginForm" method="post">
+  <form id="accesspanel" class="boxsize" action="login" [formGroup]="loginForm" method="post">
     <h1 id="litheader">LOGIN</h1>
     
     <div class="inset">
@@ -15,7 +15,15 @@
       <p>
         <input type="password" name="password" formControlName="password" class="form-control" [(ngModel)]="password" placeholder="PASSWORD">
       </p>
-     
+      <p>
+          <input type="text" name="username" formControlName="username" [(ngModel)]="username"class="form-control" placeholder="USERNAME">
+        <!-- <select placeholder="PRODUCT" formControlName="username" class="form-control" [(ngModel)]="productid" required>
+          <option value="">--Select--</option>
+          <option *ngFor="let p of product" [value]="p.product_id">
+              {{p.productname}}
+          </option>
+        </select> -->
+      </p>
      
     </div>
     <p>
@@ -23,7 +31,7 @@
 margin-right: auto;background-color:slategray "  rounded="true" mdbWavesEffect>SUBMIT</button>
     </p>
   </form>
-  
+
   <div class=" col-md-4 top_margin"></div>
  
 </div>

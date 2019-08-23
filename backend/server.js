@@ -20,8 +20,8 @@ app.listen(app.get('port'), function () {
 var config = {};
 config.db = {};
 
-// config.db.host = "192.168.1.113";
-config.db.host = "localhost";
+config.db.host = "192.168.1.113";
+// config.db.host = "localhost";
 config.db.user = "root";
 config.db.password = "root";
 config.db.database = "ticketingsystem";
@@ -51,6 +51,7 @@ app.options('/authenticate', supportCrossOriginScript);
 app.post('/authenticate', supportCrossOriginScript, function (req, res) {
     var usrnme = req.body.username;
     var pswd = req.body.password;
+
     console.log("usrnme " + usrnme + " pswd " + pswd);
     connection.query('set @usrnme=?;set @pswd=?; call usp_login(@usrnme,@pswd)', [usrnme, pswd], function (err, employees) {
         if (err) {
@@ -90,7 +91,21 @@ app.post('/authenticate', supportCrossOriginScript, function (req, res) {
     });
 });
 
+app.get('/getProductNames', function (req, res) {
 
+    connection.query('call usp_getProductNames()', function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("addnamess  is  " + JSON.stringify(rows[0]));
+
+            res.end(JSON.stringify(rows[0]));
+        }
+        res.end();
+    });
+
+});
 
 app.get('/getIssueType', function (req, res) {
 
@@ -126,19 +141,18 @@ app.get('/getpriority', function (req, res) {
 
 app.options('/submitIssue', supportCrossOriginScript);
 app.post('/submitIssue', supportCrossOriginScript, function (req, res) {
-    var issuetype = req.body.issuetype;
     var descrip = req.body.descrip;
     var priority = req.body.priority;
     var employeeid = req.body.employeeid;
 
-    connection.query('set @issuetype=?;set @descrip=?;set @priority=?;set @employeeid=?;  call usp_submitissue(@issuetype,@descrip,@priority,@employeeid)', [issuetype, descrip, priority,employeeid], function (err, rows) {
+    connection.query('set @descrip=?;set @priority=?;set @employeeid=?;  call usp_submitissue(@descrip,@priority,@employeeid)', [ descrip, priority,employeeid], function (err, rows) {
         if (err) {
             console.log("Problem with MySQL" + err);
         }
         else {
-            console.log("NewItem  is  " + JSON.stringify(rows[4]));
+            console.log("NewItem  is  " + JSON.stringify(rows[3]));
 
-            res.end(JSON.stringify(rows[4]));
+            res.end(JSON.stringify(rows[3]));
         }
         res.end();
     });
