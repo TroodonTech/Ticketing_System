@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { ClientDashboardComponent } from './client-dashboard.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import{ClientWelcomeModule } from '../../user-welcome-pages/client-welcome/client-welcome.module'
+import { ClientWelcomeModule } from '../../user-welcome-pages/client-welcome/client-welcome.module'
 import { ReportIssueModule } from "../../../client/report-issue/report-issue.module";
 import { ViewIssuesModule } from "../../../client/view-issues/view-issues.module";
 import { HistoryDetailsModule } from "../../../client/history-details/history-details.module";

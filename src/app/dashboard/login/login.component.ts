@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   name:String;
   employeeid;
   product;
+  productid;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -91,10 +92,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginService.getProductNames()
-    .subscribe((data: any[]) => {
-      this.product = data;
-    });
   }
 
 }

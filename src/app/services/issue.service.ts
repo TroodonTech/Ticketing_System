@@ -48,4 +48,31 @@ export class IssueService {
 
     return this.http.post(url, obj);
   }
+  getIssuesforEmp(employeeid){
+    return this.
+    http.get('http://localhost:3000/getIssuesforEmp?employeeid=' +employeeid);
+  }
+
+  // getIssueDetailsforEmp(issueid){
+  //   return this.
+  //   http.get('http://localhost:3000/getIssueDetailsforEmp?issueid=' +issueid);
+  // }
+
+  getAssignedbyforEmp(assignedby){
+    return this.
+    http.get('http://localhost:3000/getAssignedbyforEmp?assignedby=' +assignedby);
+  }
+  issueAction(status,startdate,enddate,newmessage,employeeid,issueid){
+    const url = 'http://localhost:3000/issueAction';
+    const obj = {
+      status:status,
+      startdate:startdate,
+      enddate:enddate,
+      newmessage: newmessage,
+      employeeid: employeeid,
+      issueid:issueid
+    };
+
+    return this.http.post(url, obj);
+  }
 }

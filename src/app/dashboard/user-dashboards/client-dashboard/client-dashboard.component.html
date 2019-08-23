@@ -12,19 +12,7 @@
             <div style="margin-left: 45%;">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                  <!-- <img class="imagesize nav-link" src="assets/icons/homepage.png" [routerLink]="[{outlets:{AdminOut:['welcomePage']}}]"> -->
-                </li>
-      
-                <li class="nav-item dropdown">
-                  <!-- <img class="imagesize nav-link" data-toggle="dropdown" src="assets/icons/PEOPLE--3.png"> -->
-                  <div class="dropdown-content" style="margin-left:1rem;">
-                    <a class="dropdown-item" [routerLink]="[{outlets:{AdminOut:['addEmployeeAdmin']}}]"><b>Create
-                        Employee</b></a>
-                    <a class="dropdown-item" [routerLink]="[{outlets:{AdminOut:['viewEmployeeAdmin']}}]"><b>View
-                        Employee</b></a>
-                    <a class="dropdown-item" [routerLink]="[{outlets:{AdminOut:['manageLoginCreds']}}]"><b>Manage Login
-                        Credentials</b></a>
-                  </div>
+                  <img class="imagesize nav-link" src="assets/home.png" [routerLink]="[{outlets:{ClientOut:['welcomePage']}}]">
                 </li>
                 <li class="nav-item dropdown">
                   <!-- <img class="imagesize nav-link" data-toggle="dropdown" src="assets/icons/PEOPLE--3.png"> -->
@@ -34,11 +22,7 @@
                   </div>
                 </li>
                 <li class="nav-item dropdown">
-                  <!-- <img class="imagesize nav-link" src="assets/icons/profile-2.png"> -->
-                  <div class="dropdown-content" style="margin-left:1rem;">
-                    <a class="dropdown-item" [routerLink]="[{outlets:{AdminOut:['adminMyProfile']}}]"><b>My Profile</b></a>
-                    <a class="dropdown-item" routerLink="/"><b>Log Out</b></a>
-                  </div>
+                  <img class="imagesize nav-link" src="assets/welcome.png" routerLink="/">
                 </li>
               </ul>
             </div>
