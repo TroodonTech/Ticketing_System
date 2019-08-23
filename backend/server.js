@@ -19,7 +19,7 @@ app.listen(app.get('port'), function () {
 });
 var config = {};
 config.db = {};
-
+// config.db.host = "localhost";
 config.db.host = "192.168.1.113";
 config.db.user = "root";
 config.db.password = "root";

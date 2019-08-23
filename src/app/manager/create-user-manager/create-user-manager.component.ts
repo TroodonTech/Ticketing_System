@@ -88,6 +88,7 @@ export class CreateUserManagerComponent implements OnInit {
     .getuserroletype()
     .subscribe((data: any[]) => {
       this.RoleTypeList = data;
+      console.log(data);
     });
   }
 
