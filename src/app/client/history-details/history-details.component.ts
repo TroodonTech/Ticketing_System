@@ -15,11 +15,6 @@ export class HistoryDetailsComponent implements OnInit {
   username;
   employeeid;
   name;
-  IssueTypeList;
-  issuetype;
-  getpriorityList;
-  priority;
-  Description;
   issueid$;
   messages;
   newmessage;

@@ -1,1 +1,34 @@
-<p>employee-dashboard works!</p>
+<div>
+        <div style="float: right;" class="col-md-3 col-sm-3 col-lg-3">
+          <span style="color: steelblue"> <b>Welcome <u> {{name}} !</u></b></span>
+        </div>
+        <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark">
+          <!-- <mdb-navbar-brand>
+            <a class="navbar-brand" href="http://troodontechnology.com/">
+              <img src="assets/img/TROOWORK.png" style="width: 10rem;">
+            </a>
+          </mdb-navbar-brand> -->
+          <links>
+            <div style="margin-left: 45%;">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <img class="imagesize nav-link" src="assets/home.png" [routerLink]="[{outlets:{EmployeeOut:['welcomePage']}}]">
+                </li>
+                <li class="nav-item dropdown">
+                  <!-- <img class="imagesize nav-link" data-toggle="dropdown" src="assets/icons/PEOPLE--3.png"> -->
+                  <div class="dropdown-content" style="margin-left:1rem;">
+                    <a class="dropdown-item" [routerLink]="[{outlets:{EmployeeOut:['ViewIssues']}}]"><b>View Issues</b></a>
+                    <a class="dropdown-item" [routerLink]="[{outlets:{EmployeeOut:['PtoRequest']}}]"><b>PTO Request</b></a>
+                    <a class="dropdown-item" [routerLink]="[{outlets:{EmployeeOut:['ViewPtoRequest']}}]"><b>View PTO Request</b></a>
+                  </div>
+                </li>
+                <li class="nav-item dropdown">
+                  <img class="imagesize nav-link" src="assets/welcome.png" routerLink="/">
+                </li>
+              </ul>
+            </div>
+          </links>
+        </mdb-navbar>
+        <router-outlet name="EmployeeOut"></router-outlet>
+      </div>
+    

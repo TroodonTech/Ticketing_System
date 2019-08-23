@@ -22,14 +22,4 @@ export class LoginService {
     return this.http.post(url, obj);
   }
 
-  //   login(username, password) {
-  //   return this.
-  //   http.get('http://localhost:3000/authenticate?username=' +username + '&password=' + password);
-  // }
-  // getEmpNameForWelcomeMessage(empid) {
-  //   return this
-  //     .http
-  //     .get('http://localhost:3000/EmpNameForwelcomeMessage?empid=' + empid);
-  // }
-
 }

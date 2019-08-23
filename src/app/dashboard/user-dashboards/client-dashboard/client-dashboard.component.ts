@@ -42,11 +42,6 @@ export class ClientDashboardComponent implements OnInit {
     this.employeeid = profile.employeeid;
     this.name = profile.name;
 
-    // this.loginService
-    //   .getEmpNameForWelcomeMessage(this.employeeid)
-    //   .subscribe((data: any[]) => {
-    //     // this.name = data[0].name;
-    //   });
   }
 
 }

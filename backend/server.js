@@ -234,6 +234,65 @@ app.post('/saveMessage', supportCrossOriginScript, function (req, res) {
 
 });
 
+app.get('/getIssuesforEmp', function (req, res) {
+    var employeeid = url.parse(req.url, true).query['employeeid'];
+    connection.query('set @employeeid=?;call usp_getissuesforemployee(@employeeid)', [employeeid], function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("prodnames  is  " + JSON.stringify(rows[1]));
+
+            res.end(JSON.stringify(rows[1]));
+        }
+        res.end();
+    });
+
+});
+
+
+app.get('/getAssignedbyforEmp', function (req, res) {
+
+    var assignedby = url.parse(req.url, true).query['assignedby'];
+    
+    connection.query('set @assignedby=?; call usp_getAssignedbyforEmp(@assignedby)',[assignedby], function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("prodnames  is  " + JSON.stringify(rows[1]));
+
+            res.end(JSON.stringify(rows[1]));
+        }
+        res.end();
+    });
+
+});
+
+app.options('/issueAction', supportCrossOriginScript);
+app.post('/issueAction', supportCrossOriginScript, function (req, res) {
+    var status=req.body.status;
+    var startdate=req.body.startdate;
+    var enddate=req.body.enddate;
+    var newmessage = req.body.newmessage;
+    var employeeid = req.body.employeeid;
+    var issueid = req.body.issueid;
+
+    connection.query('set @status=?;set @startdate=?;set @enddate=?;set @newmessage=?;set @employeeid=?;set @issueid=?;  call usp_saveissueAction(@status,@startdate,@enddate,@newmessage,@employeeid,@issueid)', [status,startdate,enddate,newmessage,employeeid,issueid], function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("NewItem  is  " + JSON.stringify(rows[6]));
+
+            res.end(JSON.stringify(rows[6]));
+        }
+        res.end();
+    });
+
+});
+
+
 app.get('/search', function (req, res) {
     var word = url.parse(req.url, true).query['value'];
     connection.query('set @word=?;call usp_find(@word)', [word], function (err, rows) {
