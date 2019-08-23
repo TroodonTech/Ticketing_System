@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from "@angular/router";
 import { IssueService } from "../../services/issue.service";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-history-details',
@@ -19,7 +20,10 @@ export class HistoryDetailsComponent implements OnInit {
   getpriorityList;
   priority;
   Description;
-
+  issueid$;
+  messages;
+  newmessage;
+  HistoryDetails;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -38,43 +42,29 @@ export class HistoryDetailsComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private fb: FormBuilder,private issueservice:IssueService, private router: Router) { }
+  constructor(private fb: FormBuilder,private issueservice:IssueService,private route:ActivatedRoute, private router: Router) {
+    this.route.params.subscribe(params => this.issueid$ = params.issueid);
+   }
 
-  
-  numberValid(event: any) {
-    const pattern = /[0-9\+\-\ ]/;
+   saveMessage(){
 
-    let inputChar = String.fromCharCode(event.charCode);
-    if (event.keyCode != 8 && !pattern.test(inputChar)) {
-      event.preventDefault();
-    }
-  }
-  charValidation(event: any) {
-    const patternChar = /[a-zA-Z ]/;
-    let inputChar = String.fromCharCode(event.charCode);
-    if (event.keyCode != 8 && !patternChar.test(inputChar)) {
-      event.preventDefault();
-    }
-  }
-
-  ReportIssue() {
-    if (!(this.issuetype)) {
-      alert("Please choose issuetype");
+    if (!(this.newmessage)) {
+      alert("Please enter any message");
       return;
     }
-    else if(!(this.Description)){
-      alert("Please choose Description");
-      return;
-    }
-    else if(!(this.priority)){
-      alert("Please choose priority");
-      return;
-    }
-    this.issueservice.submitIssue(this.issuetype,this.Description,this.priority)
+
+    this.issueservice
+    .saveMessage(this.newmessage,this.employeeid,this.issueid$)
     .subscribe((data: any[]) => {
-      alert('Issue Reported Successfully!');
+      alert("Message sent successfully!")
+      this.router.navigate(['/ClientDashboard', { outlets: { ClientOut: ['ViewIssues'] } }]);
     });
-  }
+
+   }
+   goBack() {
+      this.router.navigate(['/ClientDashboard', { outlets: { ClientOut: ['ViewIssues'] } }]);
+    }
+
   ngOnInit() {
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
@@ -86,15 +76,18 @@ export class HistoryDetailsComponent implements OnInit {
 
 
     this.issueservice
-    .getIssueType()
+    .getHistoryDetails(this.issueid$)
     .subscribe((data: any[]) => {
-      this.IssueTypeList = data;
+      this.HistoryDetails = data[0];
     });
+
     this.issueservice
-    .getpriority()
+    .getMessages(this.issueid$)
     .subscribe((data: any[]) => {
-      this.getpriorityList = data;
+      this.messages = data;
+      console.log(this.messages);
     });
+
   }
 
 }

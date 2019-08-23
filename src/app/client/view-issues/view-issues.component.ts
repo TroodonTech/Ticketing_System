@@ -68,8 +68,7 @@ export class ViewIssuesComponent implements OnInit {
     this.employeeid = profile.employeeid;
     this.name = profile.name;
 
-    this.id=2;
-    this.IssueService.getHistory(this.id)
+    this.IssueService.getHistory(this.employeeid)
       .subscribe((data: any[]) => {
         this.historydetails = data;
       });
