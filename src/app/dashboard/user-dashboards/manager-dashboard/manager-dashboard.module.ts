@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ManagerDashboardComponent } from './manager-dashboard.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import{CreateUserManagerModule} from '../../../manager/create-user-manager/create-user-manager.module'
-
+import{ SetUPModule} from '../../set-u-p/set-u-p.module'
 const routes: Routes = [
   {
     path: 'ManagerDashBoard',
@@ -33,6 +33,12 @@ const routes: Routes = [
         path: 'EditUser',
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/edit-user-manager/edit-user-manager.module#EditUserManagerModule',
+
+      },
+      {
+        path: 'SetUP/:userroletype_id',
+        outlet: 'ManagerOut',
+        loadChildren: '../../set-u-p/set-u-p.module#SetUPModule',
 
       },
       

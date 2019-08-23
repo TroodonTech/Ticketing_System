@@ -22,7 +22,7 @@ export class CreateUserManagerComponent implements OnInit {
   RoleTypeList;
   employeeid;
   username;
-  
+  checkclient;
 
 
   url_base64_decode(str) {
@@ -69,12 +69,22 @@ export class CreateUserManagerComponent implements OnInit {
     this.UserService.insertion(this.FirstName, this.LastName, this.MiddleName, this.Address, this.Phone, this.EmailID,this.UserRoleType)
     .subscribe((data: any[]) => {
       alert("Successfull");
-      //this.routerobj.navigateByUrl('admin')
+      var userroletype_id=this.UserRoleType
+      this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['SetUP',userroletype_id] } }]);
+      // this.router.navigate(['ManagerDashboard', { outlets: { ManagerOut: ['SetUP'] } }]);
     });
   }
-    
+  checkforclient(){
+    debugger;
+    if(this.UserRoleType=='Client'){
+      this.checkclient=true;
+    }
+  }
   
   ngOnInit() {
+
+    this.UserRoleType="";
+    this.checkclient=false;
 
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
@@ -90,6 +100,26 @@ export class CreateUserManagerComponent implements OnInit {
       this.RoleTypeList = data;
       console.log(data);
     });
+    
+    // this.loginService.getProductNames()
+    // .subscribe((data: any[]) => {
+    //   this.product = data;
+    // });
+  }
+  numberValid(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
+
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+  charValidation(event: any) {
+    const patternChar = /[a-zA-Z ]/;
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !patternChar.test(inputChar)) {
+      event.preventDefault();
+    }
   }
 
 }
