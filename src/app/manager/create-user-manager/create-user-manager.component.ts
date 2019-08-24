@@ -69,8 +69,9 @@ export class CreateUserManagerComponent implements OnInit {
     this.UserService.insertion(this.FirstName, this.LastName, this.MiddleName, this.Address, this.Phone, this.EmailID,this.UserRoleType)
     .subscribe((data: any[]) => {
       alert("Successfull");
+      var EmailID= this.EmailID;
       var userroletype_id=this.UserRoleType
-      this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['SetUP',userroletype_id] } }]);
+      this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['SetUP',userroletype_id,EmailID] } }]);
       // this.router.navigate(['ManagerDashboard', { outlets: { ManagerOut: ['SetUP'] } }]);
     });
   }

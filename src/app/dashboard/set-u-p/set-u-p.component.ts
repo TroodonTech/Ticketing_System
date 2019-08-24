@@ -14,7 +14,8 @@ export class SetUPComponent implements OnInit {
   userroletype_id$: Object;
   password;
   managerMail: Object;
-  userMail: Object;
+  EmailID$;
+  userMail;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -35,7 +36,7 @@ export class SetUPComponent implements OnInit {
   constructor(private route: ActivatedRoute, private UserService: UserService,
      private http: HttpClient, private router: Router) {
     this.route.params.subscribe(params => this.userroletype_id$ = params.userroletype_id);
-   
+   this.route.params.subscribe(params => this. EmailID$ = params. EmailID);
   }
 
   setUsernamePassword() {
@@ -50,17 +51,14 @@ export class SetUPComponent implements OnInit {
             this.UserService.setLoginCreds(this.username, this.password, this.userroletype_id$)
               .subscribe((data: any[]) => {
                 
-                this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['ViewUser'] } }]);
-               
+                this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['ViewUser'] } }])
+                  
+                    this.userMail =  this.EmailID$;
 
-                  this.UserService.getUserEmail(this.username).subscribe((data:any[]) => {
-                    this.managerMail = data[0].EmailID;
-                    this.userMail = data[0].newmail;
-
-                    if (this.userMail == null) {
+                    if (this.managerMail == null) {
                       alert("Login Credentials created for user Successfully! Mail not send , Mail-Id not found !");
                     } else {
-                      var message = 'Your Username is ' + this.username + ' and ' + 'Your Password is ' + this.password + "                https://troowork.azurewebsites.net";
+                      var message = 'Your Username is ' + this.username + ' and ' + 'Your Password is ' + this.password ;
                       console.log(message);
                       const obj = {
                         from: this.managerMail,
@@ -72,7 +70,7 @@ export class SetUPComponent implements OnInit {
                       return this.http.post(url, obj)
                         .subscribe(res => console.log('Mail Sent Successfully...'));
                     }
-                  });
+                
                 
               });
           }
@@ -85,13 +83,7 @@ export class SetUPComponent implements OnInit {
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
-    this.role = profile.role;
-    this.IsSupervisor = profile.IsSupervisor;
-    this.name = profile.username;
-    this.employeekey = profile.employeekey;
-    this.OrganizationID = profile.OrganizationID;
-
-    this.username = this.str$;
+    this.userMail =  this.EmailID$;
   }
 
 }

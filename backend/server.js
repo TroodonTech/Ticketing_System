@@ -480,7 +480,7 @@ app.get('/purchaseapi', function (req, res) {
 
 ////////////////////code by raima starts/////////////////////////////////////////////////////
 
-
+//get user role type
 app.get('/getuserroletype', function (req, res) {
 
     connection.query('call usp_getuserroletype()', function (err, rows) {
@@ -496,6 +496,7 @@ app.get('/getuserroletype', function (req, res) {
     });
 
 });
+//add employee
 app.post('/addemployee', supportCrossOriginScript, function (req, res) {
     var FirstName = req.body.FirstName;
     var LastName = req.body.LastName;
@@ -510,15 +511,16 @@ app.post('/addemployee', supportCrossOriginScript, function (req, res) {
             console.log("Problem with MySQL" + err);
         }
         else {
-            console.log("NewItem  is  " + JSON.stringify(rows[6]));
+            console.log("NewItem  is  " + JSON.stringify(rows[7]));
 
-            res.end(JSON.stringify(rows[3]));
+            res.end(JSON.stringify(rows[7]));
         }
         res.end();
     });
 
 });
-app.get(securedpath + '/checkUsername', function (req, res) {
+//check username
+app.get( '/checkUsername', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     var username = url.parse(req.url, true).query['username'];
     var userroletype_id = url.parse(req.url, true).query['userroletype_id'];
@@ -535,7 +537,34 @@ app.get(securedpath + '/checkUsername', function (req, res) {
                     console.log("Problem with MySQL" + err);
                 }
                 else {
-                    console.log("checkUsername...from server.." + JSON.stringify(rows[3]));
+                    console.log("checkUsername...from server.." + JSON.stringify(rows[2]));
+                    res.end(JSON.stringify(rows[2]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+//set username and password
+app.post( '/setUsernamePassword', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var username = req.body.username;
+    var password = req.body.password;
+    var userroletype_id = req.body.userroletype_id;
+    
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @username=?; set @password=?; set @userroletype_id=?;call usp_setUsernamePassword(@username,@password,@userroletype_id)', [username, password, userroletype_id], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    console.log("setUsernamePassword...from server.." + JSON.stringify(rows[3]));
                     res.end(JSON.stringify(rows[3]));
                 }
             });
@@ -543,5 +572,31 @@ app.get(securedpath + '/checkUsername', function (req, res) {
         connection.release();
     });
 });
+//sent mail
+var nodemailer = require('nodemailer');
+var sgTransport = require('nodemailer-sendgrid-transport');
 
+app.post('/sendmail', function (req, res) {
+    var options = {
+        service: 'Gmail',
+        auth: {
+            api_key: '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'
+        }
+    };
+    var mailer = nodemailer.createTransport(sgTransport(options));
+    mailer.sendMail(req.body, function (error, info) {
+        pool.getConnection(function (err, connection) {
+            if (err) {
+
+                console.log("Failed! Connection with Database spicnspan via connection pool failed");
+            } else {
+//           
+                console.log("nodemailer...from server..");
+//           
+            }
+            connection.release();
+        });
+//       
+    });
+});
 //////////////////////////////code by raima ends//////////////////////////////////////////
