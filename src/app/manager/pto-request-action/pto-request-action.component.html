@@ -22,8 +22,8 @@
             [(ngModel)]="requestdetailsbyID.SubmittedDate"></ng-datepicker>
         </div>
         <div class="form-group">
-          <label class="col-sm-6 col-md-6 col-lg-6 " style="margin-left: -1rem;"> PTO Remaining</label>
-          <input type="text" [(ngModel)]="requestdetailsbyID.Reason" maxlength="75" [disabled]="!editflag"
+          <label class="col-sm-6 col-md-6 col-lg-6 " style="margin-left: -1rem;">Work Assigned to</label>
+          <input type="text" [(ngModel)]="requestdetailsbyID.assignedname" maxlength="75" [disabled]="!editflag"
             style="background-color: #D4F4FF !important;width: 75%;" class="form-control" />
         </div>
       </div>
@@ -32,7 +32,7 @@
         <div class="form-group">
           <label class="col-sm-6 col-md-6 col-lg-6 " style="margin-left: -1rem;"> Employee Number</label>
           <input type="text" class="form-control  col-sm-9 col-md-9 col-lg-9" maxlength="19" [disabled]=!editflag
-            [(ngModel)]="requestdetailsbyID.EmployeeNumber">
+            [(ngModel)]="requestdetailsbyID.employee_id">
         </div>
         <div class="form-group">
           <label class="col-sm-6 col-md-6 col-lg-6 " style="margin-left: -1rem;"> End Date</label>
@@ -42,7 +42,7 @@
         <div class="form-group">
           <label class="col-sm-6 col-md-6 col-lg-6 " style="margin-left: -1rem;">Comments</label><br>
           <textarea class="form-control rounded-1 col-sm-9 col-md-9 col-lg-9" maxlength="200" [disabled]=!editflag
-            [(ngModel)]="requestdetailsbyID.Comments" rows="5" style="resize: none;width: 75% !important"></textarea>
+            [(ngModel)]="requestdetailsbyID.comments" rows="5" style="resize: none;width: 75% !important"></textarea>
         </div>
       </div>
   
@@ -63,19 +63,6 @@
           <ng-datepicker [options]="options" position="top-right" [disabled]=!editflag
             [(ngModel)]="requestdetailsbyID.ApprovedEndDate"></ng-datepicker>
         </div>
-        <div *ngIf="assignmentdetails?.length != 0" class="form-group col-md-6">
-          <label style="margin-left: -1rem;">Assignment List</label>
-          <!-- <ul *ngFor="let x of assignmentdetails" style="margin-left:1.5rem; margin-top: 1.5rem;">
-            <li>{{x.BatchSchduleName}}</li>
-          </ul> -->
-          <textarea class="form-control " maxlength="200" readonly=!editflag [(ngModel)]="assignmentdetails" rows="5"
-            style="resize: none;width: 168% !important;margin-left: -1rem;"></textarea>
-        </div>
-        <div *ngIf="assignmentdetails?.length == 0" class="form-group col-md-6">
-          <label>Assignment List</label>
-          <textarea class="form-control " maxlength="200" readonly=!editflag [(ngModel)]="assignmentdetails" rows="5"
-            style="resize: none;width: 75% !important"></textarea>
-        </div>
       </div>
   
       <div *ngIf="requestdetailsbyID.RequestStatus=='Approved'||requestdetailsbyID.RequestStatus=='Rejected'"
@@ -88,7 +75,7 @@
         <div class="form-group" style="margin-top: 1.3rem">
           <label class="col-sm-6 col-md-6 col-lg-6 " style="margin-left: -1rem;">Approver Comments</label>
           <textarea class="form-control rounded-1" maxlength="200" [disabled]=!editflag
-            [(ngModel)]="requestdetailsbyID.StatusComment" rows="5" style="resize: none;width: 75% !important"></textarea>
+            [(ngModel)]="requestdetailsbyID.statuscomments" rows="5" style="resize: none;width: 75% !important"></textarea>
         </div>
       </div>
   
@@ -125,28 +112,11 @@
         </div>
         <div class="form-group" style="margin-top: 1.3rem">
           <label class="col-sm-6 col-md-6 col-lg-6 " style="margin-left: -1rem;">Approver Comments</label>
-          <textarea class="form-control rounded-1" maxlength="200" [(ngModel)]="requestdetailsbyID.StatusComment" rows="5"
+          <textarea class="form-control rounded-1" maxlength="200" [(ngModel)]="requestdetailsbyID.statuscomments" rows="5"
             style="resize: none;width: 75% !important"></textarea>
         </div>
       </div>
-      <div *ngIf="assignmentdetails?.length != 0 && requestdetailsbyID.RequestStatus=='Pending'"
-        class="form-group col-md-6">
-        <label>Assignment List</label>
-        <!-- <ul *ngFor="let x of assignmentdetails" style="margin-left:1.5rem; margin-top: 1.5rem;"> -->
-        <!-- <li>{{x.BatchSchduleName}}</li> -->
-        <!-- {{assignmentdetails}} -->
-        <!-- </ul> -->
-        <textarea class="form-control " maxlength="200" readonly=!editflag [(ngModel)]="assignmentdetails" rows="5"
-          style="resize: none;width: 75% !important"></textarea>
-        <!-- <textarea [(ngModel)]="assignmentdetails"></textarea> -->
-  
-      </div>
-      <div *ngIf="assignmentdetails?.length == 0 && requestdetailsbyID.RequestStatus=='Pending'"
-        class="form-group col-md-6">
-        <label>Assignment List</label>
-        <textarea class="form-control " maxlength="200" readonly=!editflag [(ngModel)]="assignmentdetails" rows="5"
-          style="resize: none;width: 75% !important"></textarea>
-      </div>
+
       <div class="row bg-info col-md-12">
         <div *ngIf="requestdetailsbyID.RequestStatus=='Approved'||requestdetailsbyID.RequestStatus=='Rejected'"
           style="margin-left:42%">

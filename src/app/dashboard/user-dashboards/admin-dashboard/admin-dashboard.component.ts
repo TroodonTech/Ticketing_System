@@ -36,17 +36,12 @@ export class AdminDashboardComponent implements OnInit {
 
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
-    var profile1 = JSON.parse(this.url_base64_decode(encodedProfile));
-    this.role = profile1.role;
-    this.username = profile1.username;
-    this.employeeid = profile1.employeeid;
-    this.name = profile1.name;
-    console.log(profile1);
-    // this.loginService
-    //   .getEmpNameForWelcomeMessage(this.employeeid)
-    //   .subscribe((data: any[]) => {
-    //     // this.name = data[0].name;
-    //   });
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.username = profile.username;
+    this.employeeid = profile.employeeid;
+    this.name = profile.name;
+
   }
 
 
