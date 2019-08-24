@@ -8,6 +8,7 @@ import { ViewIssuesModule } from "../../../employee/view-issues/view-issues.modu
 import { PtoRequestModule } from "../../../employee/pto-request/pto-request.module";
 import { ViewPtoRequestModule } from "../../../employee/view-pto-request/view-pto-request.module";
 import { IssueActionModule } from "../../../employee/issue-action/issue-action.module";
+import { EditPtoRequestModule } from "../../../employee/edit-pto-request/edit-pto-request.module";
 
 const routes: Routes = [
   {
@@ -39,6 +40,11 @@ const routes: Routes = [
         outlet: 'EmployeeOut',
         loadChildren: '../../../employee/view-pto-request/view-pto-request.module#ViewPtoRequestModule'
       },
+      {
+        path: 'ViewPtoRequest/PTORequestEdit/:request_id',
+        outlet: 'EmployeeOut',
+        loadChildren: '../../../employee/edit-pto-request/edit-pto-request.module#EditPtoRequestModule'
+      }
     ]
   }
 ];

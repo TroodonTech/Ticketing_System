@@ -53,15 +53,11 @@ export class IssueService {
     http.get('http://localhost:3000/getIssuesforEmp?employeeid=' +employeeid);
   }
 
-  // getIssueDetailsforEmp(issueid){
-  //   return this.
-  //   http.get('http://localhost:3000/getIssueDetailsforEmp?issueid=' +issueid);
-  // }
-
-  getAssignedbyforEmp(assignedby){
+  getIssueDetailsforEmp(issueid,assignedby){
     return this.
-    http.get('http://localhost:3000/getAssignedbyforEmp?assignedby=' +assignedby);
+    http.get('http://localhost:3000/getIssueDetailsforEmp?issueid=' +issueid + '&assignedby=' + assignedby);
   }
+
   issueAction(status,startdate,enddate,newmessage,employeeid,issueid){
     const url = 'http://localhost:3000/issueAction';
     const obj = {

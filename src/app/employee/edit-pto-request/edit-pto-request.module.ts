@@ -4,18 +4,17 @@ import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PtoRequestComponent } from "./pto-request.component";
+import { EditPtoRequestComponent } from "./edit-pto-request.component";
 import { NgDatepickerModule } from 'ng2-datepicker';
 
 const routes: Routes = [
   {
     path: '',
-    component: PtoRequestComponent
+    component: EditPtoRequestComponent
   }
 ];
-
 @NgModule({
-  declarations: [PtoRequestComponent],
+  declarations: [EditPtoRequestComponent],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -26,4 +25,4 @@ const routes: Routes = [
     NgDatepickerModule
   ]
 })
-export class PtoRequestModule { }
+export class EditPtoRequestModule { }
