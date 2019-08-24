@@ -25,8 +25,6 @@ export class IssueActionComponent implements OnInit {
   assignedbydetails;
   startdate;
   enddate;
-  assignednamelist;
-  Array = [];
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -113,22 +111,10 @@ export class IssueActionComponent implements OnInit {
     this.name = profile.name;
 
     this.issueservice
-    .getHistoryDetails(this.issueid$)
+    .getIssueDetailsforEmp(this.issueid$,this.assignedby$)
     .subscribe((data: any[]) => {
       this.IssueDetailsforEmp = data[0];
     });
-    var count = 0;
-    this.issueservice
-    .getAssignedbyforEmp(this.assignedby$)
-    .subscribe((data: any[]) => {
-      this.assignedbydetails = data[0];
-
-      // this.assignednamelist.push(this.assignedbydetails);
-      // count = count + 1;
-      // if (count === QRCodeRoomList.length) {
-      //   this.createArray();
-      // }
-      });
 
     this.issueservice
     .getMessages(this.issueid$)
@@ -137,16 +123,5 @@ export class IssueActionComponent implements OnInit {
     });
 
   }
-  // createArray() {
-  //   this.Array = this.assignednamelist;
-  //   for (var k = 0; k < this.Array.length; k++) {
-  //     for (var j = 0; j < this.qrcode.length; j++) {
-  //       // this.loading=true;
-  //       if (this.Array[k].RoomKey === this.qrcode[j].RoomKey) {
-  //         this.Array[k].url = this.qrcode[j].url;
-  //         this.Array[k].RoomsKey = this.qrcode[j].RoomKey;
-  //       }
-  //     }
-  //   }
-  // }
+
 }

@@ -251,18 +251,19 @@ app.get('/getIssuesforEmp', function (req, res) {
 });
 
 
-app.get('/getAssignedbyforEmp', function (req, res) {
+app.get('/getIssueDetailsforEmp', function (req, res) {
 
+    var issueid = url.parse(req.url, true).query['issueid'];
     var assignedby = url.parse(req.url, true).query['assignedby'];
     
-    connection.query('set @assignedby=?; call usp_getAssignedbyforEmp(@assignedby)',[assignedby], function (err, rows) {
+    connection.query('set@issueid=?; set @assignedby=?; call usp_getIssueDetailsforEmp(@issueid,@assignedby)',[issueid,assignedby], function (err, rows) {
         if (err) {
             console.log("Problem with MySQL" + err);
         }
         else {
-            console.log("prodnames  is  " + JSON.stringify(rows[1]));
+            console.log("prodnames  is  " + JSON.stringify(rows[2]));
 
-            res.end(JSON.stringify(rows[1]));
+            res.end(JSON.stringify(rows[2]));
         }
         res.end();
     });
@@ -292,6 +293,100 @@ app.post('/issueAction', supportCrossOriginScript, function (req, res) {
 
 });
 
+app.options('/savePTORequest', supportCrossOriginScript);
+app.post('/savePTORequest', supportCrossOriginScript, function (req, res) {
+
+    var currentdate = req.body.currentdate;
+    var employeekey = req.body.employeekey;
+    var startdate = req.body.startdate;
+    var enddate = req.body.enddate;
+    var comments = req.body.comments;
+    var reason = req.body.ptoreason;
+
+
+        connection.query("set @currentdate=?;set @employeekey=?;set @startdate=?;set @enddate=?;set @comments=?; set @reason=?; call usp_SavePTORequest(@currentdate,@employeekey,@startdate,@enddate,@comments,@reason)", [currentdate, employeekey, startdate, enddate, comments, reason], function (err, rows) {
+            if (err) {
+                console.log("Problem with MySQL" + err);
+            }
+            else {
+
+                res.end(JSON.stringify(rows[6]));
+            }
+        });
+});
+
+app.get('/getRequestDetails', function (req, res) {
+    var empKey = url.parse(req.url, true).query['employeekey'];
+
+        connection.query('set @empKey=?;call usp_getRequestDetails(@empKey)', [empKey], function (err, rows) {
+            if (err) {
+                console.log("Problem with MySQL" + err);
+            }
+            else {
+
+                res.end(JSON.stringify(rows[1]));
+
+            }
+        });
+});
+
+app.get('/getRequestDetailsforEmployee', function (req, res) {
+
+    var ptorequestDetailsKey = url.parse(req.url, true).query['ptorequestID'];
+
+            connection.query('set @ptorequestDetailsKey=?;call usp_getRequestDetailsbyIDforEmployee(@ptorequestDetailsKey)', [ptorequestDetailsKey], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+
+                    res.end(JSON.stringify(rows[1]));
+
+
+                }
+            });
+});
+
+app.options('/setEditedRequest', supportCrossOriginScript);
+app.post('/setEditedRequest', supportCrossOriginScript, function (req, res) {
+
+    var currdate = req.body.currdate;
+    var ptorequestID = req.body.ptorequestID;
+    var StartDate = req.body.StartDate;
+    var EndDate = req.body.EndDate;
+    var Comments = req.body.Comments;
+    var reason = req.body.Reason;
+    var empKey = req.body.EmpKey;
+
+            connection.query("set @currdate=?;set @ptorequestID=?;set @StartDate=?;set @EndDate=?;set @Comments=?;set @reason=?;set @empKey=?;call usp_setEditedRequest(@currdate,@ptorequestID,@StartDate,@EndDate,@Comments,@reason,@empKey)", [currdate, ptorequestID, StartDate, EndDate, Comments, reason, empKey], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[7]));
+                }
+            });
+
+});
+app.get('/deletePTORequest', function (req, res) {
+
+    var deleteRequestKey = url.parse(req.url, true).query['deleteRequestKey'];
+
+            connection.query('set @deleteRequestKey=?;call usp_deletePTORequest(@deleteRequestKey)', [deleteRequestKey], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+
+                    res.end(JSON.stringify(rows[1]));
+
+
+                }
+            });
+});
 
 app.get('/search', function (req, res) {
     var word = url.parse(req.url, true).query['value'];
