@@ -502,10 +502,10 @@ app.post('/addemployee', supportCrossOriginScript, function (req, res) {
     var MiddleName = req.body.MiddleName;
     var Address = req.body.Address;
     var Phone = req.body.Phone;
-    var MiddleName = req.body.EmailID;
+    var EmailID = req.body.EmailID;
     var UserRoleType=req.body.UserRoleType;
 
-    connection.query('set @FirstName=?;set @LastName=?;set @MiddleName=?;set @Address=?;set @Phone=?;set @EmailID=?;set @UserRoleType=?;call usp_submitissue(@FirstName,@LastName,@MiddleName,@Address,@Phone,@EmailID,@UserRoleType)', [FirstName, LastName, MiddleName,Address,Phone,EmailID,UserRoleType], function (err, rows) {
+    connection.query('set @FirstName=?;set @LastName=?;set @MiddleName=?;set @Address=?;set @Phone=?;set @EmailID=?;set @UserRoleType=?;call usp_addemployee(@FirstName,@LastName,@MiddleName,@Address,@Phone,@EmailID,@UserRoleType)', [FirstName, LastName, MiddleName,Address,Phone,EmailID,UserRoleType], function (err, rows) {
         if (err) {
             console.log("Problem with MySQL" + err);
         }
@@ -517,6 +517,31 @@ app.post('/addemployee', supportCrossOriginScript, function (req, res) {
         res.end();
     });
 
+});
+app.get(securedpath + '/checkUsername', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var username = url.parse(req.url, true).query['username'];
+    var userroletype_id = url.parse(req.url, true).query['userroletype_id'];
+    // console.log(username);
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @username=?; set @userroletype_id=?; call usp_checkUsername(@username,@userroletype_id)', [username, userroletype_id], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    console.log("checkUsername...from server.." + JSON.stringify(rows[3]));
+                    res.end(JSON.stringify(rows[3]));
+                }
+            });
+        }
+        connection.release();
+    });
 });
 
 //////////////////////////////code by raima ends//////////////////////////////////////////
