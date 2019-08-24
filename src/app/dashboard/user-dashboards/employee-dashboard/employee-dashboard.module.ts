@@ -9,6 +9,7 @@ import { PtoRequestModule } from "../../../employee/pto-request/pto-request.modu
 import { ViewPtoRequestModule } from "../../../employee/view-pto-request/view-pto-request.module";
 import { IssueActionModule } from "../../../employee/issue-action/issue-action.module";
 import { EditPtoRequestModule } from "../../../employee/edit-pto-request/edit-pto-request.module";
+import { PtoRequestDetailsModule } from "../../../employee/pto-request-details/pto-request-details.module";
 
 const routes: Routes = [
   {
@@ -44,6 +45,11 @@ const routes: Routes = [
         path: 'ViewPtoRequest/PTORequestEdit/:request_id',
         outlet: 'EmployeeOut',
         loadChildren: '../../../employee/edit-pto-request/edit-pto-request.module#EditPtoRequestModule'
+      },
+      {
+        path: 'ViewPtoRequest/PTORequestDetails/:request_id',
+        outlet: 'EmployeeOut',
+        loadChildren: '../../../employee/pto-request-details/pto-request-details.module#PtoRequestDetailsModule'
       }
     ]
   }

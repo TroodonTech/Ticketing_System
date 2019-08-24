@@ -10,12 +10,16 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class SetUPComponent implements OnInit {
+  EmailID$;
+  role;
   username;
   userroletype_id$: Object;
   password;
   managerMail: Object;
-  EmailID$;
-  userMail;
+  userMail: Object;
+  employeeid;
+  name;
+
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -84,6 +88,12 @@ export class SetUPComponent implements OnInit {
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
     this.userMail =  this.EmailID$;
+    this.role = profile.role;
+    this.username = profile.username;
+    this.employeeid = profile.employeeid;
+    this.name = profile.name;
+
+    // this.username = this.str$;
   }
 
 }

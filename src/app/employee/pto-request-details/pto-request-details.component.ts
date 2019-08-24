@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { PtorequestService } from "../../services/ptorequest.service";
+import { PtorequestService } from '../../services/ptorequest.service';
 import { DatepickerOptions } from 'ng2-datepicker';
 import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
-  selector: 'app-edit-pto-request',
-  templateUrl: './edit-pto-request.component.html',
-  styleUrls: ['./edit-pto-request.component.scss']
+  selector: 'app-pto-request-details',
+  templateUrl: './pto-request-details.component.html',
+  styleUrls: ['./pto-request-details.component.scss']
 })
-export class EditPtoRequestComponent implements OnInit {
+export class PtoRequestDetailsComponent implements OnInit {
 
   role: String;
   name: String;
   username;
-  employeeid;
   requestdetails;
+  editflag;
   ptorequestID$;
-  employeenames;
+  employeeid;
 
   options: DatepickerOptions = {
     minYear: 1970,
@@ -30,11 +30,12 @@ export class EditPtoRequestComponent implements OnInit {
     //maxDate: new Date(Date.now()),  // Maximal selectable date
     // barTitleIfEmpty: 'Click to select a date',
     // placeholder: 'Click to select a date', // HTML input placeholder attribute (default: '')
-    addClass: '', // Optional, value to pass on to [ngClass] on the input field
+    addClass: 'form-control', // Optional, value to pass on to [ngClass] on the input field
     addStyle: { 'font-size': '18px', 'width': '75%', 'border': '1px solid #ced4da', 'border-radius': '0.25rem' }, // Optional, value to pass to [ngStyle] on the input field
     fieldId: 'my-date-picker', // ID to assign to the input field. Defaults to datepicker-<counter>
     useEmptyBarTitle: false, // Defaults to true. If set to false then barTitleIfEmpty will be disregarded and a date will always be shown 
   };
+
   convert_DT(str) {
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(- 2),
@@ -62,54 +63,6 @@ export class EditPtoRequestComponent implements OnInit {
   constructor(public PtorequestService: PtorequestService, private router: Router, private route: ActivatedRoute) {
     this.route.params.subscribe(params => this.ptorequestID$ = params.request_id);
   }
-  submitEditedRequest() {
-
-    if (!(this.requestdetails.StartDate)) {
-      alert('Start Date is not provided !');
-      return;
-    }
-    if (!(this.requestdetails.EndDate)) {
-      alert('End Date is not provided !');
-      return;
-    }
-
-    // if (!(this.requestdetails.Comments)) {
-    //   alert('Comments are not provided !');
-    //   return;
-    // } else {
-    //   var comments1 = this.requestdetails.Comments.trim();
-    //   if (!(comments1)) {
-    //     alert('Comments are not provided !');
-    //     return;
-    //   }
-    // }
-
-
-    var curr_date = this.convert_DT(new Date());
-    if (this.convert_DT(curr_date) > this.convert_DT(this.requestdetails.StartDate)) {
-      alert("Start Date can't be less than Today...!");
-      return;
-    }
-    if (this.convert_DT(this.requestdetails.EndDate) < this.convert_DT(this.requestdetails.StartDate)) {
-      alert("End Date can't be less than start date...!");
-      return;
-    }
-
-    var comments;
-    if (this.requestdetails.comments) {
-      comments = this.requestdetails.comments.trim();
-    }
-    else {
-      comments = "";
-    }
-
-    this.PtorequestService.setEditedRequest(curr_date, this.ptorequestID$, this.convert_DT(this.requestdetails.StartDate), this.convert_DT(this.requestdetails.EndDate),
-      comments, this.requestdetails.assigningto, this.employeeid).subscribe((data) => {
-        this.requestdetails = data;
-        alert('PTO Request Updated Successfully');
-        this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewPtoRequest'] } }]);
-      });
-  }
 
   goBack() {
     this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewPtoRequest'] } }]);
@@ -124,15 +77,10 @@ export class EditPtoRequestComponent implements OnInit {
     this.username = profile.username;
     this.employeeid = profile.employeeid;
     this.name = profile.name;
+    this.editflag = false;
 
     this.PtorequestService.getRequestInfoforEmployee(this.ptorequestID$).subscribe((data) => {
       this.requestdetails = data[0];
     });
-
-    this.PtorequestService.getEmployeesName(this.employeeid)
-    .subscribe((data: any[]) => {
-      this.employeenames = data;
-    });
   }
-
 }
