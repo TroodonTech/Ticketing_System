@@ -62,22 +62,22 @@ export class SetUPComponent implements OnInit {
   //                   this.managerMail = data[0].EmailID;
   //                   this.userMail = data[0].newmail;
 
-  //                   if (this.userMail == null) {
-  //                     alert("Login Credentials created for user Successfully! Mail not send , Mail-Id not found !");
-  //                   } else {
-  //                     var message = 'Your Username is ' + this.username + ' and ' + 'Your Password is ' + this.password + "                https://troowork.azurewebsites.net";
-  //                     console.log(message);
-  //                     const obj = {
-  //                       from: this.managerMail,
-  //                       to: this.userMail,
-  //                       subject: 'Login Credentials',
-  //                       text: message
-  //                     };
-  //                     const url = 'http://localhost:3000+"/sendmail"';
-  //                     return this.http.post(url, obj)
-  //                       .subscribe(res => console.log('Mail Sent Successfully...'));
-  //                   }
-  //                 });
+                  //   if (this.userMail == null) {
+                  //     alert("Login Credentials created for user Successfully! Mail not send , Mail-Id not found !");
+                  //   } else {
+                  //     var message = 'Your Username is ' + this.username + ' and ' + 'Your Password is ' + this.password + "                https://troowork.azurewebsites.net";
+                  //     console.log(message);
+                  //     const obj = {
+                  //       from: this.managerMail,
+                  //       to: this.userMail,
+                  //       subject: 'Login Credentials',
+                  //       text: message
+                  //     };
+                  //     const url = 'http://localhost:3000/sendmail';
+                  //     return this.http.post(url, obj)
+                  //       .subscribe(res => console.log('Mail Sent Successfully...'));
+                  //   }
+                  // });
                 
   //             });
   //         }

@@ -30,16 +30,13 @@ export class UserService {
       .http
       .get('http://localhost:3000/checkUsername?username=' + userName + '&userroletype_id=' + userroletype_id);
   }
-  // setLoginCreds(userName, passWord, ) {
-  //   const url = ConectionSettings.Url+"/setUsernamePassword";
-  //   const obj = {
-  //     username: userName,
-  //     password: passWord,
-  //     employeekey: empKey,
-  //     updatedBy: employeekey,
-  //     userRoleTypeKey: uRoleTypeKey,
-  //     OrganizationID: OrgID
-  //   };
-  //   return this.http.post(url, obj);
-  // }
+  setLoginCreds(username, password, userroletype_id) {
+    const url = 'http://localhost:3000/setUsernamePassword';
+    const obj = {
+      username: username,
+      password: password,
+      userroletype_id: userroletype_id
+    };
+    return this.http.post(url, obj);
+  }
 }
