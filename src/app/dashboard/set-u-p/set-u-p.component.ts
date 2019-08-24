@@ -68,7 +68,7 @@ export class SetUPComponent implements OnInit {
                         subject: 'Login Credentials',
                         text: message
                       };
-                      const url = 'http://localhost:3000+"/sendmail"';
+                      const url = 'http://localhost:3000/sendmail';
                       return this.http.post(url, obj)
                         .subscribe(res => console.log('Mail Sent Successfully...'));
                     }
