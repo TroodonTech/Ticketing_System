@@ -148,8 +148,7 @@
                   Issues<span class="caret"></span></a>
                   <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
                       <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['CreateEmployee']}}]"><b>Create Issue</b></a>
-                      <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['ViewEmployee']}}]"><b>Report Issue</b></a>
-                      <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['MeetingTrainingCreate']}}]"><b>Merge Issue</b></a>
+                      <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['ViewIssues']}}]"><b>View Issues</b></a>
                      
                   </div>
               </li>
@@ -157,7 +156,7 @@
                   <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
                   PTO<span class="caret"></span></a>
                   <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
-                      <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['DashboardReport']}}]"><b>Accept Request</b></a>
+                      <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['ViewPtoRequest']}}]"><b>View PTO Request</b></a>
                       <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['WorkorderReport']}}]"><b>Assign</b></a>
                   </div>
               </li>

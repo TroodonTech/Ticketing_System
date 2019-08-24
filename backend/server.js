@@ -301,10 +301,10 @@ app.post('/savePTORequest', supportCrossOriginScript, function (req, res) {
     var startdate = req.body.startdate;
     var enddate = req.body.enddate;
     var comments = req.body.comments;
-    var reason = req.body.ptoreason;
+    var ptoassigningto = req.body.ptoassigningto;
 
 
-        connection.query("set @currentdate=?;set @employeekey=?;set @startdate=?;set @enddate=?;set @comments=?; set @reason=?; call usp_SavePTORequest(@currentdate,@employeekey,@startdate,@enddate,@comments,@reason)", [currentdate, employeekey, startdate, enddate, comments, reason], function (err, rows) {
+        connection.query("set @currentdate=?;set @employeekey=?;set @startdate=?;set @enddate=?;set @comments=?; set @ptoassigningto=?; call usp_SavePTORequest(@currentdate,@employeekey,@startdate,@enddate,@comments,@ptoassigningto)", [currentdate, employeekey, startdate, enddate, comments, ptoassigningto], function (err, rows) {
             if (err) {
                 console.log("Problem with MySQL" + err);
             }
@@ -356,10 +356,10 @@ app.post('/setEditedRequest', supportCrossOriginScript, function (req, res) {
     var StartDate = req.body.StartDate;
     var EndDate = req.body.EndDate;
     var Comments = req.body.Comments;
-    var reason = req.body.Reason;
+    var assigningto = req.body.assigningto;
     var empKey = req.body.EmpKey;
 
-            connection.query("set @currdate=?;set @ptorequestID=?;set @StartDate=?;set @EndDate=?;set @Comments=?;set @reason=?;set @empKey=?;call usp_setEditedRequest(@currdate,@ptorequestID,@StartDate,@EndDate,@Comments,@reason,@empKey)", [currdate, ptorequestID, StartDate, EndDate, Comments, reason, empKey], function (err, rows) {
+            connection.query("set @currdate=?;set @ptorequestID=?;set @StartDate=?;set @EndDate=?;set @Comments=?;set @assigningto=?;set @empKey=?;call usp_setEditedRequest(@currdate,@ptorequestID,@StartDate,@EndDate,@Comments,@assigningto,@empKey)", [currdate, ptorequestID, StartDate, EndDate, Comments, assigningto, empKey], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
@@ -386,6 +386,82 @@ app.get('/deletePTORequest', function (req, res) {
 
                 }
             });
+});
+
+app.get('/getEmployeesName', function (req, res) {
+
+    var employeeid = url.parse(req.url, true).query['employeeid'];
+
+            connection.query('set@employeeid=?; call usp_getEmployeesName(@employeeid)',[employeeid], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+
+                    res.end(JSON.stringify(rows[1]));
+
+
+                }
+            });
+});
+
+app.options('/getPtoRequestdetailsforManager', supportCrossOriginScript);
+app.post('/getPtoRequestdetailsforManager', supportCrossOriginScript, function (req, res) {
+
+    var employeekey = req.body.employeekey;
+    var fromdate = req.body.fromdate;
+    var todate = req.body.todate;
+    var ptostatus = req.body.ptoStatus;
+
+        connection.query('set @employeekey=?;set @fromdate=?;set @todate=?;set @ptostatus=?;call usp_getPTORequestdetailsforManager(@employeekey,@fromdate,@todate,@ptostatus)', [employeekey, fromdate, todate, ptostatus], function (err, rows) {
+            if (err) {
+                console.log("Problem with MySQL" + err);
+            }
+            else {
+
+                res.end(JSON.stringify(rows[4]));
+            }
+        });
+
+});
+
+app.get('/getRequestDetailsbyID', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+
+    var ptorequestDetailskey = url.parse(req.url, true).query['ptorequestDetailskey'];
+
+    connection.query('set @ptorequestDetailskey=?;call usp_getRequestDetailsbyID(@ptorequestDetailskey)', [ptorequestDetailskey], function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            res.end(JSON.stringify(rows[1]));
+        }
+    });
+});
+
+app.options('/savePTORequestAction', supportCrossOriginScript);
+app.post('/savePTORequestAction', supportCrossOriginScript, function (req, res) {
+
+    var ptorequestDetails = req.body.ptorequestDetails;
+    var employeekey = req.body.employeekey;
+    var statuscurrentdate = req.body.statuscurrentdate;
+    var approvedstartdate = req.body.approvedstartdate;
+    var ApprovedEndDate = req.body.ApprovedEndDate;
+    var StatusKey = req.body.StatusKey;
+    var statuscomments = req.body.statuscomments;
+
+        connection.query("set @ptorequestDetails=?;set @employeekey=?;set @statuscurrentdate=?;set @approvedstartdate=?;set @ApprovedEndDate=?;set @StatusKey=?;set @statuscomments=?; call usp_SavePTORequestAction(@ptorequestDetails,@employeekey,@statuscurrentdate,@approvedstartdate,@ApprovedEndDate,@StatusKey,@statuscomments)", [ptorequestDetails, employeekey, statuscurrentdate, approvedstartdate, ApprovedEndDate, StatusKey, statuscomments], function (err, rows) {
+            if (err) {
+                console.log("Problem with MySQL" + err);
+            }
+            else {
+
+                res.end(JSON.stringify(rows[7]));
+            }
+        });
+
 });
 
 app.get('/search', function (req, res) {
@@ -518,30 +594,30 @@ app.post('/addemployee', supportCrossOriginScript, function (req, res) {
     });
 
 });
-app.get(securedpath + '/checkUsername', function (req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
-    var username = url.parse(req.url, true).query['username'];
-    var userroletype_id = url.parse(req.url, true).query['userroletype_id'];
-    // console.log(username);
-    pool.getConnection(function (err, connection) {
-        if (err) {
+// app.get(securedpath + '/checkUsername', function (req, res) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     var username = url.parse(req.url, true).query['username'];
+//     var userroletype_id = url.parse(req.url, true).query['userroletype_id'];
+//     // console.log(username);
+//     pool.getConnection(function (err, connection) {
+//         if (err) {
 
-            console.log("Failed! Connection with Database spicnspan via connection pool failed");
-        }
-        else {
-            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @username=?; set @userroletype_id=?; call usp_checkUsername(@username,@userroletype_id)', [username, userroletype_id], function (err, rows) {
-                if (err) {
-                    console.log("Problem with MySQL" + err);
-                }
-                else {
-                    console.log("checkUsername...from server.." + JSON.stringify(rows[3]));
-                    res.end(JSON.stringify(rows[3]));
-                }
-            });
-        }
-        connection.release();
-    });
-});
+//             console.log("Failed! Connection with Database spicnspan via connection pool failed");
+//         }
+//         else {
+//             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+//             connection.query('set @username=?; set @userroletype_id=?; call usp_checkUsername(@username,@userroletype_id)', [username, userroletype_id], function (err, rows) {
+//                 if (err) {
+//                     console.log("Problem with MySQL" + err);
+//                 }
+//                 else {
+//                     console.log("checkUsername...from server.." + JSON.stringify(rows[3]));
+//                     res.end(JSON.stringify(rows[3]));
+//                 }
+//             });
+//         }
+//         connection.release();
+//     });
+// });
 
 //////////////////////////////code by raima ends//////////////////////////////////////////

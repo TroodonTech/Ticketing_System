@@ -18,6 +18,8 @@ export class PtoRequestComponent implements OnInit {
   enddate;
   comments;
   ptoreason;
+  employeenames;
+  assigningto;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -112,13 +114,15 @@ export class PtoRequestComponent implements OnInit {
     }
     this.PtorequestService
       .submitRequest(curr_date, this.employeeid, this.convert_DT(this.startdate),
-        this.convert_DT(this.enddate), requestcomments, this.ptoreason).subscribe((data: any[]) => {
+        this.convert_DT(this.enddate), requestcomments, this.assigningto).subscribe((data: any[]) => {
           alert("PTO Request Submitted Successfully");
           this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewPtoRequest'] } }]);
         });
   }
 
   ngOnInit() {
+
+    this.assigningto="";
 
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
@@ -127,6 +131,12 @@ export class PtoRequestComponent implements OnInit {
     this.username = profile.username;
     this.employeeid = profile.employeeid;
     this.name = profile.name;
+
+    this.PtorequestService.getEmployeesName(this.employeeid)
+      .subscribe((data: any[]) => {
+        this.employeenames = data;
+      });
   }
+
 
 }

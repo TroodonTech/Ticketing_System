@@ -5,6 +5,10 @@ import { ManagerDashboardComponent } from './manager-dashboard.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import{CreateUserManagerModule} from '../../../manager/create-user-manager/create-user-manager.module'
 import{ SetUPModule} from '../../set-u-p/set-u-p.module'
+import { ViewIssuesModule } from "../../../manager/view-issues/view-issues.module";
+import { ViewPtoRequestModule } from "../../../manager/view-pto-request/view-pto-request.module";
+import { PtoRequestActionModule } from "../../../manager/pto-request-action/pto-request-action.module";
+
 const routes: Routes = [
   {
     path: 'ManagerDashBoard',
@@ -39,7 +43,21 @@ const routes: Routes = [
         path: 'SetUP/:userroletype_id',
         outlet: 'ManagerOut',
         loadChildren: '../../set-u-p/set-u-p.module#SetUPModule',
-
+      },
+      {
+        path: 'ViewIssues',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/view-issues/view-issues.module#ViewIssuesModule',
+      },
+      {
+        path: 'ViewPtoRequest',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/view-pto-request/view-pto-request.module#ViewPtoRequestModule',
+      },
+      {
+        path: 'ViewPtoRequest/PTORequestAction/:ptorequest_id',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/pto-request-action/pto-request-action.module#PtoRequestActionModule',
       },
       
     ]}
