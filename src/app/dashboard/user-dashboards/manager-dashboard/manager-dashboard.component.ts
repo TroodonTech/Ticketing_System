@@ -8,12 +8,10 @@ import { LoginService } from "../../../services/login.service";
 })
 export class ManagerDashboardComponent implements OnInit {
 
-  empName: String;
-  role: String;
   name: String;
-  employeekey: Number;
-  IsSupervisor: Number;
-  OrganizationID: Number;
+  role: String;
+  username: String;
+  employeeid: Number;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -35,11 +33,12 @@ export class ManagerDashboardComponent implements OnInit {
   constructor(private loginService: LoginService) { }
 
   ngOnInit() {
+
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
     this.role = profile.role;
-    this.name = profile.username;
+    // this.name = profile.username;
     
     // this.employeekey = profile.employeekey;
     // this.OrganizationID = profile.OrganizationID;
@@ -49,6 +48,10 @@ export class ManagerDashboardComponent implements OnInit {
     //   .subscribe((data: any[]) => {
     //     this.empName = data[0].EmpName;
     //   });
+    this.username = profile.username;
+    this.employeeid = profile.employeeid;
+    this.name = profile.name;
+
   }
 
 }

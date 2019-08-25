@@ -1,6 +1,6 @@
 <div style=" padding-top:2rem !important; "class="container">
   <div style="float: right;" class="col-md-3 col-sm-3 col-lg-3">
-    <span style="color: steelblue"> <b>Welcome <u> {{name}} !</u></b></span>
+    <span style="color:white"> <b>Welcome <u> {{name}} !</u></b></span>
   </div>
   <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark indigo">
     <links>
@@ -9,29 +9,30 @@
           <li class="nav-item active">
               <a class="nav-link waves-light" [routerLink]="[{outlets:{EmployeeOut:['welcomePage']}}]" mdbWavesEffect>Home <span class="sr-only">(current)</span></a>
           </li>
-          
-        
-          
+
           <li class="nav-item dropdown btn-group" dropdown>
             <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
             Issues<span class="caret"></span></a>
             <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
               <a class="dropdown-item" [routerLink]="[{outlets:{EmployeeOut:['ViewIssues']}}]"><b>View Issues</b></a>
-              <a class="dropdown-item" [routerLink]="[{outlets:{EmployeeOut:['PtoRequest']}}]"><b>PTO Request</b></a>
-              <a class="dropdown-item" [routerLink]="[{outlets:{EmployeeOut:['ViewPtoRequest']}}]"><b>View PTO Request</b></a>
-               
             </div> 
         </li>
-          <li class="nav-item dropdown btn-group" dropdown>
-              <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
-              PTO<span class="caret"></span></a>
-              <div class="dropdown-content" style="margin-left:1rem;">
-                <a class="dropdown-item" [routerLink]="[{outlets:{EmployeeOut:['adminMyProfile']}}]"><b>My Profile</b></a>
-                <a class="dropdown-item" routerLink="/"><b>Log Out</b></a>
-              </div>
-          </li>
+
+        <li class="nav-item dropdown btn-group" dropdown>
+          <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+          PTO<span class="caret"></span></a>
+          <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+            <a class="dropdown-item" [routerLink]="[{outlets:{EmployeeOut:['PtoRequest']}}]"><b>PTO Request</b></a>
+            <a class="dropdown-item" [routerLink]="[{outlets:{EmployeeOut:['ViewPtoRequest']}}]"><b>View PTO Requests</b></a>
+          </div>
+      </li>
+
+          <li class="nav-item active">
+            <a class="dropdown-item" routerLink="/"><b>Log Out</b></a>
+        </li>
       </ul>
   </links>
+  
         </mdb-navbar>
         <router-outlet name="EmployeeOut"></router-outlet>
       </div>

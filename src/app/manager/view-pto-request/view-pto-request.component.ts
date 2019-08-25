@@ -75,7 +75,7 @@ export class ViewPtoRequestComponent implements OnInit {
 
     this.fromdate = new Date(Date.now());
     this.todate = new Date(Date.now());
-    this.ptoStatus = '';
+    this.ptoStatus = "";
 
     this.fromdate = this.convert_DT(this.fromdate);
     this.todate = this.convert_DT(this.todate);
