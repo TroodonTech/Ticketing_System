@@ -675,4 +675,20 @@ app.post('/sendmail', function (req, res) {
 //       
     });
 });
+/////////////emp details
+app.get('/getEmpDetails', function (req, res) {
+
+    connection.query('call usp_getEmpDetails()', function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("addnamess  is  " + JSON.stringify(rows[0]));
+
+            res.end(JSON.stringify(rows[0]));
+        }
+        res.end();
+    });
+
+});
 //////////////////////////////code by raima ends//////////////////////////////////////////

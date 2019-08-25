@@ -39,4 +39,8 @@ export class UserService {
     };
     return this.http.post(url, obj);
   }
+  getEmpDetails(){
+    return this.
+    http.get('http://localhost:3000/getEmpDetails');
+}
 }
