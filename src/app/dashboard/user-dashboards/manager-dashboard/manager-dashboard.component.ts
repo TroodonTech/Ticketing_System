@@ -38,6 +38,16 @@ export class ManagerDashboardComponent implements OnInit {
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
     this.role = profile.role;
+    // 
+    
+    // this.employeekey = profile.employeekey;
+    // this.OrganizationID = profile.OrganizationID;
+
+    // this.loginService
+    //   .getEmpNameForWelcomeMessage(this.employeekey, this.OrganizationID)
+    //   .subscribe((data: any[]) => {
+    //     this.empName = data[0].EmpName;
+    //   });
     this.username = profile.username;
     this.employeeid = profile.employeeid;
     this.name = profile.name;

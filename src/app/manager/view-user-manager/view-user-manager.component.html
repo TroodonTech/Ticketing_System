@@ -1,33 +1,10 @@
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
 <div *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
   <div class="row col-md-12 ">
-    <h4 style="margin-left: 42%;">VIEW EMPLOYEE DETAILS</h4>
+    <h4 style="margin-left: 42%;">VIEW USER DETAILS</h4>
   </div>
-
-
-  <div style="margin-left: 0.2rem;margin-right: 1.5rem;width: 99.7%;padding-top: 1.5rem;padding-bottom: 1.5rem" class="row bg-info col-md-12">
-    <div class="row col-md-12">
-      <br>
-      <div class="row col-md-6">
-        <h5 style="text-align:right"><label for="building">Job Title</label></h5> &nbsp;
-        <select [(ngModel)]="JobTitleKey" style="background-color: #d4f4ff;width: 25rem" class="form-control" (change)="getempdettablewithselectedJobtitle()">
-          <option value="" selected>--Select--</option>
-          <option *ngFor="let j of jobtitle" [value]="j.JobTitleKey">
-            {{j.JobTitleText}}
-          </option>
-        </select>
-      </div>
-      <div class="row col-md-6" style="margin-left: 2.8rem;">
-        <h5 style="text-align:right"><label for="building">Managers</label></h5> &nbsp;
-        <select [(ngModel)]="ManagerKey" style="background-color: #d4f4ff;width: 25rem" class="form-control" (change)="getempdettablewithselectedJobtitle()">
-          <option value="" selected>--Select--</option>
-          <option *ngFor="let k of managerList" [value]="k.ManagerKey">
-            {{k.ManagerName}}
-          </option>
-        </select>
-      </div>
-    </div>
-  </div>
+  
+  
   <br>
   <div class="col-md-12">
     <form [formGroup]="searchform">
@@ -44,29 +21,30 @@
   <div style="margin-left: 1.5rem;margin-right: 1.5rem;"></div>
   <table class="table table-hover table-responsive table-bordered table">
     <thead class="tableHead">
-      <th> Employee Number </th>
-      <th> Department </th>
+      <th> USER </th>
+      <th> FirstName </th>
       <th> Last Name</th>
-      <th>First Name</th>
-      <th>Employee Status</th>
-      <th>Job Title</th>
       <th>Contact No</th>
+      <th>Address</th>
+      <th>MailID</th>
+      <th>UPDATE</th>
+    
     </thead>
     <tbody>
-      <tr *ngFor="let e of employeedetailstable" [routerLink]="['editEmpDetailsAdmin',e.EmployeeKey]">
-        <td>{{ e.EmployeeNumber }}</td>
-        <td>{{ e.DepartmentName }}</td>
-        <td>{{ e.LastName }}</td>
-        <td>{{ e.FirstName }}</td>
-        <td>{{ e.EmployeeStatus }}</td>
-        <td>{{ e.JobTitle }}</td>
-        <td>{{ e.PrimaryPhone }}</td>
+      <tr *ngFor="let e of employeedetailstable" >
+        <td>{{ e.userrolename }}</td>
+        <td>{{ e.firstname }}</td>
+        <td>{{ e.lastname }}</td>
+        <td>{{ e.phonenumber }}</td>
+        <td>{{ e.address }}</td>
+        <td>{{ e.mailID }}</td>
+        <td>
+          <button class="btn btn-success" style="float: left;" (click)="edit()" >EDIT</button>
+          <button class="btn btn-success" style="float: right;" (click)="delete()" >DELETE</button></td>
+        
       </tr>
-      <tr *ngIf="employeedetailstable?.length == 0">
-        <td colspan="7" class="no-data-available">No records found</td>
-      </tr>
+      
     </tbody>
   </table>
-  <button class="btn btn-success" style="float: left;" (click)="previousPage()" *ngIf="showHide1">&#60;&#60; Previous</button>
-  <button class="btn btn-success" style="float: right;" (click)="nextPage()" *ngIf="showHide2">Next >></button>
+  
 </div>

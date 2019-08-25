@@ -15,7 +15,7 @@ const routes: Routes = [
     component: ManagerDashboardComponent,
     children: [
       {
-        path: 'welcomePage',
+        path: 'welcomePage/:employeeid',
         outlet: 'ManagerOut',
         loadChildren: '../../../dashboard/user-welcome-pages/manager-welcome/manager-welcome.module#ManagerWelcomeModule',
 
@@ -40,7 +40,7 @@ const routes: Routes = [
 
       },
       {
-        path: 'SetUP/:userroletype_id',
+        path: 'SetUP/:userroletype_id/:EmailID',
         outlet: 'ManagerOut',
         loadChildren: '../../set-u-p/set-u-p.module#SetUPModule',
       },
