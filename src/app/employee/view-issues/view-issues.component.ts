@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IssueService } from "../../services/issue.service";
 import { DatepickerOptions } from 'ng2-datepicker';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-view-issues',
@@ -15,6 +16,10 @@ export class ViewIssuesComponent implements OnInit {
   username;
   employeeid;
   issuedetails;
+  checkflag;
+  checkValue = [];
+  DuplicateValues = [];
+  marked = false;
 
   options: DatepickerOptions = {
     minYear: 1970,
@@ -57,7 +62,58 @@ export class ViewIssuesComponent implements OnInit {
     }
     return window.atob(output);
   }
-  constructor(private IssueService: IssueService) { }
+  constructor(private IssueService: IssueService,private router: Router) { }
+
+  // toggleVisibility(e) {
+  //   if (e.target.checked) {
+  //     this.marked = true;
+  //   } else {
+  //     this.marked = false;
+  //   }
+  // }
+
+  // Duplicate() {
+
+  //   var DuplicateList = [];
+  //   var DuplicateString;
+
+  //   if (this.checkValue.length > 0) {
+  //     for (var j = 0; j < this.checkValue.length; j++) {
+  //       if (this.checkValue[j] === true)
+  //       DuplicateList.push(this.DuplicateValues[j]);
+  //     }
+  //     DuplicateString = DuplicateList.join(',');
+  //   }
+  //   this.IssueService.DuplicateIssues(DuplicateString)
+  //   .subscribe((data: any[]) => {
+  //     alert('Duplicated Issues Successfully')
+  //   });
+  //   // this.checkvaluetag="workorderrequest"
+  //   // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['QrCodeViewList', DuplicateString] } }]);
+  // }
+
+  // checkBoxValueForDuplicate(index, DuplicateCheckValue, issue_id) {
+  //   this.checkValue[index] = DuplicateCheckValue;
+  //   this.DuplicateValues[index] = issue_id;
+  //   for(var i=0;i<this.checkValue.length;)
+  //   {
+  //       if(this.checkValue[i]==true)
+  //       {
+  //         this.checkflag=true;
+  //         return;
+  //       }
+  //       else
+  //       {
+  //         if(i==(this.checkValue.length-1))
+  //         {
+  //           this.checkValue=[];
+  //           this.checkflag=false;
+  //           return;
+  //         }
+  //         i++;
+  //       }
+  //     }
+  // }
 
   ngOnInit() {
     var token = localStorage.getItem('token');
@@ -67,6 +123,8 @@ export class ViewIssuesComponent implements OnInit {
     this.username = profile.username;
     this.employeeid = profile.employeeid;
     this.name = profile.name;
+
+    this.checkflag=false;
 
     this.IssueService.getIssuesforEmp(this.employeeid)
       .subscribe((data: any[]) => {

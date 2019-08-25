@@ -1,46 +1,51 @@
-
 <div>
     <div style="float: right;" class="col-md-3 col-sm-3 col-lg-3">
-        <span style="color: black"> <b>Welcome <u> {{this.name}}   !</u></b></span>
-      </div>
-<nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark navbar-fixed-top" style="padding-left: 5rem">
-  
+      <span style="color: black"> <b>Welcome <u> {{name}}   !</u></b></span>
+    </div>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" [routerLink]="[{outlets:{ManagerOut:['welcomePage']}}]">
-          <i class="fa fa-home"></i>
-          Home
-          <span class="sr-only">(current)</span>
-          </a>
-      </li>
-      <li class="nav-item dropdown btn-group" dropdown>
-        <a dropdownToggle type="button" class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fa fa-user">
-            <span class="badge badge-primary"> </span>
-          </i>
-          USER
-        </a>
-        <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['CreateUser']}}]"><b>Create User</b></a>
-            <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['ViewUser']}}]"><b>View User</b></a>
-        </div>
-      </li>
-      <li class="nav-item dropdown btn-group" dropdown>
-          <a dropdownToggle type="button" class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-edit">
-              <span class="badge badge-primary"> </span>
-            </i>
-            ISSUES
-          </a>
-          <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu" aria-labelledby="navbarDropdown">
-            
-              <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['CreateIssue']}}]"><b>Create Issue</b></a>
-              <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['ViewIssues']}}]"><b>View Issues</b></a>
-          </div>
-        </li>
-        <li class="nav-item dropdown btn-group" dropdown>
+    <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark navbar-fixed-top" style="padding-left: 5rem">
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="[{outlets:{ManagerOut:['welcomePage']}}]">
+              <i class="fa fa-home"></i>
+              Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+
+          <li class="nav-item dropdown btn-group" dropdown>
+            <a dropdownToggle type="button" class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-user">
+                <span class="badge badge-primary"> </span>
+              </i>
+              USER
+            </a>
+            <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['CreateUser']}}]"><b>Create User</b></a>
+                <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['ViewUser']}}]"><b>View User</b></a>
+            </div>
+          </li>
+
+
+          <li class="nav-item dropdown btn-group" dropdown>
+            <a dropdownToggle type="button" class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-edit">
+                <span class="badge badge-primary"> </span>
+              </i>
+              ISSUES
+            </a>
+            <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu" aria-labelledby="navbarDropdown">
+              
+                <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['CreateIssue']}}]"><b>Create Issue</b></a>
+                <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['ViewIssues']}}]"><b>View Issues</b></a>
+            </div>
+          </li>
+
+
+          <li class="nav-item dropdown btn-group" dropdown>
             <a dropdownToggle type="button" class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-users">
                 <span class="badge badge-primary"> </span>
@@ -48,26 +53,20 @@
               PTO
             </a>
             <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu" aria-labelledby="navbarDropdown">
-                
-                <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['ViewPtoRequest']}}]"><b>View PTO Request</b></a>
+              <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['ViewPtoRequest']}}]"><b>View PTO Request</b></a>
             </div>
           </li>
-    </ul>
-   
-    <!-- <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form> -->
-  </div>
-</nav>
-<router-outlet name="ManagerOut"></router-outlet>
+
+        </ul>
+      </div>
+    </nav>
+  <router-outlet name="ManagerOut"></router-outlet>
 </div>
 
-
-  <div style=" padding-top:2rem !important;  size: 100%;"class="container">
-  <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark ">
-      
-      
-    </mdb-navbar>
-     
+<div style=" padding-top:2rem !important;  size: 100%;"class="container">
+  <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark " >
+    <div >
+      <img src="assets/welcome.png" style="margin-left: 25rem" st>
+    </div>
+  </mdb-navbar> 
 </div>

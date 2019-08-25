@@ -71,16 +71,16 @@ export class LoginComponent implements OnInit {
             console.log("login successfull");
 
             if (profile.role === 'Admin') {
-              this.router.navigate(['/AdminDashboard',{ outlets: { AdminOut: ['welcomePage',this.employeeid,] } }]); // redirect to superadmin
+              this.router.navigate(['/AdminDashboard',{ outlets: { AdminOut: ['welcomePage'] } }]); // redirect to superadmin
             }
             else if (profile.role === 'Client') {
-              this.router.navigate(['/ClientDashboard',{ outlets: { ClientOut: ['welcomePage',this.employeeid] } }]);      // redirect to Admin
+              this.router.navigate(['/ClientDashboard',{ outlets: { ClientOut: ['welcomePage'] } }]);      // redirect to Admin
             }
             else if (profile.role === 'Manager') {
-              this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['welcomePage',this.employeeid] } }]);  // redirect to Manager
+              this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['welcomePage'] } }]);  // redirect to Manager
             }
             else if (profile.role === 'Employee') {
-              this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['welcomePage',this.employeeid] } }]); // redirect to Employee
+              this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['welcomePage'] } }]); // redirect to Employee
             }
         },
           res => {
