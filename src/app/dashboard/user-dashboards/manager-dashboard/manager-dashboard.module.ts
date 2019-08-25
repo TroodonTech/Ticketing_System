@@ -15,7 +15,7 @@ const routes: Routes = [
     component: ManagerDashboardComponent,
     children: [
       {
-        path: 'welcomePage/:employeeid',
+        path: 'welcomePage',
         outlet: 'ManagerOut',
         loadChildren: '../../../dashboard/user-welcome-pages/manager-welcome/manager-welcome.module#ManagerWelcomeModule',
 
