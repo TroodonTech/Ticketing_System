@@ -71,4 +71,9 @@ export class IssueService {
 
     return this.http.post(url, obj);
   }
+  
+  DuplicateIssues(DuplicateString){
+    return this.
+    http.get('http://localhost:3000/DuplicateIssues?DuplicateString=' +DuplicateString);
+  }
 }

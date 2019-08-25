@@ -25,6 +25,7 @@ export class IssueActionComponent implements OnInit {
   assignedbydetails;
   startdate;
   enddate;
+  marked = false;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -64,6 +65,14 @@ export class IssueActionComponent implements OnInit {
     fieldId: 'my-date-picker', // ID to assign to the input field. Defaults to datepicker-<counter>
     useEmptyBarTitle: false, // Defaults to true. If set to false then barTitleIfEmpty will be disregarded and a date will always be shown 
   };
+
+  toggleVisibility(e) {
+    if (e.target.checked) {
+      this.marked = true;
+    } else {
+      this.marked = false;
+    }
+  }
 
   constructor(private issueservice:IssueService,private route:ActivatedRoute, private router: Router) {
     this.route.params.subscribe(params => this.issueid$ = params.issueid);

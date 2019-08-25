@@ -16,6 +16,7 @@
         <div class="form-group" style="margin-top: 1.6rem">
           <label>Assigning to</label>
           <select style="background-color:white !important;width: 75%;" class="form-control" [(ngModel)]="assigningto" required>
+            <option value="">--Select--</option>
             <option *ngFor="let e of employeenames" [value]="e.employee_id">
                 {{e.employeename}}
             </option>

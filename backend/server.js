@@ -464,91 +464,36 @@ app.post('/savePTORequestAction', supportCrossOriginScript, function (req, res) 
 
 });
 
-app.get('/search', function (req, res) {
-    var word = url.parse(req.url, true).query['value'];
-    connection.query('set @word=?;call usp_find(@word)', [word], function (err, rows) {
+app.get('/getRequestDetailsbyID', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+
+    var ptorequestDetailskey = url.parse(req.url, true).query['ptorequestDetailskey'];
+
+    connection.query('set @ptorequestDetailskey=?;call usp_getRequestDetailsbyID(@ptorequestDetailskey)', [ptorequestDetailskey], function (err, rows) {
         if (err) {
             console.log("Problem with MySQL" + err);
         }
         else {
-            console.log("prodnames  is  " + JSON.stringify(rows[0]));
-
             res.end(JSON.stringify(rows[1]));
         }
-        res.end();
     });
-
 });
 
+app.get('/DuplicateIssues', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
 
+    var DuplicateString = url.parse(req.url, true).query['DuplicateString'];
 
-app.get('/incartapi', function (req, res) {
-    var proid = url.parse(req.url, true).query['productid'];
-    var quan = url.parse(req.url, true).query['Quantity'];
-    connection.query('set @proid=?;set @quan=?; call usp_insertintocart(@proid,@quan)', [proid, quan], function (err, rows) {
+    connection.query('set @DuplicateString=?;call usp_duplicateIssues(@DuplicateString)', [DuplicateString], function (err, rows) {
         if (err) {
             console.log("Problem with MySQL" + err);
         }
         else {
-            console.log("prodnames  is  " + JSON.stringify(rows[1]));
-
             res.end(JSON.stringify(rows[1]));
         }
-        res.end();
     });
-
 });
-app.get('/cartviewapi', function (req, res) {
-    // var value = url.parse(req.url, true).query['value'];
-    connection.query('call usp_cartview()', function (err, rows) {
-        if (err) {
-            console.log("Problem with MySQL" + err);
-        }
-        else {
-            console.log("prodnames  is  " + JSON.stringify(rows[0]));
 
-            res.end(JSON.stringify(rows[0]));
-        }
-        res.end();
-    });
-
-});
-app.get('/updateuser', function (req, res) {
-    var emailaddress = url.parse(req.url, true).query['emailid'];
-    var firstname = url.parse(req.url, true).query['FirstName'];
-    var lastname = url.parse(req.url, true).query['LastName'];
-    var id = url.parse(req.url, true).query['ID'];
-    connection.query('set @emailaddress=?;set @firstname=?;set @lastname=?;set @id=?; call usp_updateuser(@emailaddress,@firstname,@lastname,@id)', [emailaddress, firstname, lastname, id], function (err, rows) {
-        if (err) {
-            console.log("Problem with MySQL" + err);
-        }
-        else {
-            console.log("prodnames  is  " + JSON.stringify(rows[1]));
-
-            res.end(JSON.stringify(rows[4]));
-        }
-        res.end();
-    });
-
-});
-app.get('/purchaseapi', function (req, res) {
-    var productid = url.parse(req.url, true).query['proid'];
-    var cartid = url.parse(req.url, true).query['cartid'];
-    var cartquan = url.parse(req.url, true).query['cartquantity'];
-    var amount = url.parse(req.url, true).query['sum'];
-    connection.query('set @productid=?;set @cartquan=?;set @amount=?; set @cartid=?; call usp_insertintopurchase(@productid,@cartquan,@amount,@cartid)', [productid, cartquan, amount, cartid], function (err, rows) {
-        if (err) {
-            console.log("Problem with MySQL" + err);
-        }
-        else {
-            console.log("prodnames  is  " + JSON.stringify(rows[3]));
-
-            res.end(JSON.stringify(rows[4]));
-        }
-        res.end();
-    });
-
-});
 //////////////////////////////code by aswathy ends//////////////////////////////////////////
 
 
@@ -589,6 +534,25 @@ app.post('/addemployee', supportCrossOriginScript, function (req, res) {
             console.log("NewItem  is  " + JSON.stringify(rows[6]));
 
             res.end(JSON.stringify(rows[3]));
+        }
+        res.end();
+    });
+
+});
+
+app.get('/updateuser', function (req, res) {
+    var emailaddress = url.parse(req.url, true).query['emailid'];
+    var firstname = url.parse(req.url, true).query['FirstName'];
+    var lastname = url.parse(req.url, true).query['LastName'];
+    var id = url.parse(req.url, true).query['ID'];
+    connection.query('set @emailaddress=?;set @firstname=?;set @lastname=?;set @id=?; call usp_updateuser(@emailaddress,@firstname,@lastname,@id)', [emailaddress, firstname, lastname, id], function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("prodnames  is  " + JSON.stringify(rows[1]));
+
+            res.end(JSON.stringify(rows[4]));
         }
         res.end();
     });

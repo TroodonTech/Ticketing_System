@@ -104,7 +104,7 @@ export class EditPtoRequestComponent implements OnInit {
     }
 
     this.PtorequestService.setEditedRequest(curr_date, this.ptorequestID$, this.convert_DT(this.requestdetails.StartDate), this.convert_DT(this.requestdetails.EndDate),
-      comments, this.requestdetails.assigningto, this.employeeid).subscribe((data) => {
+      comments, this.requestdetails.assignedname, this.employeeid).subscribe((data) => {
         this.requestdetails = data;
         alert('PTO Request Updated Successfully');
         this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewPtoRequest'] } }]);
@@ -125,14 +125,15 @@ export class EditPtoRequestComponent implements OnInit {
     this.employeeid = profile.employeeid;
     this.name = profile.name;
 
-    this.PtorequestService.getRequestInfoforEmployee(this.ptorequestID$).subscribe((data) => {
-      this.requestdetails = data[0];
-    });
-
     this.PtorequestService.getEmployeesName(this.employeeid)
     .subscribe((data: any[]) => {
       this.employeenames = data;
     });
+    
+    this.PtorequestService.getRequestInfoforEmployee(this.ptorequestID$).subscribe((data) => {
+      this.requestdetails = data[0];
+    });
+
   }
 
 }

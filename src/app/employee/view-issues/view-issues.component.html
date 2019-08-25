@@ -49,6 +49,9 @@
               <th> Project Name</th>
               <th> Priority </th>
               <th> Status </th>
+              <!-- <th *ngIf="checkflag==false"> Duplicate </th>
+              <th *ngIf="checkflag==true"> <button class="btn btn-primary button_style" type="button" (click)="basicModal.show();Duplicate()" mdbWavesEffect>
+                Duplicate </button></th> -->
               <th> Details </th>
             </thead>
             <tbody>
@@ -59,6 +62,10 @@
                 <td>{{ x.projectname }}</td>
                 <td>{{ x.prioritytype }}</td>
                 <td>{{ x.status }}</td>
+                <!-- <td> <input type="checkbox" [(ngModel)]="x.DuplicateCheckValue"
+                  (change)="toggleVisibility($event); checkBoxValueForDuplicate(i,x.DuplicateCheckValue, x.issue_id);">
+                </td> -->
+                
                 <td>
                   <a [routerLink]="['IssueAction', x.issue_id, x.assignedby]" class="btn btn-primary"><b>VIEW</b></a>&nbsp;&nbsp;
                 </td>
@@ -66,6 +73,31 @@
               <tr *ngIf="issuedetails?.length == 0">
                 <td colspan="7" class="no-data-available">No records found</td>
               </tr>
+
+              <!-- <div mdbModal #basicModal="mdbModal" class="modal fade" role="dialog" aria-labelledby="myBasicModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title w-100" id="myModalLabel"></h4>
+                  </div>
+                  <div class="modal-body">
+                    Duplicate?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close"
+                      (click)="basicModal.hide(); Duplicate()" mdbWavesEffect>Yes</button>
+                    <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.hide()"
+                      mdbWavesEffect>No</button>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+
             </tbody>
           </table>
         </div>
