@@ -6,29 +6,19 @@ import { ActivatedRoute } from '@angular/router';
 import { DatepickerOptions } from 'ng2-datepicker';
 
 @Component({
-  selector: 'app-issue-action',
-  templateUrl: './issue-action.component.html',
-  styleUrls: ['./issue-action.component.scss']
+  selector: 'app-issue-details',
+  templateUrl: './issue-details.component.html',
+  styleUrls: ['./issue-details.component.scss']
 })
-export class IssueActionComponent implements OnInit {
+export class IssueDetailsComponent implements OnInit {
 
   role;
   username;
   employeeid;
   name;
   issueid$;
-  assignedby$;
   messages;
-  newmessage;
-  HistoryDetails;
-  IssueDetailsforEmp;
-  assignedbydetails;
-  startdate;
-  enddate;
-  marked = false;
-  IssueNumber;
-  theCheckbox;
-  duplicateissueid;
+  IssueDetailsforManager;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -69,63 +59,12 @@ export class IssueActionComponent implements OnInit {
     useEmptyBarTitle: false, // Defaults to true. If set to false then barTitleIfEmpty will be disregarded and a date will always be shown 
   };
 
-  toggleVisibility(e) {
-    if (e.target.checked) {
-      this.marked = true;
-    } else {
-      this.marked = false;
-    }
-  }
-
   constructor(private issueservice:IssueService,private route:ActivatedRoute, private router: Router) {
-    this.route.params.subscribe(params => this.issueid$ = params.issueid);
-    this.route.params.subscribe(params => this.assignedby$ = params.assignedby);
+    this.route.params.subscribe(params => this.issueid$ = params.issue_id);
    }
 
-   issueAction(){
-
-    if (!(this.IssueDetailsforEmp.status)) {
-      alert("Please enter any Status");
-      return;
-    }
-    else if (!(this.startdate)) {
-      alert("Please enter the fix start date");
-      return;
-    }
-    else if(!(this.enddate)) {
-      alert("Please enterthe fix  end date");
-      return;
-    }
-    else if(!(this.newmessage)) {
-      alert("Please enter any message");
-      return;
-    }
-
-    this.issueservice
-    .issueAction(this.IssueDetailsforEmp.status,this.convert_DT(this.startdate),this.convert_DT(this.enddate),this.newmessage,this.employeeid,this.issueid$)
-    .subscribe((data: any[]) => {
-      alert("Updated successfully!")
-      this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewIssues'] } }]);
-    });
-
-   }
    goBack() {
-      this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewIssues'] } }]);
-    }
-
-    duplicateAction(){
-
-      if (!(this.duplicateissueid)) {
-        alert("Please enter the Reference Number");
-        return;
-      }
-
-      this.issueservice
-      .duplicateAction(this.issueid$,this.duplicateissueid)
-      .subscribe((data: any[]) => {
-        alert("Updated successfully!")
-        this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewIssues'] } }]);
-      });
+      this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewIssues'] } }]);
     }
 
   ngOnInit() {
@@ -137,24 +76,16 @@ export class IssueActionComponent implements OnInit {
     this.employeeid = profile.employeeid;
     this.name = profile.name;
 
-    this.duplicateissueid="";
-
     this.issueservice
-    .getIssueDetailsforEmp(this.issueid$,this.assignedby$)
+    .getIssueDetailsforManager(this.issueid$)
     .subscribe((data: any[]) => {
-      this.IssueDetailsforEmp = data[0];
+      this.IssueDetailsforManager = data[0];
     });
 
     this.issueservice
     .getMessages(this.issueid$)
     .subscribe((data: any[]) => {
       this.messages = data;
-    });
-
-    this.issueservice
-    .getIssueNumber(this.issueid$,this.employeeid)
-    .subscribe((data: any[]) => {
-      this.IssueNumber = data;
     });
 
   }

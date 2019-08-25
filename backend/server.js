@@ -6,7 +6,7 @@ var mysql = require("mysql");
 var url = require('url');
 var bodyParser = require('body-parser');
 var jwt = require('jsonwebtoken');
-
+var nodemailer = require('nodemailer');
 var app = express();
 var jwtsecret = '936ee7cf-b0f6-4140-909b-926694c2ac80';
 
@@ -279,7 +279,7 @@ app.post('/issueAction', supportCrossOriginScript, function (req, res) {
     var employeeid = req.body.employeeid;
     var issueid = req.body.issueid;
 
-    connection.query('set @status=?;set @startdate=?;set @enddate=?;set @newmessage=?;set @employeeid=?;set @issueid=?;  call usp_saveissueAction(@status,@startdate,@enddate,@newmessage,@employeeid,@issueid)', [status,startdate,enddate,newmessage,employeeid,issueid], function (err, rows) {
+    connection.query('set @status=?;set @startdate=?;set @enddate=?;set @newmessage=?;set @employeeid=?;set @issueid=?; call usp_saveissueAction(@status,@startdate,@enddate,@newmessage,@employeeid,@issueid)', [status,startdate,enddate,newmessage,employeeid,issueid], function (err, rows) {
         if (err) {
             console.log("Problem with MySQL" + err);
         }
@@ -452,6 +452,7 @@ app.post('/savePTORequestAction', supportCrossOriginScript, function (req, res) 
     var StatusKey = req.body.StatusKey;
     var statuscomments = req.body.statuscomments;
 
+
         connection.query("set @ptorequestDetails=?;set @employeekey=?;set @statuscurrentdate=?;set @approvedstartdate=?;set @ApprovedEndDate=?;set @StatusKey=?;set @statuscomments=?; call usp_SavePTORequestAction(@ptorequestDetails,@employeekey,@statuscurrentdate,@approvedstartdate,@ApprovedEndDate,@StatusKey,@statuscomments)", [ptorequestDetails, employeekey, statuscurrentdate, approvedstartdate, ApprovedEndDate, StatusKey, statuscomments], function (err, rows) {
             if (err) {
                 console.log("Problem with MySQL" + err);
@@ -479,19 +480,170 @@ app.get('/getRequestDetailsbyID', function (req, res) {
     });
 });
 
-app.get('/DuplicateIssues', function (req, res) {
+app.get('/duplicateAction', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
 
-    var DuplicateString = url.parse(req.url, true).query['DuplicateString'];
+    var issueid = url.parse(req.url, true).query['issueid'];
+    var duplicateissueid = url.parse(req.url, true).query['duplicateissueid'];
 
-    connection.query('set @DuplicateString=?;call usp_duplicateIssues(@DuplicateString)', [DuplicateString], function (err, rows) {
+    connection.query('set @issueid=?;set @duplicateissueid=?;call usp_duplicateAction(@issueid,@duplicateissueid)', [issueid,duplicateissueid], function (err, rows) {
         if (err) {
             console.log("Problem with MySQL" + err);
         }
         else {
-            res.end(JSON.stringify(rows[1]));
+            res.end(JSON.stringify(rows[2]));
         }
     });
+});
+
+app.get('/getIssueNumber', function (req, res) {
+
+    var issueid = url.parse(req.url, true).query['issueid'];
+    var employeeid = url.parse(req.url, true).query['employeeid'];
+    
+    connection.query('set@issueid=?; set @employeeid=?; call usp_getIssueNumbers(@issueid,@employeeid)',[issueid,employeeid], function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("prodnames  is  " + JSON.stringify(rows[2]));
+
+            res.end(JSON.stringify(rows[2]));
+        }
+        res.end();
+    });
+
+});
+
+app.options('/getAllIssues', supportCrossOriginScript);
+app.post('/getAllIssues', supportCrossOriginScript, function (req, res) {
+
+    var employeekey = req.body.employeekey;
+    var fromdate = req.body.fromdate;
+    var todate = req.body.todate;
+    var status = req.body.Status;
+
+        connection.query('set @employeekey=?;set @fromdate=?;set @todate=?;set @status=?;call usp_getAllIssues(@employeekey,@fromdate,@todate,@status)', [employeekey, fromdate, todate,status], function (err, rows) {
+            if (err) {
+                console.log("Problem with MySQL" + err);
+            }
+            else {
+
+                res.end(JSON.stringify(rows[4]));
+            }
+        });
+
+});
+
+app.get('/deleteIssues', function (req, res) {
+
+    var deleteKey = url.parse(req.url, true).query['deleteKey'];
+    
+    connection.query('set@deleteKey=?; call usp_deleteIssues(@deleteKey)',[deleteKey], function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("prodnames  is  " + JSON.stringify(rows[1]));
+
+            res.end(JSON.stringify(rows[1]));
+        }
+        res.end();
+    });
+
+});
+
+app.get('/getIssueDetailsforManager', function (req, res) {
+
+    var issueid = url.parse(req.url, true).query['issueid'];
+    
+    connection.query('set@issueid=?; call usp_getIssueDetailsforManager(@issueid)',[issueid], function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("prodnames  is  " + JSON.stringify(rows[1]));
+
+            res.end(JSON.stringify(rows[1]));
+        }
+        res.end();
+    });
+
+});
+
+app.get('/getIssuetype', function (req, res) {
+
+    // var projectid = url.parse(req.url, true).query['projectid'];
+
+    connection.query('call usp_getIssuetype()', function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("prodnames  is  " + JSON.stringify(rows[0]));
+
+            res.end(JSON.stringify(rows[0]));
+        }
+        res.end();
+    });
+
+});
+
+app.get('/getAllEmployees', function (req, res) {
+
+    
+    connection.query('call usp_getAllEmployees()', function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("prodnames  is  " + JSON.stringify(rows[0]));
+
+            res.end(JSON.stringify(rows[0]));
+        }
+        res.end();
+    });
+
+});
+
+app.options('/issueAssign', supportCrossOriginScript);
+app.post('/issueAssign', supportCrossOriginScript, function (req, res) {
+
+    var IssueTypeid = req.body.IssueTypeid;
+    var employee = req.body.employee;
+    var employeeid = req.body.employeeid;
+    var issueid = req.body.issueid;
+
+        connection.query('set @IssueTypeid=?;set @employee=?;set @employeeid=?;set @issueid=?;call usp_issueAssign(@IssueTypeid,@employee,@employeeid,@issueid)', [IssueTypeid, employee, employeeid,issueid], function (err, rows) {
+            if (err) {
+                console.log("Problem with MySQL" + err);
+            }
+            else {
+
+                res.end(JSON.stringify(rows[4]));
+            }
+        });
+
+});
+
+app.options('/submitIssuebyManager', supportCrossOriginScript);
+app.post('/submitIssuebyManager', supportCrossOriginScript, function (req, res) {
+    var issuetype = req.body.issuetype;
+    var employee = req.body.employee;
+    var Description = req.body.Description;
+    var priority = req.body.priority;
+    var employeeid = req.body.employeeid;
+
+        connection.query('set @issuetype=?;set @employee=?;set @Description=?;set @priority=?;set @employeeid=?;call usp_submitIssuebyManager(@issuetype,@employee,@Description,@priority,@employeeid)', [issuetype,employee, Description, priority,employeeid], function (err, rows) {
+            if (err) {
+                console.log("Problem with MySQL" + err);
+            }
+            else {
+
+                res.end(JSON.stringify(rows[5]));
+            }
+        });
+
 });
 
 //////////////////////////////code by aswathy ends//////////////////////////////////////////

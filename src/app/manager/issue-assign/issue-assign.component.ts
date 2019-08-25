@@ -6,22 +6,21 @@ import { ActivatedRoute } from '@angular/router';
 import { DatepickerOptions } from 'ng2-datepicker';
 
 @Component({
-  selector: 'app-issue-action',
-  templateUrl: './issue-action.component.html',
-  styleUrls: ['./issue-action.component.scss']
+  selector: 'app-issue-assign',
+  templateUrl: './issue-assign.component.html',
+  styleUrls: ['./issue-assign.component.scss']
 })
-export class IssueActionComponent implements OnInit {
+export class IssueAssignComponent implements OnInit {
 
   role;
   username;
   employeeid;
   name;
   issueid$;
-  assignedby$;
   messages;
   newmessage;
   HistoryDetails;
-  IssueDetailsforEmp;
+  IssueDetailsforManager;
   assignedbydetails;
   startdate;
   enddate;
@@ -29,6 +28,10 @@ export class IssueActionComponent implements OnInit {
   IssueNumber;
   theCheckbox;
   duplicateissueid;
+  Issuetype;
+  IssueTypeid;
+  AllEmployees;
+  employee;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -78,13 +81,12 @@ export class IssueActionComponent implements OnInit {
   }
 
   constructor(private issueservice:IssueService,private route:ActivatedRoute, private router: Router) {
-    this.route.params.subscribe(params => this.issueid$ = params.issueid);
-    this.route.params.subscribe(params => this.assignedby$ = params.assignedby);
+    this.route.params.subscribe(params => this.issueid$ = params.issue_id);
    }
 
-   issueAction(){
+   issueAssign(){
 
-    if (!(this.IssueDetailsforEmp.status)) {
+    if (!(this.IssueDetailsforManager.status)) {
       alert("Please enter any Status");
       return;
     }
@@ -96,13 +98,9 @@ export class IssueActionComponent implements OnInit {
       alert("Please enterthe fix  end date");
       return;
     }
-    else if(!(this.newmessage)) {
-      alert("Please enter any message");
-      return;
-    }
 
     this.issueservice
-    .issueAction(this.IssueDetailsforEmp.status,this.convert_DT(this.startdate),this.convert_DT(this.enddate),this.newmessage,this.employeeid,this.issueid$)
+    .issueAssign(this.IssueTypeid,this.employee,this.employeeid,this.issueid$)
     .subscribe((data: any[]) => {
       alert("Updated successfully!")
       this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewIssues'] } }]);
@@ -110,7 +108,7 @@ export class IssueActionComponent implements OnInit {
 
    }
    goBack() {
-      this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewIssues'] } }]);
+      this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewIssues'] } }]);
     }
 
     duplicateAction(){
@@ -124,7 +122,7 @@ export class IssueActionComponent implements OnInit {
       .duplicateAction(this.issueid$,this.duplicateissueid)
       .subscribe((data: any[]) => {
         alert("Updated successfully!")
-        this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewIssues'] } }]);
+        this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewIssues'] } }]);
       });
     }
 
@@ -138,11 +136,14 @@ export class IssueActionComponent implements OnInit {
     this.name = profile.name;
 
     this.duplicateissueid="";
+    this.IssueTypeid="";
+    this.employee="";
 
     this.issueservice
-    .getIssueDetailsforEmp(this.issueid$,this.assignedby$)
+    .getIssueDetailsforManager(this.issueid$)
     .subscribe((data: any[]) => {
-      this.IssueDetailsforEmp = data[0];
+      this.IssueDetailsforManager = data[0];
+
     });
 
     this.issueservice
@@ -155,8 +156,20 @@ export class IssueActionComponent implements OnInit {
     .getIssueNumber(this.issueid$,this.employeeid)
     .subscribe((data: any[]) => {
       this.IssueNumber = data;
+
     });
 
+    this.issueservice
+    .getIssuetype()
+    .subscribe((data: any[]) => {
+      this.Issuetype = data;
+    });
+
+    this.issueservice
+    .getAllEmployees()
+    .subscribe((data: any[]) => {
+      this.AllEmployees = data;
+    });
   }
 
 }
