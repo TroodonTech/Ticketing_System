@@ -649,32 +649,32 @@ app.post( '/setUsernamePassword', function (req, res) {
     });
 });
 //sent mail
-var nodemailer = require('nodemailer');
-var sgTransport = require('nodemailer-sendgrid-transport');
+// var nodemailer = require('nodemailer');
+// var sgTransport = require('nodemailer-sendgrid-transport');
 
-app.post('/sendmail', function (req, res) {
-    var options = {
-        service: 'Gmail',
-        auth: {
-            api_key: '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'
-        }
-    };
-    var mailer = nodemailer.createTransport(sgTransport(options));
-    mailer.sendMail(req.body, function (error, info) {
-        pool.getConnection(function (err, connection) {
-            if (err) {
+// app.post('/sendmail', function (req, res) {
+//     var options = {
+//         service: 'Gmail',
+//         auth: {
+//             api_key: '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'
+//         }
+//     };
+//     var mailer = nodemailer.createTransport(sgTransport(options));
+//     mailer.sendMail(req.body, function (error, info) {
+//         pool.getConnection(function (err, connection) {
+//             if (err) {
 
-                console.log("Failed! Connection with Database spicnspan via connection pool failed");
-            } else {
-//           
-                console.log("nodemailer...from server..");
-//           
-            }
-            connection.release();
-        });
-//       
-    });
-});
+//                 console.log("Failed! Connection with Database spicnspan via connection pool failed");
+//             } else {
+// //           
+//                 console.log("nodemailer...from server..");
+// //           
+//             }
+//             connection.release();
+//         });
+// //       
+//     });
+// });
 /////////////emp details
 app.get('/getEmpDetails', function (req, res) {
 
