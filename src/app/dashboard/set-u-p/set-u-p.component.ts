@@ -55,7 +55,7 @@ export class SetUPComponent implements OnInit {
             this.UserService.setLoginCreds(this.username, this.password, this.userroletype_id$)
               .subscribe((data: any[]) => {
                 
-                this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['ViewUser'] } }])
+                this.router.navigate(['ManagerDashboard', { outlets: { ManagerOut: ['ViewUser'] } }])
                   
                     this.userMail =  this.EmailID$;
 

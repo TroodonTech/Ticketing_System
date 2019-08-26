@@ -5,7 +5,10 @@ var express = require('express'),
 var mysql = require("mysql");
 var url = require('url');
 var bodyParser = require('body-parser');
+var multer = require('multer')
+    , upload = multer();
 var jwt = require('jsonwebtoken');
+var nodemailer = require('nodemailer');
 
 var app = express();
 var jwtsecret = '936ee7cf-b0f6-4140-909b-926694c2ac80';
@@ -40,6 +43,43 @@ function supportCrossOriginScript(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Content-Type");
     next();
 }
+
+var pool = mysql.createPool({
+    host: config.db.host,
+    user: config.db.user,
+    password: config.db.password,
+    database: config.db.database,
+    multipleStatements: true,
+    connectionLimit: 250,
+    queueLimit: 0,
+    debug: true
+});
+function DBPoolConnectionTry2(req, res, next) {
+    pool.getConnection(function (err, connection) {
+        if (err) {
+            connection.release();
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+        }
+    });
+}
+function DBPoolConnectionTry(req, res, next) {
+    pool.getConnection(function (err, connection) {
+        if (err) {
+            connection.release();
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+            DBPoolConnectionTry2();
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+        }
+    });
+}
+DBPoolConnectionTry();
+
 
 
 ////////////////////code by aswathy starts/////////////////////////////////////////////////////
@@ -144,15 +184,16 @@ app.post('/submitIssue', supportCrossOriginScript, function (req, res) {
     var descrip = req.body.descrip;
     var priority = req.body.priority;
     var employeeid = req.body.employeeid;
+    var filename1=req.body.filename1;
 
-    connection.query('set @descrip=?;set @priority=?;set @employeeid=?;  call usp_submitissue(@descrip,@priority,@employeeid)', [ descrip, priority,employeeid], function (err, rows) {
+    connection.query('set @descrip=?;set @priority=?;set @employeeid=?;set @filename1=?;  call usp_submitissue(@descrip,@priority,@employeeid,@filename1)', [ descrip, priority,employeeid,filename1], function (err, rows) {
         if (err) {
             console.log("Problem with MySQL" + err);
         }
         else {
-            console.log("NewItem  is  " + JSON.stringify(rows[3]));
+            console.log("NewItem  is  " + JSON.stringify(rows[4]));
 
-            res.end(JSON.stringify(rows[3]));
+            res.end(JSON.stringify(rows[4]));
         }
         res.end();
     });
@@ -594,32 +635,32 @@ app.post( '/setUsernamePassword', function (req, res) {
     });
 });
 //sent mail
-// var nodemailer = require('nodemailer');
-// var sgTransport = require('nodemailer-sendgrid-transport');
+var nodemailer = require('nodemailer');
+var sgTransport = require('nodemailer-sendgrid-transport');
 
-// app.post('/sendmail', function (req, res) {
-//     var options = {
-//         service: 'Gmail',
-//         auth: {
-//             api_key: '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'
-//         }
-//     };
-//     var mailer = nodemailer.createTransport(sgTransport(options));
-//     mailer.sendMail(req.body, function (error, info) {
-//         pool.getConnection(function (err, connection) {
-//             if (err) {
+app.post('/sendmail', function (req, res) {
+    var options = {
+        service: 'Gmail',
+        auth: {
+            api_key: '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'
+        }
+    };
+    var mailer = nodemailer.createTransport(sgTransport(options));
+    mailer.sendMail(req.body, function (error, info) {
+        pool.getConnection(function (err, connection) {
+            if (err) {
 
-//                 console.log("Failed! Connection with Database spicnspan via connection pool failed");
-//             } else {
-// //           
-//                 console.log("nodemailer...from server..");
-// //           
-//             }
-//             connection.release();
-//         });
-// //       
-//     });
-// });
+                console.log("Failed! Connection with Database spicnspan via connection pool failed");
+            } else {
+//           
+                console.log("nodemailer...from server..");
+//           
+            }
+            connection.release();
+        });
+//       
+    });
+});
 /////////////emp details
 app.get('/getEmpDetails', function (req, res) {
 
@@ -636,4 +677,48 @@ app.get('/getEmpDetails', function (req, res) {
     });
 
 });
+
+
+ 
+
+
+
+let imgstorage1 = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, '../dist/imageupload');
+    },
+    filename: (req, file, cb) => {
+
+        // var idimageupload = url.parse(req.url, true).query['imgkey'];
+        
+        var filename = file.originalname;
+
+        // console.log(" SSSSSSSSSSSSSSSSSS fid fdesc fname are  " + formtypeId + " " + formDesc + " " + filename + " " + multerUploadPath);
+
+
+
+        console.log(file.name);
+
+        cb(null, file.originalname);
+    }
+});
+
+let imgupload1 = multer({ storage: imgstorage1 });
+
+
+app.post( '/imgupload', imgupload1.single('photo'), function (req, res) {
+    if (!req.file) {
+        console.log("No file received");
+        return res.send({
+            success: false
+        });
+
+    } else {
+        console.log('file received');
+        return res.send({
+            success: true
+        })
+    }
+});
+
 //////////////////////////////code by raima ends//////////////////////////////////////////
