@@ -61,44 +61,6 @@ export class ViewPtoRequestComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private PtorequestService: PtorequestService) { }
-
-  ngOnInit() {
-
-    var token = localStorage.getItem('token');
-    var encodedProfile = token.split('.')[1];
-    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
-    this.role = profile.role;
-    this.username = profile.username;
-    this.employeeid = profile.employeeid;
-    this.name = profile.name;
-
-    this.fromdate = new Date(Date.now());
-    this.todate = new Date(Date.now());
-    this.ptoStatus = "";
-
-    this.fromdate = this.convert_DT(this.fromdate);
-    this.todate = this.convert_DT(this.todate);
-
-    var pstatus = null;
-
-    this.vpto = {
-      fromdate: this.fromdate,
-      todate: this.todate,
-      ptoStatus: pstatus,
-      employeekey: this.employeeid
-    };
-    // this.PeopleServiceService.getRequestdetailsforManager(this.employeekey, this.OrganizationID)
-    //   .subscribe((data) => {
-    //     this.requestdetails = data;
-    //   });
-
-    this.PtorequestService.getPTORequestdetailsforManager(this.vpto)
-      .subscribe((data) => {
-        this.requestdetails = data;
-      });
-
-  }
   public convert_DT(str) {
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
@@ -140,4 +102,39 @@ export class ViewPtoRequestComponent implements OnInit {
     }
   }
 
+
+  constructor(private PtorequestService: PtorequestService) { }
+
+  ngOnInit() {
+
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.username = profile.username;
+    this.employeeid = profile.employeeid;
+    this.name = profile.name;
+
+    this.fromdate = new Date(Date.now());
+    this.todate = new Date(Date.now());
+    this.ptoStatus = "";
+
+    this.fromdate = this.convert_DT(this.fromdate);
+    this.todate = this.convert_DT(this.todate);
+
+    var pstatus = null;
+
+    this.vpto = {
+      fromdate: this.fromdate,
+      todate: this.todate,
+      ptoStatus: pstatus,
+      employeekey: this.employeeid
+    };
+
+    this.PtorequestService.getPTORequestdetailsforManager(this.vpto)
+      .subscribe((data) => {
+        this.requestdetails = data;
+      });
+
+  }
 }
