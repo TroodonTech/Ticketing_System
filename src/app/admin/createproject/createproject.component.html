@@ -1,1 +1,32 @@
-<p>createproject works!</p>
+
+<div style="padding-left: 9rem;padding-right: 9rem; padding-top:4rem !important; padding-bottom:0rem !important;">
+    <div style=" padding-top:5rem !important; padding-bottom:5rem !important;"class="row bg-info col-md-12">
+        <div class="row col-md-12 ">
+            <h4 style="margin-left: 35%;font-size: 2.5rem;color: #174a5e;"><strong>CREATE PROJECT</strong></h4>
+          </div><br>
+    
+      <div  style=" padding-top:2rem !important; "class="col-md-6">
+        <div class="form-group">
+          <label>Project Name*</label>
+          <input type="text" style="width: 76%;max-width: 100%;" name="FirstName" class="form-control  col-sm-9 col-md-9 col-lg-9"
+             maxlength="19"  [(ngModel)]="ProjectName">
+        </div>
+        <div class="form-group">
+          <label>Project Description</label>
+          <textarea style="width: 76% !important;max-width: 100%;" class="form-control rounded-0  col-sm-9 col-md-9 col-lg-9"
+            maxlength="85" [(ngModel)]="Projectdesc"  id="exampleFormControlTextarea1" rows="5"></textarea> </div>
+        <!-- </form> -->
+    
+  
+      </div>
+      
+      <BR>
+        <div class="row col-md-12">
+            <!-- <div> -->
+            <button type="button" style="margin-left: 42%;" class="btn btn-success" (click)="createProject();"><b>CREATE
+                ADD</b></button>
+            <!-- </div> -->
+          </div>
+  <BR>
+  </div>
+  </div>

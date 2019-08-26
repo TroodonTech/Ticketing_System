@@ -71,7 +71,7 @@ export class CreateUserManagerComponent implements OnInit {
       alert("Successfull");
       var EmailID= this.EmailID;
       var userroletype_id=this.UserRoleType
-      this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['SetUP',userroletype_id,EmailID] } }]);
+      this.router.navigate(['/AdminDashBoard', { outlets: { AdminOut: ['SetUP',userroletype_id,EmailID] } }]);
       // this.router.navigate(['ManagerDashboard', { outlets: { ManagerOut: ['SetUP'] } }]);
     });
   }

@@ -55,7 +55,7 @@ export class SetUPComponent implements OnInit {
             this.UserService.setLoginCreds(this.username, this.password, this.userroletype_id$)
               .subscribe((data: any[]) => {
                 
-                this.router.navigate(['ManagerDashboard', { outlets: { ManagerOut: ['ViewUser'] } }])
+                this.router.navigate(['ManagerDashBoard', { outlets: { ManagerOut: ['ViewUser'] } }])
                   
                     this.userMail =  this.EmailID$;
 
@@ -88,10 +88,10 @@ export class SetUPComponent implements OnInit {
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
     this.userMail =  this.EmailID$;
-    this.role = profile.role;
+  
     this.username = profile.username;
     this.employeeid = profile.employeeid;
-    this.name = profile.name;
+    // this.name = profile.name;
 
     // this.username = this.str$;
   }

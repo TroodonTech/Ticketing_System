@@ -14,8 +14,8 @@
             <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
             User<span class="caret"></span></a>
             <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
-              <a class="dropdown-item" [routerLink]="[{outlets:{AdminOut:['ReportIssue']}}]"><b>Create User</b></a>
-              <a class="dropdown-item" [routerLink]="[{outlets:{AdminOut:['ViewIssues']}}]"><b>View User</b></a>
+              <a class="dropdown-item" [routerLink]="[{outlets:{AdminOut:['CreateUser']}}]"><b>Create User</b></a>
+              <a class="dropdown-item" [routerLink]="[{outlets:{AdminOut:['ViewUser']}}]"><b>View User</b></a>
             </div> 
           </li>
 
@@ -24,7 +24,7 @@
             <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
             Project<span class="caret"></span></a>
             <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
-              <a class="dropdown-item" [routerLink]="[{outlets:{AdminOut:['ReportIssue']}}]"><b>Add Project</b></a>
+              <a class="dropdown-item" [routerLink]="[{outlets:{AdminOut:['CreateProject']}}]"><b>Add Project</b></a>
               <a class="dropdown-item" [routerLink]="[{outlets:{AdminOut:['ViewIssues']}}]"><b>View Projects</b></a>
             </div> 
           </li>
