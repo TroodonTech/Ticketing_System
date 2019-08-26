@@ -4,12 +4,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CreateprojectComponent } from '../../admin/createproject/createproject.component';
+import { EditUserComponent } from '../../admin/edit-user/edit-user.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: CreateprojectComponent
+    component: EditUserComponent
   }
   
 ];
@@ -17,10 +17,9 @@ const routes: Routes = [
 
 
 @NgModule({
-  declarations: [CreateprojectComponent],
+  declarations: [EditUserComponent],
   imports: [
     CommonModule,
-    
     HttpClientModule,
     MDBBootstrapModule,
     FormsModule,
@@ -28,4 +27,4 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ]
 })
-export class CreateprojectModule { }
+export class EditUserModule { }

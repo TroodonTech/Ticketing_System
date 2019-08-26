@@ -50,13 +50,18 @@ export class SetUPComponent implements OnInit {
       this.UserService.checkUserName(this.username, this.userroletype_id$, )
         .subscribe((data: any[]) => {
           if (data[0].result == 'Exists') {
+            debugger;
             alert("User Name already exists");
           } else {
             this.UserService.setLoginCreds(this.username, this.password, this.userroletype_id$)
               .subscribe((data: any[]) => {
-                
-                this.router.navigate(['ManagerDashBoard', { outlets: { ManagerOut: ['ViewUser'] } }])
-                  
+                if(this.employeeid==3){
+                this.router.navigate(['ManagerDashBoard', { outlets: { ManagerOut: ['ViewUser'] } }]);
+              }
+        
+              else{
+                this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['ViewUser'] } }]);
+              }
                     this.userMail =  this.EmailID$;
 
                     if (this.managerMail == null) {

@@ -6,11 +6,12 @@ import { ViewPtoRequestComponent } from './view-pto-request/view-pto-request.com
 import { IssueActionComponent } from './issue-action/issue-action.component';
 import { EditPtoRequestComponent } from './edit-pto-request/edit-pto-request.component';
 import { PtoRequestDetailsComponent } from './pto-request-details/pto-request-details.component';
+import { RequestComponent } from './request/request.component';
 
 
 
 @NgModule({
-  declarations: [ViewIssuesComponent, PtoRequestComponent, ViewPtoRequestComponent, IssueActionComponent, EditPtoRequestComponent, PtoRequestDetailsComponent],
+  declarations: [ViewIssuesComponent, PtoRequestComponent, ViewPtoRequestComponent, IssueActionComponent, EditPtoRequestComponent, PtoRequestDetailsComponent, RequestComponent],
   imports: [
     CommonModule
   ]

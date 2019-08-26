@@ -15,6 +15,8 @@ export class ViewUserComponent implements OnInit {
   address;
   mailID;
   employeedetailstable;
+  employee_id;
+  employeeid;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -33,10 +35,25 @@ export class ViewUserComponent implements OnInit {
   }
 
   constructor(private route: ActivatedRoute, private UserService: UserService, private router: Router) {}
-  edit()
-  { this.router.navigate(['/AdminDashBoard', { outlets: { AdminOut: ['EditUser'] } }]);}
-  delete(){
-    
+  edit(key){
+    this.employee_id = key;
+    this.router.navigate(['/AdminDashboard', { outlets: { AdminOut: ['EditUser',this.employee_id] } }]);
+  }
+  deletePass(key) {
+    debugger;
+    this.employee_id = key;
+
+  }
+  deleteRequest() {
+    debugger
+    this.UserService.deleteUser(this.employee_id)
+      .subscribe((data) => {
+        alert('Deleted Successfully');
+        this.UserService.getEmpDetails(this.employeeid)
+      .subscribe((data: any[]) => {
+        this.employeedetailstable = data;
+      });
+      });
   }
 
   ngOnInit() {
@@ -49,7 +66,8 @@ export class ViewUserComponent implements OnInit {
     this.phonenumber = profile.phonenumber;
     this.address = profile.address;
     this.mailID = profile.mailID;
-    this.UserService.getEmpDetails()
+    this.employeeid = profile.employeeid;
+    this.UserService.getEmpDetails(this.employeeid)
       .subscribe((data: any[]) => {
         this.employeedetailstable = data;
       });

@@ -44,41 +44,7 @@ function supportCrossOriginScript(req, res, next) {
     next();
 }
 
-var pool = mysql.createPool({
-    host: config.db.host,
-    user: config.db.user,
-    password: config.db.password,
-    database: config.db.database,
-    multipleStatements: true,
-    connectionLimit: 250,
-    queueLimit: 0,
-    debug: true
-});
-function DBPoolConnectionTry2(req, res, next) {
-    pool.getConnection(function (err, connection) {
-        if (err) {
-            connection.release();
-            console.log("Failed! Connection with Database spicnspan via connection pool failed");
 
-        }
-        else {
-            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-        }
-    });
-}
-function DBPoolConnectionTry(req, res, next) {
-    pool.getConnection(function (err, connection) {
-        if (err) {
-            connection.release();
-            console.log("Failed! Connection with Database spicnspan via connection pool failed");
-            DBPoolConnectionTry2();
-        }
-        else {
-            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-        }
-    });
-}
-DBPoolConnectionTry();
 
 
 
@@ -726,6 +692,8 @@ app.get('/getuserroletypeadmin', function (req, res) {
     });
 
 });
+
+
 //add employee
 app.post('/addemployee', supportCrossOriginScript, function (req, res) {
     var FirstName = req.body.FirstName;
@@ -749,6 +717,27 @@ app.post('/addemployee', supportCrossOriginScript, function (req, res) {
     });
 
 });
+
+
+/////////////////delete employee
+app.get('/deleteuser', function (req, res) {
+
+    var deleteRequestKey = url.parse(req.url, true).query['deleteRequestKey'];
+
+            connection.query('set @deleteRequestKey=?;call usp_deleteuser(@deleteRequestKey)', [deleteRequestKey], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+
+                    res.end(JSON.stringify(rows[1]));
+
+
+                }
+            });
+});
+
 ////add project
 app.post('/addproject', supportCrossOriginScript, function (req, res) {
     var ProjectName = req.body.ProjectName;
@@ -768,19 +757,15 @@ app.post('/addproject', supportCrossOriginScript, function (req, res) {
     });
 
 });
+
+
 //check username
 app.get( '/checkUsername', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     var username = url.parse(req.url, true).query['username'];
     var userroletype_id = url.parse(req.url, true).query['userroletype_id'];
     // console.log(username);
-    pool.getConnection(function (err, connection) {
-        if (err) {
 
-            console.log("Failed! Connection with Database spicnspan via connection pool failed");
-        }
-        else {
-            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
             connection.query('set @username=?; set @userroletype_id=?; call usp_checkUsername(@username,@userroletype_id)', [username, userroletype_id], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
@@ -790,10 +775,10 @@ app.get( '/checkUsername', function (req, res) {
                     res.end(JSON.stringify(rows[2]));
                 }
             });
-        }
-        connection.release();
-    });
+
 });
+
+
 //set username and password
 app.post( '/setUsernamePassword', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -801,13 +786,7 @@ app.post( '/setUsernamePassword', function (req, res) {
     var password = req.body.password;
     var userroletype_id = req.body.userroletype_id;
     
-    pool.getConnection(function (err, connection) {
-        if (err) {
 
-            console.log("Failed! Connection with Database spicnspan via connection pool failed");
-        }
-        else {
-            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
             connection.query('set @username=?; set @password=?; set @userroletype_id=?;call usp_setUsernamePassword(@username,@password,@userroletype_id)', [username, password, userroletype_id], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
@@ -817,10 +796,10 @@ app.post( '/setUsernamePassword', function (req, res) {
                     res.end(JSON.stringify(rows[3]));
                 }
             });
-        }
-        connection.release();
-    });
+
 });
+
+
 //sent mail
 var nodemailer = require('nodemailer');
 var sgTransport = require('nodemailer-sendgrid-transport');
@@ -834,31 +813,23 @@ app.post('/sendmail', function (req, res) {
     };
     var mailer = nodemailer.createTransport(sgTransport(options));
     mailer.sendMail(req.body, function (error, info) {
-        pool.getConnection(function (err, connection) {
-            if (err) {
-
-                console.log("Failed! Connection with Database spicnspan via connection pool failed");
-            } else {
-//           
-                console.log("nodemailer...from server..");
-//           
-            }
-            connection.release();
-        });
-//       
+           
     });
 });
+
+
 /////////////emp details
 app.get('/getEmpDetails', function (req, res) {
+    var employeeid = url.parse(req.url, true).query['employeeid'];
 
-    connection.query('call usp_getEmpDetails()', function (err, rows) {
+    connection.query('set @employeeid=?; call usp_getEmpDetails(@employeeid)', [employeeid], function (err, rows) {
         if (err) {
             console.log("Problem with MySQL" + err);
         }
         else {
-            console.log("addnamess  is  " + JSON.stringify(rows[0]));
+            console.log("addnamess  is  " + JSON.stringify(rows[1]));
 
-            res.end(JSON.stringify(rows[0]));
+            res.end(JSON.stringify(rows[1]));
         }
         res.end();
     });
@@ -907,6 +878,8 @@ app.post( '/imgupload', imgupload1.single('photo'), function (req, res) {
         })
     }
 });
+
+
 ////////////////get project details
 
 app.get('/getProjectDetails', function (req, res) {
@@ -922,6 +895,31 @@ app.get('/getProjectDetails', function (req, res) {
         }
         res.end();
     });
+
+});
+
+
+//////////////edit user
+app.post('/Edituser', supportCrossOriginScript, function (req, res) {
+
+    var FirstName = req.body.FirstName;
+    var LastName = req.body.LastName;
+    var MiddleName = req.body.MiddleName;
+    var Address = req.body.Address;
+    var Phone = req.body.Phone;
+    var EmailID = req.body.EmailID;
+    var UserRoleType = req.body.UserRoleType;
+    var employee_id = req.body.employee_id;
+
+            connection.query("set @FirstName=?;set @LastName=?;set @MiddleName=?;set @Address=?;set @Phone=?;set @EmailID=?;set @UserRoleType=?;set @employee_id=?;call usp_Edituser(@FirstName,@LastName,@MiddleName,@Address,@Phone,@EmailID,@UserRoleType,@employee_id)", [FirstName, LastName, MiddleName, Address, Phone, EmailID, UserRoleType,employee_id], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[8]));
+                }
+            });
 
 });
 //////////////////////////////code by raima ends//////////////////////////////////////////

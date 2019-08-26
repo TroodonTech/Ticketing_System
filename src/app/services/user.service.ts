@@ -13,7 +13,7 @@ export class UserService {
   }
   getuserroletypeadmin(){
     return this.
-      http.get('http://localhost:3000/getuserroletype');
+      http.get('http://localhost:3000/getuserroletypeadmin');
   }
   insertion(FirstName, LastName, MiddleName, Address, Phone, EmailID,UserRoleType){
     const url='http://localhost:3000/addemployee'
@@ -53,13 +53,32 @@ export class UserService {
     };
     return this.http.post(url, obj);
   }
-  getEmpDetails(){
+  getEmpDetails(employeeid){
     return this.
-    http.get('http://localhost:3000/getEmpDetails');
+    http.get('http://localhost:3000/getEmpDetails?employeeid=' + employeeid);
 }
 
 getProjectDetails(){
   return this.
   http.get('http://localhost:3000/getEmpDetails');
+}
+deleteUser(deleteRequestKey) {
+  return this
+    .http
+    .get('http://localhost:3000/deleteuser?deleteRequestKey=' + deleteRequestKey);
+}
+Edituser(FirstName, LastName,MiddleName, Address, Phone, EmailID,UserRoleType ,employee_id$) {
+  const url = 'http://localhost:3000/Edituser'
+  const obj = {
+    FirstName: FirstName,
+    LastName: LastName,
+    MiddleName: MiddleName,
+    Address: Address,
+    Phone: Phone,
+    EmailID: EmailID,
+    UserRoleType: UserRoleType,
+    employee_id: employee_id$
+  };
+  return this.http.post(url, obj);
 }
 }

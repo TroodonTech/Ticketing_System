@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminDashboardComponent } from './admin-dashboard.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import{SetUPModule} from '../../set-u-p/set-u-p.module'
+import{ } from '../../../admin/edit-user/edit-user.module'
 
 const routes: Routes = [
   {
@@ -21,19 +21,29 @@ const routes: Routes = [
         loadChildren: '../../../admin/create-user/create-user.module#CreateUserModule'
       },
       {
-        path: 'CreateProject',
-        outlet: 'AdminOut',
-        loadChildren: '../../../admin/createproject/createproject.module#CreateprojectModule'
-      },
-      {
         path: 'ViewUser',
         outlet: 'AdminOut',
         loadChildren: '../../../admin/view-user/view-user.module#ViewUserModule'
       },
       {
-        path: 'SetUP',
+        path: 'EditUser/:employee_id',
+        outlet: 'AdminOut',
+        loadChildren: '../../../admin/edit-user/edit-user.module#EditUserModule'
+      },
+      {
+        path: 'SetUP/:userroletype_id/:EmailID',
         outlet: 'AdminOut',
         loadChildren: '../../set-u-p/set-u-p.module#SetUPModule'
+      },
+      {
+        path: 'CreateProject',
+        outlet: 'AdminOut',
+        loadChildren: '../../../admin/createproject/createproject.module#CreateprojectModule'
+      },
+      {
+        path: 'ViewProject',
+        outlet: 'AdminOut',
+        loadChildren: '../../../admin/viewproject/viewproject.module#ViewprojectModule'
       }
     ]
   }

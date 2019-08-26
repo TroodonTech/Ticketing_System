@@ -15,6 +15,7 @@ export class ViewUserManagerComponent implements OnInit {
   address;
   mailID;
   employeedetailstable;
+  employeeid;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -49,7 +50,8 @@ export class ViewUserManagerComponent implements OnInit {
     this.phonenumber = profile.phonenumber;
     this.address = profile.address;
     this.mailID = profile.mailID;
-    this.UserService.getEmpDetails()
+    this.employeeid = profile.employeeid;
+    this.UserService.getEmpDetails(this.employeeid)
       .subscribe((data: any[]) => {
         this.employeedetailstable = data;
       });

@@ -69,8 +69,8 @@ export class CreateUserComponent implements OnInit {
     .subscribe((data: any[]) => {
       alert("Successfull");
       var EmailID= this.EmailID;
-      var userroletype_id=this.UserRoleType
-      this.router.navigate(['/AdminDashBoard', { outlets: { AdminOut: ['SetUP',userroletype_id,EmailID] } }]);
+      var userroletype_id=this.UserRoleType;
+      this.router.navigate(['/AdminDashboard', { outlets: { AdminOut: ['SetUP',userroletype_id,EmailID] } }]);
       // this.router.navigate(['ManagerDashboard', { outlets: { ManagerOut: ['SetUP'] } }]);
     });
   }
