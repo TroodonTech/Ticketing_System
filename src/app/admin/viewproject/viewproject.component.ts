@@ -1,20 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import{UserService} from '../../services/user.service'
+import{UserService} from '../../services/user.service';
 
 @Component({
-  selector: 'app-view-user',
-  templateUrl: './view-user.component.html',
-  styleUrls: ['./view-user.component.scss']
+  selector: 'app-viewproject',
+  templateUrl: './viewproject.component.html',
+  styleUrls: ['./viewproject.component.scss']
 })
-export class ViewUserComponent implements OnInit {
-  userrolename;
-  firstname;
-  lastname;
-  phonenumber;
-  address;
-  mailID;
-  employeedetailstable;
+export class ViewprojectComponent implements OnInit {
+
+  projectname;
+  projectdesc;
+  projectdetailstable;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -34,7 +31,7 @@ export class ViewUserComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private UserService: UserService, private router: Router) {}
   edit()
-  { this.router.navigate(['/AdminDashBoard', { outlets: { AdminOut: ['EditUser'] } }]);}
+  { this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['EditUser'] } }]);}
   delete(){
     
   }
@@ -43,15 +40,12 @@ export class ViewUserComponent implements OnInit {
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
-    this.userrolename = profile.userrolename;
-    this.firstname = profile.firstname;
-    this.lastname = profile.lastname;
-    this.phonenumber = profile.phonenumber;
-    this.address = profile.address;
-    this.mailID = profile.mailID;
-    this.UserService.getEmpDetails()
+    this.projectname = profile.projectname;
+    this.projectdesc = profile.projectdesc;
+    
+    this.UserService.getProjectDetails()
       .subscribe((data: any[]) => {
-        this.employeedetailstable = data;
+        this.projectdetailstable = data;
       });
   }
 

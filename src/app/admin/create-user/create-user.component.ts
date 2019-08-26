@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from "@angular/router";
+import{UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-create-user',
@@ -6,10 +8,118 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-user.component.scss']
 })
 export class CreateUserComponent implements OnInit {
+  UserRoleType;
+  FirstName: String;
+  LastName: String;
+  MiddleName: String;
+  Address: any;
+  Phone: any;
+  EmailID: any;
+  roleTypeKey = 0;
+  role: String;
+  name: String;
+  RoleTypeList;
+  employeeid;
+  username;
+  checkclient;
 
-  constructor() { }
 
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
+  
+
+  constructor(private route: ActivatedRoute, private UserService: UserService, private router: Router) { }
+
+  createEmployee() {
+    
+    if (!(this.UserRoleType)) {
+      alert("User Role Type is not provided !");
+      return;
+    }
+  
+    if (!(this.FirstName )|| !this.FirstName.trim()) {
+      alert("First Name is not provided !");
+      return;
+    }
+    if (!(this.LastName) || !this.LastName.trim()) {
+      alert("Last Name is not provided !");
+      return;
+    }
+  
+    if (!(this.Phone) || !this.Phone.trim()) {
+      alert("Primary Phone is not provided !");
+      return;
+    }
+    this.UserService.insertion(this.FirstName, this.LastName, this.MiddleName, this.Address, this.Phone, this.EmailID,this.UserRoleType)
+    .subscribe((data: any[]) => {
+      alert("Successfull");
+      var EmailID= this.EmailID;
+      var userroletype_id=this.UserRoleType
+      this.router.navigate(['/AdminDashBoard', { outlets: { AdminOut: ['SetUP',userroletype_id,EmailID] } }]);
+      // this.router.navigate(['ManagerDashboard', { outlets: { ManagerOut: ['SetUP'] } }]);
+    });
+  }
+  checkforclient(){
+    debugger;
+    if(this.UserRoleType=='Client'){
+      this.checkclient=true;
+    }
+  }
+  
   ngOnInit() {
+
+    this.UserRoleType="";
+    this.checkclient=false;
+
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.username = profile.username;
+    this.employeeid = profile.employeeid;
+    this.name = profile.name;
+
+    this.UserService
+    .getuserroletypeadmin()
+    .subscribe((data: any[]) => {
+      this.RoleTypeList = data;
+      console.log(data);
+    });
+    
+    // this.loginService.getProductNames()
+    // .subscribe((data: any[]) => {
+    //   this.product = data;
+    // });
+  }
+  numberValid(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
+
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+  charValidation(event: any) {
+    const patternChar = /[a-zA-Z ]/;
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !patternChar.test(inputChar)) {
+      event.preventDefault();
+    }
   }
 
 }

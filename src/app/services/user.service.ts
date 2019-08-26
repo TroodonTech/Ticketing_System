@@ -11,6 +11,10 @@ export class UserService {
     return this.
       http.get('http://localhost:3000/getuserroletype');
   }
+  getuserroletypeadmin(){
+    return this.
+      http.get('http://localhost:3000/getuserroletype');
+  }
   insertion(FirstName, LastName, MiddleName, Address, Phone, EmailID,UserRoleType){
     const url='http://localhost:3000/addemployee'
     const obj={
@@ -21,6 +25,16 @@ export class UserService {
       Phone:Phone,
       EmailID:EmailID,
       UserRoleType:UserRoleType
+    }
+    return this
+    .http.post(url,obj);
+  }
+  insert(ProjectName, Projectdesc){
+    const url='http://localhost:3000/addproject'
+    const obj={
+      ProjectName:ProjectName,
+      Projectdesc:Projectdesc,
+      
     }
     return this
     .http.post(url,obj);
@@ -42,5 +56,10 @@ export class UserService {
   getEmpDetails(){
     return this.
     http.get('http://localhost:3000/getEmpDetails');
+}
+
+getProjectDetails(){
+  return this.
+  http.get('http://localhost:3000/getEmpDetails');
 }
 }

@@ -750,10 +750,26 @@ app.get('/generateIssueReport', function (req, res) {
 
 ////////////////////code by raima starts/////////////////////////////////////////////////////
 
-//get user role type
+//get user role type manager
 app.get('/getuserroletype', function (req, res) {
 
     connection.query('call usp_getuserroletype()', function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("addnamess  is  " + JSON.stringify(rows[0]));
+
+            res.end(JSON.stringify(rows[0]));
+        }
+        res.end();
+    });
+
+});
+//get user role type admin
+app.get('/getuserroletypeadmin', function (req, res) {
+
+    connection.query('call usp_getuserroletypeadmin()', function (err, rows) {
         if (err) {
             console.log("Problem with MySQL" + err);
         }
@@ -784,6 +800,25 @@ app.post('/addemployee', supportCrossOriginScript, function (req, res) {
             console.log("NewItem  is  " + JSON.stringify(rows[7]));
 
             res.end(JSON.stringify(rows[7]));
+        }
+        res.end();
+    });
+
+});
+////add project
+app.post('/addproject', supportCrossOriginScript, function (req, res) {
+    var ProjectName = req.body.ProjectName;
+    var LastName = req.body.LastName;
+   
+
+    connection.query('set @ProjectName=?;set @Projectdesc=?; call usp_addproject(@ProjectName,@Projectdesc)', [ProjectName, Projectdesc], function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("NewItem  is  " + JSON.stringify(rows[2]));
+
+            res.end(JSON.stringify(rows[2]));
         }
         res.end();
     });
@@ -888,7 +923,7 @@ app.get('/getEmpDetails', function (req, res) {
 
 
  
-
+//////////////////////image upload
 
 
 let imgstorage1 = multer.diskStorage({
@@ -928,5 +963,21 @@ app.post( '/imgupload', imgupload1.single('photo'), function (req, res) {
         })
     }
 });
+////////////////get project details
 
+app.get('/getProjectDetails', function (req, res) {
+
+    connection.query('call usp_getProjectDetails()', function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("addnamess  is  " + JSON.stringify(rows[0]));
+
+            res.end(JSON.stringify(rows[0]));
+        }
+        res.end();
+    });
+
+});
 //////////////////////////////code by raima ends//////////////////////////////////////////
