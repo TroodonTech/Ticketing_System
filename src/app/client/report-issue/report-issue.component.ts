@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from "@angular/router";
 import { IssueService } from "../../services/issue.service";
 import { FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
-
+const url = 'http://localhost:3000/api/imgupload';
 @Component({
   selector: 'app-report-issue',
   templateUrl: './report-issue.component.html',
@@ -20,6 +20,7 @@ export class ReportIssueComponent implements OnInit {
   getpriorityList;
   priority;
   Description;
+  filename1;
 
 
   url_base64_decode(str) {
@@ -72,7 +73,7 @@ export class ReportIssueComponent implements OnInit {
       alert("Please choose Priority");
       return;
     }
-    this.issueservice.submitIssue(this.Description,this.priority,this.employeeid)
+    this.issueservice.submitIssue(this.Description,this.priority,this.employeeid,this.filename1)
     .subscribe((data: any[]) => {
       alert('Issue Reported Successfully!');
       
@@ -93,7 +94,7 @@ export class ReportIssueComponent implements OnInit {
     this.username = profile.username;
     this.employeeid = profile.employeeid;
     this.name = profile.name;
-
+    
     this.issuetype="";
     this.priority="";
 
@@ -108,11 +109,28 @@ export class ReportIssueComponent implements OnInit {
       this.getpriorityList = data;
     });
 
-    // this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
-    // this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-    //   console.log('ImageUpload:uploaded:', item, status, response);
-    //   alert('File uploaded successfully');
-    // };
+    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+      console.log('ImageUpload:uploaded:', item, status, response);
+      alert('File uploaded successfully');
+    };
+  }
+  ImgUpload() {
+    // if (!(this.profile)) {
+    //   alert("Please choose Document Folder");
+    //   return;
+    // }
+  
+    this.uploader.onBeforeUploadItem = (item) => {
+      item.withCredentials = false;
+      item.url =url ;
+    }
+    this.uploader.uploadAll();
+  
+  
+  }
+  getFileDetails(event){
+    this.filename1= event.file.name;
   }
 
 }

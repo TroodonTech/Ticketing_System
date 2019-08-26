@@ -33,12 +33,12 @@
         </div>
         <div class="form-group" style="margin-top: 1.6rem">
             <h5 style="text-align:right" class="col-md-4"><label>Upload Image </label></h5>
-            <input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
+            <input type="file" (change)="getFileDetails($event)" name="photo" ng2FileSelect [uploader]="uploader" />
         </div>
       </div>
       <br>
       <div class="row col-md-12" style="margin-left: 42%">
-        <a style="color:white !important" class="btn btn-success" (click)="ReportIssue()"><b>SUBMIT</b>
+        <a style="color:white !important" class="btn btn-success" (click)="ReportIssue"><b>SUBMIT</b>
         </a>
       </div>
     </div>
