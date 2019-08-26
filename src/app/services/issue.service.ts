@@ -68,9 +68,9 @@ export class IssueService {
 
     return this.http.post(url, obj);
   }
-  getIssuesforEmp(employeeid){
+  getIssuesforEmp(employeeid,pageno,items_perpage){
     return this.
-    http.get('http://localhost:3000/getIssuesforEmp?employeeid=' +employeeid);
+    http.get('http://localhost:3000/getIssuesforEmp?employeeid=' +employeeid+ '&pageno=' + pageno + '&items_perpage=' + items_perpage);
   }
 
   getIssueDetailsforEmp(issueid,assignedby){
