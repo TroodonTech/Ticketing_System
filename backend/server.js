@@ -375,18 +375,18 @@ app.get('/getRequestDetailsforEmployee', function (req, res) {
 
     var ptorequestDetailsKey = url.parse(req.url, true).query['ptorequestID'];
 
-            connection.query('set @ptorequestDetailsKey=?;call usp_getRequestDetailsbyIDforEmployee(@ptorequestDetailsKey)', [ptorequestDetailsKey], function (err, rows) {
-                if (err) {
-                    console.log("Problem with MySQL" + err);
-                }
-                else {
+        connection.query('set @ptorequestDetailsKey=?;call usp_getRequestDetailsbyIDforEmployee(@ptorequestDetailsKey)', [ptorequestDetailsKey], function (err, rows) {
+            if (err) {
+                console.log("Problem with MySQL" + err);
+            }
+            else {
 
 
-                    res.end(JSON.stringify(rows[1]));
+                res.end(JSON.stringify(rows[1]));
 
 
-                }
-            });
+            }
+    });
 });
 
 app.options('/setEditedRequest', supportCrossOriginScript);
@@ -685,6 +685,62 @@ app.post('/submitIssuebyManager', supportCrossOriginScript, function (req, res) 
             }
         });
 
+});
+
+app.get('/searchResultOfIssue', function (req, res) {
+
+    var value = url.parse(req.url, true).query['value'];
+
+        connection.query('set @value=?;call usp_searchResultOfIssue(@value)', [value], function (err, rows) {
+            if (err) {
+                console.log("Problem with MySQL" + err);
+            }
+            else {
+
+
+                res.end(JSON.stringify(rows[1]));
+
+
+            }
+        });
+});
+
+app.get('/changetoRequest', function (req, res) {
+
+    var issueid = url.parse(req.url, true).query['issueid'];
+    var employeeid = url.parse(req.url, true).query['employeeid'];
+
+        connection.query('set @issueid=?; set@employeeid=?; call usp_changetoRequest(@issueid,@employeeid)', [issueid,employeeid], function (err, rows) {
+            if (err) {
+                console.log("Problem with MySQL" + err);
+            }
+            else {
+
+
+                res.end(JSON.stringify(rows[2]));
+
+
+            }
+        });
+});
+
+app.get('/generateIssueReport', function (req, res) {
+
+    var fromdate = url.parse(req.url, true).query['fromdate'];
+    var todate = url.parse(req.url, true).query['todate'];
+
+        connection.query('set @fromdate=?; set@todate=?; call usp_getIssueReport(@fromdate,@todate)', [fromdate,todate], function (err, rows) {
+            if (err) {
+                console.log("Problem with MySQL" + err);
+            }
+            else {
+
+
+                res.end(JSON.stringify(rows[2]));
+
+
+            }
+        });
 });
 
 //////////////////////////////code by aswathy ends//////////////////////////////////////////
