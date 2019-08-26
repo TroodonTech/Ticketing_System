@@ -1,105 +1,37 @@
 <div style="padding-left: 9rem;padding-right: 9rem;">
         <br><br>
-        <div class="row col-md-12 ">
-          <h4 style="margin-left: 40%;">VIEW ISSUES</h4>
-        </div>
-        <br>
-        <!-- <div style="margin-left: 1.5rem;margin-right: 1.5rem;padding-bottom: 1rem;padding-top: 1rem"
-          class="row bg-info col-md-12">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>From Date</label>
-              <ng-datepicker [options]="options" position="top-right" [(ngModel)]="fromdate"></ng-datepicker>
-            </div>
-          </div>
-      
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>To Date</label>
-              <ng-datepicker [options]="options" position="top-right" [(ngModel)]="todate"></ng-datepicker>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Status</label>
-              <select [(ngModel)]="ptoStatus" style="background-color: #d4f4ff;width: 75%;" class="form-control">
-                <option value="" selected>--Select--</option>
-                <option value="Pending">Pending</option>
-                <option value="Approved">Approved</option>
-                <option value="Rejected">Rejected</option>
-              </select>
-            </div>
-          </div>
-          <div class="row col-md-12">
-            <div style="margin-left: 45%">
-              <button type="button" class="btn btn-success"
-                (click)="viewpto(fromdate,todate,ptoStatus)"><b>GENERATE</b></button>
-            </div>
-          </div>
-      
-        </div> -->
-      
-        <br>
-        <div style="margin-left: 1.5rem;margin-right: 1.5rem; text-align: center;">
-          <table class="table table-responsive table-hover table-bordered table" style="display: inline-table">
-            <thead class="tableHead">
-              <th> Reference Number </th>
-              <th> Submitted Date </th>
-              <th> Issue Type</th>
-              <th> Project Name</th>
-              <th> Priority </th>
-              <th> Status </th>
-              <!-- <th *ngIf="checkflag==false"> Duplicate </th>
-              <th *ngIf="checkflag==true"> <button class="btn btn-primary button_style" type="button" (click)="basicModal.show();Duplicate()" mdbWavesEffect>
-                Duplicate </button></th> -->
-              <th> Details </th>
-            </thead>
-            <tbody>
-              <tr *ngFor="let x of issuedetails">
-                <td>{{ x.ticketnumber }}</td>
-                <td>{{ x.submitteddate }}</td>
-                <td>{{ x.issuetype }}</td>
-                <td>{{ x.projectname }}</td>
-                <td>{{ x.prioritytype }}</td>
-                <td>{{ x.status }}</td>
-                <!-- <td> <input type="checkbox" [(ngModel)]="x.DuplicateCheckValue"
-                  (change)="toggleVisibility($event); checkBoxValueForDuplicate(i,x.DuplicateCheckValue, x.issue_id);">
-                </td> -->
-                
-                <td>
-                  <a [routerLink]="['IssueAction', x.issue_id, x.assignedby]" class="btn btn-primary"><b>VIEW</b></a>&nbsp;&nbsp;
-                </td>
-              </tr>
-              <tr *ngIf="issuedetails?.length == 0">
-                <td colspan="7" class="no-data-available">No records found</td>
-              </tr>
-
-              <!-- <div mdbModal #basicModal="mdbModal" class="modal fade" role="dialog" aria-labelledby="myBasicModalLabel"
-              aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
-                      <span aria-hidden="true">×</span>
-                    </button>
-                    <h4 class="modal-title w-100" id="myModalLabel"></h4>
-                  </div>
-                  <div class="modal-body">
-                    Duplicate?
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close"
-                      (click)="basicModal.hide(); Duplicate()" mdbWavesEffect>Yes</button>
-                    <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.hide()"
-                      mdbWavesEffect>No</button>
-                  </div>
-                </div>
-              </div>
-            </div> -->
-
-
-            </tbody>
-          </table>
-        </div>
-      </div>
+    <div class="row col-md-12 ">
+      <h4 style="margin-left: 40%;">VIEW ISSUES</h4>
+    </div>
+    <br>
+    <div style="margin-left: 1.5rem;margin-right: 1.5rem; text-align: center;">
+      <table class="table table-responsive table-hover table-bordered table" style="display: inline-table">
+        <thead class="tableHead">
+          <th> Reference Number </th>
+          <th> Submitted Date </th>
+          <th> Issue Type</th>
+          <th> Project Name</th>
+          <th> Priority </th>
+          <th> Status </th>
+          <th> Details </th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let x of issuedetails">
+            <td>{{ x.ticketnumber }}</td>
+            <td>{{ x.submitteddate }}</td>
+            <td>{{ x.issuetype }}</td>
+            <td>{{ x.projectname }}</td>
+            <td>{{ x.prioritytype }}</td>
+            <td>{{ x.status }}</td>
+            <td>
+              <a [routerLink]="['IssueAction', x.issue_id, x.assignedby]" class="btn btn-primary"><b>VIEW</b></a>&nbsp;&nbsp;
+            </td>
+          </tr>
+          <tr *ngIf="issuedetails?.length == 0">
+            <td colspan="7" class="no-data-available">No records found</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
     

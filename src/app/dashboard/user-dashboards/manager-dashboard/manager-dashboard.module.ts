@@ -8,6 +8,9 @@ import{ SetUPModule} from '../../set-u-p/set-u-p.module'
 import { ViewIssuesModule } from "../../../manager/view-issues/view-issues.module";
 import { ViewPtoRequestModule } from "../../../manager/view-pto-request/view-pto-request.module";
 import { PtoRequestActionModule } from "../../../manager/pto-request-action/pto-request-action.module";
+import { IssueDetailsModule } from "../../../manager/issue-details/issue-details.module";
+import { IssueAssignModule } from "../../../manager/issue-assign/issue-assign.module";
+import { CreateIssueModule } from "../../../manager/create-issue/create-issue.module";
 
 const routes: Routes = [
   {
@@ -45,11 +48,6 @@ const routes: Routes = [
         loadChildren: '../../set-u-p/set-u-p.module#SetUPModule',
       },
       {
-        path: 'ViewIssues',
-        outlet: 'ManagerOut',
-        loadChildren: '../../../manager/view-issues/view-issues.module#ViewIssuesModule',
-      },
-      {
         path: 'ViewPtoRequest',
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/view-pto-request/view-pto-request.module#ViewPtoRequestModule',
@@ -59,6 +57,26 @@ const routes: Routes = [
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/pto-request-action/pto-request-action.module#PtoRequestActionModule',
       },
+      {
+        path: 'ViewIssues',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/view-issues/view-issues.module#ViewIssuesModule',
+      },
+      {
+        path: 'ViewIssues/IssueDetails/:issue_id',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/issue-details/issue-details.module#IssueDetailsModule',
+      },
+      {
+        path: 'ViewIssues/IssueAssign/:issue_id',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/issue-assign/issue-assign.module#IssueAssignModule',
+      },
+      {
+        path: 'CreateIssue',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/create-issue/create-issue.module#CreateIssueModule',
+      }
       
     ]}
   ];

@@ -4,18 +4,18 @@ import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ViewIssuesComponent } from "./view-issues.component";
-import { NgDatepickerModule } from "ng2-datepicker";
+import { IssueDetailsComponent } from "./issue-details.component";
+import { NgDatepickerModule } from 'ng2-datepicker';
 
 const routes: Routes = [
   {
     path: '',
-    component: ViewIssuesComponent
+    component: IssueDetailsComponent
   }
 ];
 
 @NgModule({
-  declarations: [ViewIssuesComponent],
+  declarations: [IssueDetailsComponent],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -26,4 +26,4 @@ const routes: Routes = [
     NgDatepickerModule
   ]
 })
-export class ViewIssuesModule { }
+export class IssueDetailsModule { }

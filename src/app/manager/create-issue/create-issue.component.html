@@ -1,0 +1,52 @@
+<div style="padding-left: 9rem;padding-right: 9rem;">
+        <div class="row col-md-12 ">
+          <h4 style="margin-left: 42%;">REPORT ISSUE</h4>
+        </div>
+      
+        <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
+          <div class="col-md-6">
+            <h3 style="text-align: right"></h3>
+            <div class="form-group">
+              <label>Issue type</label><br>
+              <select style="background-color: white !important;width: 76%;max-width: 100%;" class="form-control" [(ngModel)]="issuetype" required>
+                <option value="">--Select--</option>
+                <option *ngFor="let i of IssueTypeList" [value]="i.issuetype_id">
+                    {{i.issuetype}}
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+                <label>Assign to</label><br>
+                <select style="width: 76%;max-width: 100%;" class="form-control" [(ngModel)]="employee" required>
+                    <option value="">--Select--</option>
+                    <option *ngFor="let i of AllEmployees" [value]="i.employee_id">
+                        {{i.employeename}}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Priority Level</label><br>
+                <select style="background-color: white !important;width: 76%;max-width: 100%;" class="form-control" [(ngModel)]="priority" required>
+                    <option value="">--Select--</option>
+                    <option *ngFor="let p of getpriorityList" [value]="p.priority_id">
+                        {{p.prioritytype}}
+                    </option>
+                </select>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <h3 style="text-align: right"></h3>
+            <div class="form-group">
+                <label>Issue Description*</label>
+                <textarea class="form-control rounded-1" maxlength="200" [(ngModel)]="Description" rows="5" style="resize: none;"></textarea>
+            </div>
+          </div>
+          <br>
+          <div class="row col-md-12" style="margin-left: 42%">
+            <a style="color:white !important" class="btn btn-success" (click)="ReportIssue()"><b>SUBMIT</b>
+            </a>
+          </div>
+        </div>
+      </div>
+    

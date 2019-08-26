@@ -125,6 +125,8 @@ export class EditPtoRequestComponent implements OnInit {
     this.employeeid = profile.employeeid;
     this.name = profile.name;
 
+    // this.requestdetails.assignedname="";
+
     this.PtorequestService.getEmployeesName(this.employeeid)
     .subscribe((data: any[]) => {
       this.employeenames = data;

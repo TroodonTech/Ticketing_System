@@ -6,11 +6,14 @@ import { EditUserManagerComponent } from './edit-user-manager/edit-user-manager.
 import { ViewIssuesComponent } from './view-issues/view-issues.component';
 import { ViewPtoRequestComponent } from './view-pto-request/view-pto-request.component';
 import { PtoRequestActionComponent } from './pto-request-action/pto-request-action.component';
+import { IssueDetailsComponent } from './issue-details/issue-details.component';
+import { IssueAssignComponent } from './issue-assign/issue-assign.component';
+import { CreateIssueComponent } from './create-issue/create-issue.component';
 
 
 
 @NgModule({
-  declarations: [CreateUserManagerComponent, ViewUserManagerComponent, EditUserManagerComponent, ViewIssuesComponent, ViewPtoRequestComponent, PtoRequestActionComponent],
+  declarations: [CreateUserManagerComponent, ViewUserManagerComponent, EditUserManagerComponent, ViewIssuesComponent, ViewPtoRequestComponent, PtoRequestActionComponent, IssueDetailsComponent, IssueAssignComponent, CreateIssueComponent],
   imports: [
     CommonModule
   ]

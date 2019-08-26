@@ -3,34 +3,30 @@
           <h4 style="margin-left: 42%;">ISSUE DETAILS</h4>
         </div>
       
-    <div *ngIf="IssueDetailsforEmp" style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
+    <div *ngIf="IssueDetailsforManager" style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
         <div class="col-md-6" style="margin-top: 2%">
             <h3 style="text-align: right"></h3>
             <div class="form-group">
               <label>Ticket Number</label><br>
-              <input type="text" style="width: 76%;max-width: 100%;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="IssueDetailsforEmp.ticketnumber">
-            </div>
-            <div class="form-group">
-              <label>Issue type</label><br>
-              <input type="text" style="width: 76%;max-width: 100%;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="IssueDetailsforEmp.issuetype">
+              <input type="text" style="width: 76%;max-width: 100%;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="IssueDetailsforManager.ticketnumber">
             </div>
             <div class="form-group">
                 <label>Product</label><br>
-                <input type="text" style="width: 76%;max-width: 100%;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="IssueDetailsforEmp.projectname">
+                <input type="text" style="width: 76%;max-width: 100%;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="IssueDetailsforManager.projectname">
             </div>
             <div class="form-group">
                 <label>Priority Level</label><br>
-                <input type="text" style="width: 76%;max-width: 100%;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="IssueDetailsforEmp.prioritytype">
+                <input type="text" style="width: 76%;max-width: 100%;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="IssueDetailsforManager.prioritytype">
             </div>
             <div class="form-group">
               <label>Issue Reported on</label><br>
-              <input type="text" style="width: 76%;max-width: 100%;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="IssueDetailsforEmp.submitteddate">
+              <input type="text" style="width: 76%;max-width: 100%;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="IssueDetailsforManager.submitteddate">
             </div>
-            <div class="form-group">
-                <label>Assigned By</label><br>
-                <input type="text" style="width: 76%;max-width: 100%;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="IssueDetailsforEmp.assignedname">
-            </div>
-            <div class="form-group"*ngIf ="!marked">
+            <!-- <div class="form-group" *ngIf ="!marked">
+                <label>Assign to</label><br>
+                <input type="text" style="width: 76%;max-width: 100%;"  class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="IssueDetailsforManager.assignedname">
+            </div> -->
+            <!-- <div class="form-group" *ngIf ="!marked">
                 <label>Status</label><br>
                 <select style="width: 76%;max-width: 100%;" class="form-control" [(ngModel)]="IssueDetailsforEmp.status" required>
                     <option value="">--Select--</option>
@@ -38,17 +34,35 @@
                     <option value="In Progress">In Progress</option>
                     <option value="Declined">Decline</option>
                 </select>
-            </div>
+            </div> -->
 
-            <div class="form-group" *ngIf ="!marked">
+            <!-- <div class="form-group" *ngIf ="!marked">
                 <label>Fix Start Date</label><br>
                 <ng-datepicker [options]="options" position="top-right" [(ngModel)]="startdate"></ng-datepicker>
             </div>
             <div class="form-group" *ngIf ="!marked">
                 <label>Fix End Date</label><br>
                 <ng-datepicker [options]="options" position="top-right" [(ngModel)]="enddate"></ng-datepicker>
+            </div> -->
+            <div class="form-group">
+                <label>Issue type</label><br>
+                <select style="width: 76%;max-width: 100%;" class="form-control" [(ngModel)]="IssueTypeid" required>
+                    <option value="">--Select--</option>
+                    <option *ngFor="let i of Issuetype" [value]="i.issuetype_id">
+                        {{i.issuetype}}
+                    </option>
+                </select>
             </div>
 
+            <div class="form-group">
+                <label>Assign to</label><br>
+                <select style="width: 76%;max-width: 100%;" class="form-control" [(ngModel)]="employee" required>
+                    <option value="">--Select--</option>
+                    <option *ngFor="let i of AllEmployees" [value]="i.employee_id">
+                        {{i.employeename}}
+                    </option>
+                </select>
+            </div>
 
 
             <div class="form-group">
@@ -73,11 +87,11 @@
             <div *ngFor="let message of messages" class="form-group">
               <textarea class="form-control rounded-1" maxlength="100" disabled rows="5" style="resize: none;">{{ message.firstname }}: {{ message.comments }}</textarea>
             </div>
-              <textarea class="form-control rounded-1" *ngIf ="!marked" placeholder="Enter your Message here" maxlength="10" rows="5" style="resize: none;" [(ngModel)]="newmessage"></textarea>
+              <!-- <textarea class="form-control rounded-1" *ngIf ="!marked" placeholder="Enter your Message here" maxlength="10" rows="5" style="resize: none;" [(ngModel)]="newmessage"></textarea> -->
         </div>
           <br><br><br>
           <div class="row col-md-12" style="margin-left: 42%" *ngIf ="!marked">
-            <a style="color:white !important" class="btn btn-success" (click)="issueAction()"><b>Save</b></a>&nbsp;&nbsp;&nbsp;
+            <a style="color:white !important" class="btn btn-success" (click)="issueAssign()"><b>Save</b></a>&nbsp;&nbsp;&nbsp;
             <a (click)='goBack()' class="btn btn-warning" style="color:white !important"><b>Go Back</b></a>
           </div>
           <div class="row col-md-12" style="margin-left: 42%" *ngIf ="marked">
@@ -87,3 +101,4 @@
     </div>
 </div>  
     
+

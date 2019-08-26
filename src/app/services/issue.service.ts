@@ -72,9 +72,57 @@ export class IssueService {
 
     return this.http.post(url, obj);
   }
-  
-  DuplicateIssues(DuplicateString){
+
+  getIssueNumber(issueid,employeeid){
     return this.
-    http.get('http://localhost:3000/DuplicateIssues?DuplicateString=' +DuplicateString);
+    http.get('http://localhost:3000/getIssueNumber?issueid=' +issueid + '&employeeid=' + employeeid);
+  }
+  
+  duplicateAction(issueid,duplicateissueid){
+    return this.
+    http.get('http://localhost:3000/duplicateAction?issueid=' +issueid + '&duplicateissueid=' +duplicateissueid);
+  }
+  getAllIssues(vpto){
+    const url ='http://localhost:3000/getAllIssues';
+    return this
+      .http
+      .post(url,vpto);
+  }
+  deleteIssues(deleteKey){
+    return this.
+    http.get('http://localhost:3000/deleteIssues?deleteKey=' +deleteKey);
+  }
+  getIssueDetailsforManager(issueid){
+    return this.
+    http.get('http://localhost:3000/getIssueDetailsforManager?issueid=' +issueid);
+  }
+  getIssuetype(){
+    return this.
+    http.get('http://localhost:3000/getIssuetype');
+  }
+  getAllEmployees(){
+    return this.
+    http.get('http://localhost:3000/getAllEmployees');
+  }
+  issueAssign(IssueTypeid,employee,employeeid,issueid){
+    const url = 'http://localhost:3000/issueAssign';
+    const obj = {
+      IssueTypeid:IssueTypeid,
+      employee:employee,
+      employeeid: employeeid,
+      issueid:issueid
+    };
+    return this.http.post(url, obj);
+  }
+  submitIssuebyManager(issuetype,employee,Description,priority,employeeid){
+    const url = 'http://localhost:3000/submitIssuebyManager';
+    const obj = {
+      issuetype:issuetype,
+      employee:employee,
+      Description:Description,
+      priority: priority,
+      employeeid:employeeid
+    };
+    return this.http.post(url, obj);
   }
 }
