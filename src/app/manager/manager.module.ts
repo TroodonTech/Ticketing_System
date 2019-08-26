@@ -9,11 +9,12 @@ import { PtoRequestActionComponent } from './pto-request-action/pto-request-acti
 import { IssueDetailsComponent } from './issue-details/issue-details.component';
 import { IssueAssignComponent } from './issue-assign/issue-assign.component';
 import { CreateIssueComponent } from './create-issue/create-issue.component';
+import { IssueReportComponent } from './issue-report/issue-report.component';
 
 
 
 @NgModule({
-  declarations: [CreateUserManagerComponent, ViewUserManagerComponent, EditUserManagerComponent, ViewIssuesComponent, ViewPtoRequestComponent, PtoRequestActionComponent, IssueDetailsComponent, IssueAssignComponent, CreateIssueComponent],
+  declarations: [CreateUserManagerComponent, ViewUserManagerComponent, EditUserManagerComponent, ViewIssuesComponent, ViewPtoRequestComponent, PtoRequestActionComponent, IssueDetailsComponent, IssueAssignComponent, CreateIssueComponent, IssueReportComponent],
   imports: [
     CommonModule
   ]

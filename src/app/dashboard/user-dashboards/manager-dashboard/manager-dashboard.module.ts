@@ -11,6 +11,7 @@ import { PtoRequestActionModule } from "../../../manager/pto-request-action/pto-
 import { IssueDetailsModule } from "../../../manager/issue-details/issue-details.module";
 import { IssueAssignModule } from "../../../manager/issue-assign/issue-assign.module";
 import { CreateIssueModule } from "../../../manager/create-issue/create-issue.module";
+import { IssuereportModule } from "../../../manager/issue-report/issuereport.module";
 
 const routes: Routes = [
   {
@@ -76,6 +77,11 @@ const routes: Routes = [
         path: 'CreateIssue',
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/create-issue/create-issue.module#CreateIssueModule',
+      },
+      {
+        path: 'Issuereport',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/issue-report/issuereport.module#IssuereportModule',
       }
       
     ]}

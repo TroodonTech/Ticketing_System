@@ -26,6 +26,7 @@ export class IssueActionComponent implements OnInit {
   startdate;
   enddate;
   marked = false;
+  request = false;
   IssueNumber;
   theCheckbox;
   duplicateissueid;
@@ -77,6 +78,14 @@ export class IssueActionComponent implements OnInit {
     }
   }
 
+  toggleVisibility1(e) {
+    if (e.target.checked) {
+      this.request = true;
+    } else {
+      this.request = false;
+    }
+  }
+
   constructor(private issueservice:IssueService,private route:ActivatedRoute, private router: Router) {
     this.route.params.subscribe(params => this.issueid$ = params.issueid);
     this.route.params.subscribe(params => this.assignedby$ = params.assignedby);
@@ -124,6 +133,15 @@ export class IssueActionComponent implements OnInit {
       .duplicateAction(this.issueid$,this.duplicateissueid)
       .subscribe((data: any[]) => {
         alert("Updated successfully!")
+        this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewIssues'] } }]);
+      });
+    }
+
+    changetoRequest(){
+      this.issueservice
+      .changetoRequest(this.issueid$,this.employeeid)
+      .subscribe((data: any[]) => {
+        alert("Changed Issue to Request successfully!")
         this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewIssues'] } }]);
       });
     }

@@ -30,7 +30,7 @@
                 <label>Assigned By</label><br>
                 <input type="text" style="width: 76%;max-width: 100%;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="IssueDetailsforEmp.assignedname">
             </div>
-            <div class="form-group"*ngIf ="!marked">
+            <div class="form-group"*ngIf ="!marked && !request">
                 <label>Status</label><br>
                 <select style="width: 76%;max-width: 100%;" class="form-control" [(ngModel)]="IssueDetailsforEmp.status" required>
                     <option value="">--Select--</option>
@@ -40,18 +40,18 @@
                 </select>
             </div>
 
-            <div class="form-group" *ngIf ="!marked">
+            <div class="form-group" *ngIf ="!marked && !request">
                 <label>Fix Start Date</label><br>
                 <ng-datepicker [options]="options" position="top-right" [(ngModel)]="startdate"></ng-datepicker>
             </div>
-            <div class="form-group" *ngIf ="!marked">
+            <div class="form-group" *ngIf ="!marked && !request">
                 <label>Fix End Date</label><br>
                 <ng-datepicker [options]="options" position="top-right" [(ngModel)]="enddate"></ng-datepicker>
             </div>
 
 
 
-            <div class="form-group">
+            <div class="form-group" *ngIf ="!request">
               <label>Duplicate</label>
               <input type="checkbox" [(ngModel)]="theCheckbox" (change)="toggleVisibility($event)" />
             </div>
@@ -65,9 +65,15 @@
                 </option>
               </select>
             </div>
+
+            <div class="form-group" *ngIf ="request || !marked">
+              <label>Change To Request</label>
+              <input type="checkbox" [(ngModel)]="theCheckbox" (change)="toggleVisibility1($event)" />
+            </div>
+
       </div>
 
-        <div class="col-md-6" style="background-color: antiquewhite; margin-top: 5%">
+        <div class="col-md-6" *ngIf ="!marked  && !request" style="background-color: antiquewhite; margin-top: 5%">
             <h3 style="text-align: right"></h3>
             <label>Messages*</label>
             <div *ngFor="let message of messages" class="form-group">
@@ -76,12 +82,18 @@
               <textarea class="form-control rounded-1" *ngIf ="!marked" placeholder="Enter your Message here" maxlength="10" rows="5" style="resize: none;" [(ngModel)]="newmessage"></textarea>
         </div>
           <br><br><br>
-          <div class="row col-md-12" style="margin-left: 42%" *ngIf ="!marked">
+          <div class="row col-md-12" style="margin-left: 42%" *ngIf ="!marked  && !request">
             <a style="color:white !important" class="btn btn-success" (click)="issueAction()"><b>Save</b></a>&nbsp;&nbsp;&nbsp;
             <a (click)='goBack()' class="btn btn-warning" style="color:white !important"><b>Go Back</b></a>
           </div>
+
           <div class="row col-md-12" style="margin-left: 42%" *ngIf ="marked">
             <a style="color:white !important" class="btn btn-success" (click)="duplicateAction()"><b>Duplicate</b></a>&nbsp;&nbsp;&nbsp;
+            <a (click)='goBack()' class="btn btn-warning" style="color:white !important"><b>Go Back</b></a>
+          </div>
+
+          <div class="row col-md-12" style="margin-left: 42%" *ngIf ="request">
+            <a style="color:white !important" class="btn btn-success" (click)="changetoRequest()"><b>Change</b></a>&nbsp;&nbsp;&nbsp;
             <a (click)='goBack()' class="btn btn-warning" style="color:white !important"><b>Go Back</b></a>
           </div>
     </div>

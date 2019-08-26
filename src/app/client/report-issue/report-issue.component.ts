@@ -116,11 +116,7 @@ export class ReportIssueComponent implements OnInit {
     };
   }
   ImgUpload() {
-    // if (!(this.profile)) {
-    //   alert("Please choose Document Folder");
-    //   return;
-    // }
-  
+
     this.uploader.onBeforeUploadItem = (item) => {
       item.withCredentials = false;
       item.url =url ;

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IssueService } from "../../services/issue.service";
 import { DatepickerOptions } from 'ng2-datepicker';
 import { Router } from "@angular/router";
+import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 
 @Component({
   selector: 'app-view-issues',
@@ -10,7 +11,7 @@ import { Router } from "@angular/router";
 })
 export class ViewIssuesComponent implements OnInit {
 
-
+  searchform: FormGroup;
   role: String;
   name: String;
   username;
@@ -62,7 +63,7 @@ export class ViewIssuesComponent implements OnInit {
     }
     return window.atob(output);
   }
-  constructor(private IssueService: IssueService,private router: Router) { }
+  constructor(private IssueService: IssueService,private router: Router,private formBuilder: FormBuilder) { }
 
   // toggleVisibility(e) {
   //   if (e.target.checked) {
@@ -114,6 +115,13 @@ export class ViewIssuesComponent implements OnInit {
   //       }
   //     }
   // }
+  searchDetails(SearchValue) {
+    var value = SearchValue.trim();
+      this.IssueService
+        .searchResultOfIssue(value).subscribe((data: any[]) => {
+          this.issuedetails = data;
+        });
+  }
 
   ngOnInit() {
     var token = localStorage.getItem('token');
@@ -130,6 +138,10 @@ export class ViewIssuesComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.issuedetails = data;
       });
+
+    this.searchform = this.formBuilder.group({
+      SearchDetails: ['', Validators.required]
+    });
   }
 
 }
