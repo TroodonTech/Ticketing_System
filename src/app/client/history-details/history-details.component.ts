@@ -11,6 +11,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class HistoryDetailsComponent implements OnInit {
 
+
+  /////////////////////////////////Author:Aswathy///////////////
   role;
   username;
   employeeid;

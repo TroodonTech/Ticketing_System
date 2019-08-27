@@ -9,6 +9,8 @@ import { DatepickerOptions } from 'ng2-datepicker';
 })
 export class ViewIssuesComponent implements OnInit {
 
+    /////////////////////////////////Author:Aswathy///////////////
+
   role: String;
   name: String;
   username;
