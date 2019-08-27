@@ -7,11 +7,12 @@ import { IssueActionComponent } from './issue-action/issue-action.component';
 import { EditPtoRequestComponent } from './edit-pto-request/edit-pto-request.component';
 import { PtoRequestDetailsComponent } from './pto-request-details/pto-request-details.component';
 import { RequestComponent } from './request/request.component';
+import { CreateIssuesComponent } from './create-issues/create-issues.component';
 
 
 
 @NgModule({
-  declarations: [ViewIssuesComponent, PtoRequestComponent, ViewPtoRequestComponent, IssueActionComponent, EditPtoRequestComponent, PtoRequestDetailsComponent, RequestComponent],
+  declarations: [ViewIssuesComponent, PtoRequestComponent, ViewPtoRequestComponent, IssueActionComponent, EditPtoRequestComponent, PtoRequestDetailsComponent, RequestComponent, CreateIssuesComponent],
   imports: [
     CommonModule
   ]

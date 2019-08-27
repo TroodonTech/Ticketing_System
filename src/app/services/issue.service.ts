@@ -10,6 +10,8 @@ const EXCEL_EXTENSION = '.xlsx';
 })
 export class IssueService {
 
+  ///////Author: Aswathy//////////////////////
+
   constructor(private http: HttpClient) { }
 
   public exportAsExcelFile(json: any[],excelFileName: string): void {
@@ -68,6 +70,23 @@ export class IssueService {
 
     return this.http.post(url, obj);
   }
+  getProductNames(){
+    return this.
+    http.get('http://localhost:3000/getProductNames');
+  }
+
+  submitIssuebyEmployee(issuetype,Description,priority,employeeid,Product){
+    const url = 'http://localhost:3000/submitIssuebyEmployee';
+    const obj = {
+      issuetype:issuetype,
+      Description:Description,
+      priority: priority,
+      employeeid:employeeid,
+      Product:Product
+    };
+    return this.http.post(url, obj);
+  }
+
   getIssuesforEmp(employeeid,pageno,items_perpage){
     return this.
     http.get('http://localhost:3000/getIssuesforEmp?employeeid=' +employeeid+ '&pageno=' + pageno + '&items_perpage=' + items_perpage);

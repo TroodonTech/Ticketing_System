@@ -24,6 +24,7 @@
             ISSUES
           </a>
           <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" [routerLink]="[{outlets:{EmployeeOut:['CreateIssues']}}]"><b>Report Issue</b></a>
             <a class="dropdown-item" [routerLink]="[{outlets:{EmployeeOut:['ViewIssues']}}]"><b>View Issue</b></a>
           </div> 
         </li>
@@ -53,10 +54,11 @@
       </ul>
     </div>
   </nav>
-<router-outlet name="EmployeeOut"></router-outlet>
 </div>
 
 <div style=" padding-top:2rem !important;  size: 100%;"class="container">
-  <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark " ></mdb-navbar> 
+    <router-outlet name="EmployeeOut"></router-outlet>
+  <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark " >
+  </mdb-navbar> 
 </div>
       

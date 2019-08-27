@@ -5,6 +5,7 @@ import { EmployeeDashboardComponent } from './employee-dashboard.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import { ViewIssuesModule } from "../../../employee/view-issues/view-issues.module";
+import { CreateIssuesModule } from "../../../employee/create-issues/create-issues.module";
 import { PtoRequestModule } from "../../../employee/pto-request/pto-request.module";
 import { ViewPtoRequestModule } from "../../../employee/view-pto-request/view-pto-request.module";
 import { IssueActionModule } from "../../../employee/issue-action/issue-action.module";
@@ -20,6 +21,11 @@ const routes: Routes = [
         path: 'welcomePage',
         outlet: 'EmployeeOut',
         loadChildren: '../../user-welcome-pages/employee-welcome/employee-welcome.module#EmployeeWelcomeModule'
+      },
+      {
+        path: 'CreateIssues',
+        outlet: 'EmployeeOut',
+        loadChildren: '../../../employee/create-issues/create-issues.module#CreateIssuesModule'
       },
       {
         path: 'ViewIssues',
