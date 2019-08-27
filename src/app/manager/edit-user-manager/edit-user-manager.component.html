@@ -38,13 +38,16 @@
                  {{r.userrolename}}
              </option>
              </select>
-             <div *ngIf="checkclient" >
-              <label>Product</label><br>
-              <select name="Gender" style="width: 76%;max-width: 100%;" [(ngModel)]="Product" 
+             <!-- <div *ngIf="checkclient" >
+              <label>Project</label><br>
+              <select name="project" style="width: 76%;max-width: 100%;" [(ngModel)]="project" 
               class="form-control col-sm-9 col-md-9 col-lg-9" >
                <option value="">--Select--</option>
+               <option *ngFor="let l of List" [value]="r.project_id">
+                {{l.projectname}}
+            </option>
                </select>
-            </div>
+            </div> -->
   
             </div>
           
