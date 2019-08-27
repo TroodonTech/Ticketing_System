@@ -9,7 +9,13 @@ import { UserService } from '../../services/user.service'
   styleUrls: ['./requestview.component.scss']
 })
 export class RequestviewComponent implements OnInit {
+
   requestdetails;
+  role;
+  username;
+  employeeid;
+  name;
+  
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -30,9 +36,14 @@ export class RequestviewComponent implements OnInit {
   constructor(private route: ActivatedRoute, private UserService: UserService, private router: Router) {}
 
   ngOnInit() {
+
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.username = profile.username;
+    this.employeeid = profile.employeeid;
+    this.name = profile.name;
    
     this.UserService.getrequest()
       .subscribe((data: any[]) => {
