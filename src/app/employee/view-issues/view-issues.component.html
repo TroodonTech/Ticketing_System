@@ -8,14 +8,14 @@
     <form [formGroup]="searchform">
       <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
         <input class="form-control" name="searchdetails" maxlength="20" specialIsAlphaNumeric minlength="3"
-          type="text" placeholder="Search Issue Type,Reference Number,Project Name,Status" aria-label="Search"
+          type="text" placeholder="Search Issue Type, Reference Number, Project Name, Status" aria-label="Search"
           [(ngModel)]="SearchDetails" formControlName="SearchDetails"
           (input)="searchDetails($event.target.value);" style="width: 102.3%;margin-left: -0.9rem;">
         <!-- <div *ngIf="searchform.controls.SearchDetails.errors?.minlength">Minimum 3 characters required.</div> -->
       </div>
     </form>
   </div>
-    <div style="margin-left: 1.5rem;margin-right: 1.5rem; text-align: center;">
+    <div style="margin-left: 1.5rem;margin-right: 1.5rem; text-align: center;width:100%">
       <table class="table table-responsive table-hover table-bordered table" style="display: inline-table; background-color:cornsilk">
         <thead class="tableHead">
           <th> Reference Number </th>

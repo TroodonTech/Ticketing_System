@@ -712,6 +712,25 @@ app.get('/generateIssueReport', function (req, res) {
         });
 });
 
+app.options('/submitIssuebyEmployee', supportCrossOriginScript);
+app.post('/submitIssuebyEmployee', supportCrossOriginScript, function (req, res) {
+    var issuetype = req.body.issuetype;
+    var Description = req.body.Description;
+    var priority = req.body.priority;
+    var employeeid = req.body.employeeid;
+    var Product= req.body.Product;
+
+        connection.query('set @issuetype=?;set @Description=?;set @priority=?;set @employeeid=?; set@Product=?;call usp_submitIssuebyEmployee(@issuetype,@Description,@priority,@employeeid,@Product)', [issuetype,Description, priority,employeeid,Product], function (err, rows) {
+            if (err) {
+                console.log("Problem with MySQL" + err);
+            }
+            else {
+
+                res.end(JSON.stringify(rows[5]));
+            }
+        });
+
+});
 //////////////////////////////code by aswathy ends//////////////////////////////////////////
 
 
