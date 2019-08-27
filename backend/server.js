@@ -151,7 +151,7 @@ app.post('/submitIssue', supportCrossOriginScript, function (req, res) {
     var priority = req.body.priority;
     var employeeid = req.body.employeeid;
     
-    connection.query('set @descrip=?;set @priority=?;set @employeeid=?;  call usp_submitissue(@descrip,@priority,@employeeid)', [ descrip, priority,employeeid], function (err, rows) {
+    connection.query('set @descrip=?;set @priority=?;set @employeeid=?;  call usp_submitissue(@descrip,@priority,@employeeid)', [descrip, priority,employeeid], function (err, rows) {
         if (err) {
             console.log("Problem with MySQL" + err);
         }

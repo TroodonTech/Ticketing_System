@@ -3,9 +3,10 @@
     <div class="row col-md-12 ">
       <h4 style="margin-left: 40%; font-weight: bold;">VIEW PTO REQUESTS</h4>
     </div>
+    <br>
     <br><br><br>
-    <div style="margin-left: 1.5rem;margin-right: 1.5rem;padding-bottom: 1rem;padding-top: 1rem; background-color:cornsilk"
-      class="row bg-info col-md-12">
+    <div style="margin-left: 1.5rem;margin-right: 1.5rem;padding-bottom: 1rem;padding-top: 1rem;background-color: cornsilk;"
+      class="row col-md-12">
       <div class="col-md-6">
         <div class="form-group">
           <label>From Date</label>
@@ -22,7 +23,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>Status</label>
-          <select [(ngModel)]="ptoStatus" style="background-color: #d4f4ff;width: 75%;" class="form-control">
+          <select [(ngModel)]="ptoStatus" style="background-color: white;width: 75%;" class="form-control">
             <option value="" selected>--Select--</option>
             <option value="Pending">Pending</option>
             <option value="Approved">Approved</option>
@@ -40,9 +41,8 @@
     </div>
   
     <br>
-    <!-- <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12"> -->
-    <div style="margin-left: 1.5rem;margin-right: 1.5rem; text-align: center;">
-      <table class="table table-responsive table-hover table-bordered table" style="display: inline-table">
+    <div style="margin-left: 1.5rem;margin-right: 1.5rem; text-align: center;width:100%">
+      <table class="table table-responsive table-hover table-bordered table" style="display: inline-table;background-color: cornsilk">
         <thead class="tableHead">
           <th> Employee Number </th>
           <th> Employee Name </th>

@@ -76,7 +76,7 @@ export class CreateIssuesComponent implements OnInit {
     this.issueservice.submitIssuebyEmployee(this.issuetype,this.Description,this.priority,this.employeeid,this.Product)
     .subscribe((data: any[]) => {
       alert('Issue submitted Successfully!');
-      this.router.navigate(['/EmployeeDashboard', { outlets: { ManagerOut: ['ViewIssues'] } }]);
+      this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewIssues'] } }]);
     });
 
   }
