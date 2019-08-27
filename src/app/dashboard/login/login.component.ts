@@ -58,7 +58,6 @@ export class LoginComponent implements OnInit {
         .login(username, password)
         .subscribe((data: any[]) => {
           this.tokenobj = data;
-          console.log('data====' + data);
           localStorage.setItem('token', this.tokenobj.token);
           window.sessionStorage.token = this.tokenobj.token;
           window.localStorage['token'] = this.tokenobj.token;

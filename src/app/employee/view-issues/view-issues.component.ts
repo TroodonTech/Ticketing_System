@@ -21,6 +21,11 @@ export class ViewIssuesComponent implements OnInit {
   checkValue = [];
   DuplicateValues = [];
   marked = false;
+  showHide1: boolean;
+  showHide2: boolean;
+  pagination;
+  pageno= 1;
+  items_perpage = 20;
 
   options: DatepickerOptions = {
     minYear: 1970,
@@ -115,6 +120,50 @@ export class ViewIssuesComponent implements OnInit {
   //       }
   //     }
   // }
+
+  previousPage() {
+
+    this.pageno = +this.pageno - 1;
+    this.IssueService
+      .getIssuesforEmp(this.employeeid, this.pageno, this.items_perpage)
+      .subscribe((data: any[]) => {
+        this.issuedetails = data;
+        for (var i = 0; i < this.issuedetails.length; i++) {
+          this.issuedetails[i].CheckValue = false;
+        }
+        if (this.pageno == 1) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        } else {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+      });
+  }
+
+  nextPage() {
+
+    this.pageno = +this.pageno + 1;
+    this.IssueService
+      .getIssuesforEmp(this.employeeid, this.pageno, this.items_perpage)
+      .subscribe((data: any[]) => {
+        this.issuedetails = data;
+        for (var i = 0; i < this.issuedetails.length; i++) {
+          this.issuedetails[i].CheckValue = false;
+        }
+        this.pagination = +this.issuedetails[0].totalItems / (+this.pageno * (+this.items_perpage));
+        if (this.pagination > 1) {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+        else {
+          this.showHide2 = false;
+          this.showHide1 = true;
+        }
+      });
+  }
+
+
   searchDetails(SearchValue) {
     var value = SearchValue.trim();
       this.IssueService
@@ -134,7 +183,7 @@ export class ViewIssuesComponent implements OnInit {
 
     this.checkflag=false;
 
-    this.IssueService.getIssuesforEmp(this.employeeid)
+    this.IssueService.getIssuesforEmp(this.employeeid, this.pageno, this.items_perpage)
       .subscribe((data: any[]) => {
         this.issuedetails = data;
       });
