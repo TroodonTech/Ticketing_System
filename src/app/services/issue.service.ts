@@ -34,14 +34,14 @@ export class IssueService {
     return this.
     http.get('http://localhost:3000/getpriority');
   }
-  submitIssue(descrip,priority,employeeid,filename1){
+  submitIssue(descrip,priority,employeeid){
 
     const url = 'http://localhost:3000/submitIssue';
     const obj = {
       descrip: descrip,
       priority: priority,
       employeeid:employeeid,
-      filename1:filename1
+     
     };
 
     return this.http.post(url, obj);

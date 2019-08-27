@@ -20,8 +20,8 @@ export class ReportIssueComponent implements OnInit {
   getpriorityList;
   priority;
   Description;
-  filename1;
-
+  filename;
+  addUrl;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -61,6 +61,7 @@ export class ReportIssueComponent implements OnInit {
   }
 
   ReportIssue() {
+    debugger;
     // if (!(this.issuetype)) {
     //   alert("Please choose Issue Type");
     //   return;
@@ -73,18 +74,19 @@ export class ReportIssueComponent implements OnInit {
       alert("Please choose Priority");
       return;
     }
-    this.issueservice.submitIssue(this.Description,this.priority,this.employeeid,this.filename1)
+    debugger;
+    this.issueservice.submitIssue(this.Description,this.priority,this.employeeid)
     .subscribe((data: any[]) => {
-      alert('Issue Reported Successfully!');
-      
-      this.router.navigate(['/ClientDashboard', { outlets: { ClientOut: ['ViewIssues'] } }]);
+      this.addUrl = '?IssueID='+ data[0].IssueID ;
+      this.uploader.onBeforeUploadItem = (item) => {
+        item.withCredentials = false;
+        item.url = url + this.addUrl;
+      }
+      debugger;
+      this.uploader.uploadAll();
+
+     
     });
-    // this.addUrl = '?formtypeId=' + this.FormtypeId + '&formDesc=' + this.DescName + '&empkey=' + this.employeekey + '&OrganizationID=' + this.OrganizationID;
-    // this.uploader.onBeforeUploadItem = (item) => {
-    //   item.withCredentials = false;
-    //   item.url = url + this.addUrl;
-    // }
-    // this.uploader.uploadAll();
   }
   ngOnInit() {
     var token = localStorage.getItem('token');
@@ -112,21 +114,9 @@ export class ReportIssueComponent implements OnInit {
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       console.log('ImageUpload:uploaded:', item, status, response);
-      alert('File uploaded successfully');
+      alert('Issue Reported Successfully!');
+      
+      this.router.navigate(['/ClientDashboard', { outlets: { ClientOut: ['ViewIssues'] } }]);
     };
   }
-  ImgUpload() {
-
-    this.uploader.onBeforeUploadItem = (item) => {
-      item.withCredentials = false;
-      item.url =url ;
-    }
-    this.uploader.uploadAll();
-  
-  
-  }
-  getFileDetails(event){
-    this.filename1= event.file.name;
-  }
-
 }

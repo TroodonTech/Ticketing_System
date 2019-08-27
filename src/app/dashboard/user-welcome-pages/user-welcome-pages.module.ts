@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WelcomeComponent } from './welcome/welcome.component';
 import { AdminWelcomeComponent } from './admin-welcome/admin-welcome.component';
 import { ManagerWelcomeComponent } from './manager-welcome/manager-welcome.component';
 import { EmployeeWelcomeComponent } from './employee-welcome/employee-welcome.component';
@@ -9,7 +8,7 @@ import { ClientWelcomeComponent } from './client-welcome/client-welcome.componen
 
 
 @NgModule({
-  declarations: [WelcomeComponent, AdminWelcomeComponent, ManagerWelcomeComponent, EmployeeWelcomeComponent, ClientWelcomeComponent],
+  declarations: [AdminWelcomeComponent, ManagerWelcomeComponent, EmployeeWelcomeComponent, ClientWelcomeComponent],
   imports: [
     CommonModule
   ]

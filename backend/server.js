@@ -23,8 +23,8 @@ app.listen(app.get('port'), function () {
 var config = {};
 config.db = {};
 
-// config.db.host = "192.168.1.113";
- config.db.host = "localhost";
+config.db.host = "192.168.1.113";
+//  config.db.host = "localhost";
 config.db.user = "root";
 config.db.password = "root";
 config.db.database = "ticketingsystem";
@@ -150,16 +150,15 @@ app.post('/submitIssue', supportCrossOriginScript, function (req, res) {
     var descrip = req.body.descrip;
     var priority = req.body.priority;
     var employeeid = req.body.employeeid;
-    var filename1=req.body.filename1;
-
-    connection.query('set @descrip=?;set @priority=?;set @employeeid=?;set @filename1=?;  call usp_submitissue(@descrip,@priority,@employeeid,@filename1)', [ descrip, priority,employeeid,filename1], function (err, rows) {
+    
+    connection.query('set @descrip=?;set @priority=?;set @employeeid=?;  call usp_submitissue(@descrip,@priority,@employeeid)', [ descrip, priority,employeeid], function (err, rows) {
         if (err) {
             console.log("Problem with MySQL" + err);
         }
         else {
-            console.log("NewItem  is  " + JSON.stringify(rows[4]));
+            console.log("NewItem  is  " + JSON.stringify(rows[3]));
 
-            res.end(JSON.stringify(rows[4]));
+            res.end(JSON.stringify(rows[3]));
         }
         res.end();
     });
@@ -752,7 +751,25 @@ app.get('/getuserroletypeadmin', function (req, res) {
     });
 
 });
+////////////////////usertype to pass for username nd password
 
+app.get('/getuserrole', function (req, res) {
+
+    var userroletype_id = url.parse(req.url, true).query['userroletype_id'];
+
+            connection.query('set @userroletype_id=?;call usp_getuserrole(@userroletype_id)', [userroletype_id], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+
+                    res.end(JSON.stringify(rows[1]));
+
+
+                }
+            });
+});
 
 //add employee
 app.post('/addemployee', supportCrossOriginScript, function (req, res) {
@@ -925,7 +942,7 @@ let imgstorage1 = multer.diskStorage({
         });
 
 
-        console.log(file.name);
+        console.log(filename);
 
         cb(null, file.originalname);
     }
