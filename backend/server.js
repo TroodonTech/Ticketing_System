@@ -23,8 +23,8 @@ app.listen(app.get('port'), function () {
 var config = {};
 config.db = {};
 
-config.db.host = "192.168.1.113";
-// config.db.host = "localhost";
+// config.db.host = "192.168.1.113";
+ config.db.host = "localhost";
 config.db.user = "root";
 config.db.password = "root";
 config.db.database = "ticketingsystem";
@@ -797,7 +797,7 @@ app.get('/deleteuser', function (req, res) {
 ////add project
 app.post('/addproject', supportCrossOriginScript, function (req, res) {
     var ProjectName = req.body.ProjectName;
-    var LastName = req.body.LastName;
+    var Projectdesc = req.body.Projectdesc;
    
 
     connection.query('set @ProjectName=?;set @Projectdesc=?; call usp_addproject(@ProjectName,@Projectdesc)', [ProjectName, Projectdesc], function (err, rows) {
@@ -903,13 +903,10 @@ let imgstorage1 = multer.diskStorage({
     },
     filename: (req, file, cb) => {
 
-        // var idimageupload = url.parse(req.url, true).query['imgkey'];
+
+       var IssueID = url.parse(req.url, true).query['IssueID'];
         
         var filename = file.originalname;
-
-        // console.log(" SSSSSSSSSSSSSSSSSS fid fdesc fname are  " + formtypeId + " " + formDesc + " " + filename + " " + multerUploadPath);
-
-
 
         console.log(file.name);
 
@@ -976,6 +973,26 @@ app.post('/Edituser', supportCrossOriginScript, function (req, res) {
                     res.end(JSON.stringify(rows[8]));
                 }
             });
+
+});
+
+
+//////get request
+
+app.get('/getrequest', function (req, res) {
+    
+
+    connection.query('call usp_getrequest()', function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("addnamess  is  " + JSON.stringify(rows[0]));
+
+            res.end(JSON.stringify(rows[0]));
+        }
+        res.end();
+    });
 
 });
 //////////////////////////////code by raima ends//////////////////////////////////////////

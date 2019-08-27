@@ -1,17 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import{UserService} from '../../services/user.service';
+import{UserService} from '../../services/user.service'
+
 
 @Component({
-  selector: 'app-viewproject',
-  templateUrl: './viewproject.component.html',
-  styleUrls: ['./viewproject.component.scss']
+  selector: 'app-requestview',
+  templateUrl: './requestview.component.html',
+  styleUrls: ['./requestview.component.scss']
 })
-export class ViewprojectComponent implements OnInit {
-
-  projectname;
-  projectdesc;
-  projectdetailstable;
+export class RequestviewComponent implements OnInit {
+  requestdetails;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -35,13 +33,9 @@ export class ViewprojectComponent implements OnInit {
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
-
-    
-    this.UserService.getProjectDetails()
+   
+    this.UserService.getrequest()
       .subscribe((data: any[]) => {
-        this.projectdetailstable = data;
+        this.requestdetails = data;
       });
-  }
-
 }
-

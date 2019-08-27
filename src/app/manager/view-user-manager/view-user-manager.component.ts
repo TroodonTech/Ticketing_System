@@ -16,6 +16,7 @@ export class ViewUserManagerComponent implements OnInit {
   mailID;
   employeedetailstable;
   employeeid;
+  employee_id;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -34,11 +35,27 @@ export class ViewUserManagerComponent implements OnInit {
   }
 
   constructor(private route: ActivatedRoute, private UserService: UserService, private router: Router) {}
-  edit()
-  { this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['EditUser'] } }]);}
-  delete(){
-    
-  }
+  edit(key)
+  { 
+    this.employee_id = key;
+    this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['EditUser',this.employee_id] } }]);}
+    deletePass(key) {
+      debugger;
+      this.employee_id = key;
+  
+    }
+    deleteRequest() {
+      debugger
+      this.UserService.deleteUser(this.employee_id)
+        .subscribe((data) => {
+          alert('Deleted Successfully');
+          this.UserService.getEmpDetails(this.employeeid)
+        .subscribe((data: any[]) => {
+          this.employeedetailstable = data;
+        });
+        });
+    }
+  
 
   ngOnInit() {
     var token = localStorage.getItem('token');

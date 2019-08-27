@@ -5,11 +5,12 @@ import { ViewUserComponent } from './view-user/view-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { CreateprojectComponent } from './createproject/createproject.component';
 import { ViewprojectComponent } from './viewproject/viewproject.component';
+import { RequestviewComponent } from './requestview/requestview.component';
 
 
 
 @NgModule({
-  declarations: [CreateUserComponent, ViewUserComponent, EditUserComponent, CreateprojectComponent, ViewprojectComponent],
+  declarations: [CreateUserComponent, ViewUserComponent, EditUserComponent, CreateprojectComponent, ViewprojectComponent, RequestviewComponent],
   imports: [
     CommonModule
   ]
