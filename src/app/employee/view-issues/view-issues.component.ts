@@ -26,6 +26,7 @@ export class ViewIssuesComponent implements OnInit {
   pagination;
   pageno= 1;
   items_perpage = 10;
+  check;
 
   options: DatepickerOptions = {
     minYear: 1970,
@@ -180,6 +181,7 @@ export class ViewIssuesComponent implements OnInit {
     this.name = profile.name;
 
     this.checkflag=false;
+    this.check=false;
 
     this.IssueService.getIssuesforEmp(this.employeeid, this.pageno, this.items_perpage)
       .subscribe((data: any[]) => {

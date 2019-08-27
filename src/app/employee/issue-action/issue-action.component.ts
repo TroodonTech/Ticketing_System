@@ -97,18 +97,6 @@ export class IssueActionComponent implements OnInit {
       alert("Please enter any Status");
       return;
     }
-    else if (!(this.startdate)) {
-      alert("Please enter the fix start date");
-      return;
-    }
-    else if(!(this.enddate)) {
-      alert("Please enterthe fix  end date");
-      return;
-    }
-    else if(!(this.newmessage)) {
-      alert("Please enter any message");
-      return;
-    }
 
     this.issueservice
     .issueAction(this.IssueDetailsforEmp.status,this.convert_DT(this.startdate),this.convert_DT(this.enddate),this.newmessage,this.employeeid,this.issueid$)
