@@ -948,7 +948,6 @@ app.post( '/imgupload', imgupload1.single('photo'), function (req, res) {
         })
     }
 });
-
 ////////////////get project details
 
 app.get('/getProjectDetails', function (req, res) {
