@@ -23,7 +23,8 @@ export class CreateUserManagerComponent implements OnInit {
   employeeid;
   username;
   checkclient;
-
+  projectList;
+  project_id;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -66,7 +67,11 @@ export class CreateUserManagerComponent implements OnInit {
       alert("Primary Phone is not provided !");
       return;
     }
-    this.UserService.insertion(this.FirstName, this.LastName, this.MiddleName, this.Address, this.Phone, this.EmailID,this.UserRoleType)
+    if (this.project_id== null)
+    {var pvalue=0}
+    else{pvalue==this.project_id}
+
+    this.UserService.insertion(this.FirstName, this.LastName, this.MiddleName, this.Address, this.Phone, this.EmailID,this.UserRoleType,pvalue)
     .subscribe((data: any[]) => {
       alert("Successfull");
       var EmailID= this.EmailID;
@@ -77,11 +82,12 @@ export class CreateUserManagerComponent implements OnInit {
   }
   checkforclient(){
     debugger;
-    if(this.UserRoleType=='Client'){
+    if(this.UserRoleType=='2'){
       this.checkclient=true;
+
     }
+    else{this.checkclient=false}
   }
-  
   ngOnInit() {
 
     this.UserRoleType="";
@@ -101,11 +107,12 @@ export class CreateUserManagerComponent implements OnInit {
       this.RoleTypeList = data;
       console.log(data);
     });
-    
-    // this.loginService.getProductNames()
-    // .subscribe((data: any[]) => {
-    //   this.product = data;
-    // });
+    this.UserService
+    .getProjectDetails()
+    .subscribe((data: any[]) => {
+      this.projectList = data;
+      console.log(data);
+    });
   }
   numberValid(event: any) {
     const pattern = /[0-9\+\-\ ]/;

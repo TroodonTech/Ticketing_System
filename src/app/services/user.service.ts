@@ -19,7 +19,7 @@ export class UserService {
     return this.
       http.get('http://localhost:3000/getuserrole?userroletype_id='+userroletype_id);
   }
-  insertion(FirstName, LastName, MiddleName, Address, Phone, EmailID,UserRoleType){
+  insertion(FirstName, LastName, MiddleName, Address, Phone, EmailID,UserRoleType,pvalue){
     const url='http://localhost:3000/addemployee'
     const obj={
       FirstName:FirstName,
@@ -28,7 +28,8 @@ export class UserService {
       Address:Address,
       Phone:Phone,
       EmailID:EmailID,
-      UserRoleType:UserRoleType
+      UserRoleType:UserRoleType,
+      pvalue:pvalue
     }
     return this
     .http.post(url,obj);

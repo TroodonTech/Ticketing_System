@@ -17,7 +17,7 @@ export class EditUserManagerComponent implements OnInit {
   Phone: any;
   EmailID: any;
   employeedetails;
-
+  RoleTypeList;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -62,7 +62,12 @@ export class EditUserManagerComponent implements OnInit {
 
 
     // this.requestdetails.assignedname="";
-
+    this.UserService
+    .getuserroletype()
+    .subscribe((data: any[]) => {
+      this.RoleTypeList = data;
+      console.log(data);
+    });
     this.UserService.getEmpDetails(this.employeeid)
     .subscribe((data) => {
       this.employeedetails = data[0];
