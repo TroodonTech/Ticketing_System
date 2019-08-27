@@ -34,7 +34,9 @@
         <div *ngFor="let message of messages" class="form-group">
           <textarea class="form-control rounded-1" maxlength="10" disabled rows="5" style="resize: none;">{{ message.firstname }}: {{ message.comments }}</textarea>
         </div>
+        <div *ngIf="HistoryDetails.status !=='Fixed'">
           <textarea class="form-control rounded-1" placeholder="Enter your Message here" maxlength="10" rows="5" style="resize: none;" [(ngModel)]="newmessage"></textarea>
+      </div>
       </div>
       <br><br><br>
       <div class="row col-md-12" style="margin-left: 42%">

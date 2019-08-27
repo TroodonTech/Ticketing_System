@@ -61,11 +61,7 @@ export class ReportIssueComponent implements OnInit {
   }
 
   ReportIssue() {
-    debugger;
-    // if (!(this.issuetype)) {
-    //   alert("Please choose Issue Type");
-    //   return;
-    // }
+
     if(!(this.Description)){
       alert("Please enter Description");
       return;
@@ -74,20 +70,19 @@ export class ReportIssueComponent implements OnInit {
       alert("Please choose Priority");
       return;
     }
-    debugger;
     this.issueservice.submitIssue(this.Description,this.priority,this.employeeid)
     .subscribe((data: any[]) => {
+      alert("Issue Reported Successfully");
+      this.router.navigate(['/ClientDashboard', { outlets: { ClientOut: ['ViewIssues'] } }]);
       this.addUrl = '?IssueID='+ data[0].IssueID ;
       this.uploader.onBeforeUploadItem = (item) => {
         item.withCredentials = false;
         item.url = url + this.addUrl;
       }
-      debugger;
       this.uploader.uploadAll();
-
-     
     });
   }
+
   ngOnInit() {
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
