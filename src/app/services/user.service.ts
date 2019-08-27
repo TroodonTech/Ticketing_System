@@ -15,6 +15,10 @@ export class UserService {
     return this.
       http.get('http://localhost:3000/getuserroletypeadmin');
   }
+  getuserrole(userroletype_id){
+    return this.
+      http.get('http://localhost:3000/getuserrole?userroletype_id='+userroletype_id);
+  }
   insertion(FirstName, LastName, MiddleName, Address, Phone, EmailID,UserRoleType){
     const url='http://localhost:3000/addemployee'
     const obj={

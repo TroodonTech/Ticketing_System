@@ -19,7 +19,7 @@ export class SetUPComponent implements OnInit {
   userMail: Object;
   employeeid;
   name;
-
+  RoleList;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -99,6 +99,12 @@ export class SetUPComponent implements OnInit {
     // this.name = profile.name;
 
     // this.username = this.str$;
+    this.UserService
+    .getuserrole(this.userroletype_id$)
+    .subscribe((data: any[]) => {
+      this.RoleList = data;
+      console.log(data);
+    });
   }
 
 }

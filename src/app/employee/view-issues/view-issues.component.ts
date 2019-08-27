@@ -25,7 +25,7 @@ export class ViewIssuesComponent implements OnInit {
   showHide2: boolean;
   pagination;
   pageno= 1;
-  items_perpage = 20;
+  items_perpage = 10;
 
   options: DatepickerOptions = {
     minYear: 1970,
@@ -128,9 +128,7 @@ export class ViewIssuesComponent implements OnInit {
       .getIssuesforEmp(this.employeeid, this.pageno, this.items_perpage)
       .subscribe((data: any[]) => {
         this.issuedetails = data;
-        for (var i = 0; i < this.issuedetails.length; i++) {
-          this.issuedetails[i].CheckValue = false;
-        }
+       
         if (this.pageno == 1) {
           this.showHide2 = true;
           this.showHide1 = false;
