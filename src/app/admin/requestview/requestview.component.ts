@@ -39,3 +39,4 @@ export class RequestviewComponent implements OnInit {
         this.requestdetails = data;
       });
 }
+}

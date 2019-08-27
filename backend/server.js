@@ -903,14 +903,27 @@ app.get('/getEmpDetails', function (req, res) {
 
 let imgstorage1 = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, '../dist/imageupload');
+        cb(null, '../dist/mdb-angular-free/imageupload');
     },
     filename: (req, file, cb) => {
 
-
-       var IssueID = url.parse(req.url, true).query['IssueID'];
+        var IssueID = url.parse(req.url, true).query['IssueID'];
         
         var filename = file.originalname;
+                console.log("filename " +filename)
+        // console.log(" SSSSSSSSSSSSSSSSSS fid fdesc fname are  " + formtypeId + " " + formDesc + " " + filename + " " + multerUploadPath);
+        connection.query('set @IssueID=?; set @filename=?;call usp_updateImageDetails(@IssueID,@filename)', [IssueID,filename], function (err, rows) {
+            if (err) {
+                console.log("Problem with MySQL" + err);
+            }
+            else {
+                console.log("filename  is  " + JSON.stringify(rows[2]));
+    
+                res.end(JSON.stringify(rows[2]));
+            }
+            res.end();
+        });
+
 
         console.log(file.name);
 
@@ -935,7 +948,6 @@ app.post( '/imgupload', imgupload1.single('photo'), function (req, res) {
         })
     }
 });
-
 
 ////////////////get project details
 
