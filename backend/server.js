@@ -799,15 +799,16 @@ app.post('/addemployee', supportCrossOriginScript, function (req, res) {
     var Phone = req.body.Phone;
     var EmailID = req.body.EmailID;
     var UserRoleType=req.body.UserRoleType;
+    var pvalue=req.body.pvalue;
 
-    connection.query('set @FirstName=?;set @LastName=?;set @MiddleName=?;set @Address=?;set @Phone=?;set @EmailID=?;set @UserRoleType=?;call usp_addemployee(@FirstName,@LastName,@MiddleName,@Address,@Phone,@EmailID,@UserRoleType)', [FirstName, LastName, MiddleName,Address,Phone,EmailID,UserRoleType], function (err, rows) {
+    connection.query('set @FirstName=?;set @LastName=?;set @MiddleName=?;set @Address=?;set @Phone=?;set @EmailID=?;set @UserRoleType=?;set @pvalue=?;call usp_addemployee(@FirstName,@LastName,@MiddleName,@Address,@Phone,@EmailID,@UserRoleType,@pvalue)', [FirstName, LastName, MiddleName,Address,Phone,EmailID,UserRoleType,pvalue], function (err, rows) {
         if (err) {
             console.log("Problem with MySQL" + err);
         }
         else {
-            console.log("NewItem  is  " + JSON.stringify(rows[7]));
+            console.log("NewItem  is  " + JSON.stringify(rows[8]));
 
-            res.end(JSON.stringify(rows[7]));
+            res.end(JSON.stringify(rows[8]));
         }
         res.end();
     });
@@ -969,7 +970,7 @@ let imgstorage1 = multer.diskStorage({
 
 let imgupload1 = multer({ storage: imgstorage1 });
 
-
+app.options('/imgupload', supportCrossOriginScript);
 app.post( '/imgupload', imgupload1.single('photo'), function (req, res) {
     if (!req.file) {
         console.log("No file received");

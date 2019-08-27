@@ -27,11 +27,11 @@
         <div class="form-group">
           <label>Middle Name</label>
           <input type="text" style="width: 76%;max-width: 100%;" name="MiddleName" class="form-control  col-sm-9 col-md-9 col-lg-9"
-            (keypress)="charValidation($event)" maxlength="19" [(ngModel)]="employeedetails.middlename">
+            maxlength="19" [(ngModel)]="employeedetails.middlename">
         </div>
         <div class="form-group" >
             <label>UserRoleType</label><br>
-            <select name="Gender" style="width: 76%;max-width: 100%;" [(ngModel)]="employeedetails.userroletype_id" 
+            <select name="Gender" style="width: 76%;max-width: 100%;" [(ngModel)]="employeedetails.userrolename" 
             class="form-control col-sm-9 col-md-9 col-lg-9" (change)="checkforclient()">
              <option value="">--Select--</option>
              <option *ngFor="let r of RoleTypeList" [value]="r.userroletype_id">

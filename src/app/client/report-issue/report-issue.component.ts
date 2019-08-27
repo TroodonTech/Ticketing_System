@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from "@angular/router";
 import { IssueService } from "../../services/issue.service";
 import { FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
-const url = 'http://localhost:3000/api/imgupload';
+const url = 'http://localhost:3000/imgupload';
 @Component({
   selector: 'app-report-issue',
   templateUrl: './report-issue.component.html',
@@ -72,9 +72,9 @@ export class ReportIssueComponent implements OnInit {
     }
     this.issueservice.submitIssue(this.Description,this.priority,this.employeeid)
     .subscribe((data: any[]) => {
-      alert("Issue Reported Successfully");
-      this.router.navigate(['/ClientDashboard', { outlets: { ClientOut: ['ViewIssues'] } }]);
-      this.addUrl = '?IssueID='+ data[0].IssueID ;
+      debugger;
+      console.log( data[0].issue_id);
+       this.addUrl = '?IssueID='+ data[0].issue_id;
       this.uploader.onBeforeUploadItem = (item) => {
         item.withCredentials = false;
         item.url = url + this.addUrl;
