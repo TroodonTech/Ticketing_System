@@ -1,14 +1,15 @@
 <div style="padding-left: 9rem;padding-right: 9rem;">
+    <br><br>
     <div class="row col-md-12 ">
-      <h4 style="margin-left: 40%;">PTO REQUEST APPROVAL</h4>
+      <h4 style="margin-left: 40%; font-weight: bold;">PTO REQUEST DETAILS</h4>
     </div>
     <br>
   
-    <div *ngIf="requestdetailsbyID" class="row bg-info col-md-12" style="padding-top: 2rem;padding-bottom: 1rem;">
+    <div *ngIf="requestdetailsbyID" class="row col-md-12" style="padding-top: 2rem;padding-bottom: 1rem;background-color: cornsilk;">
       <div class="col-md-6">
         <div class="form-group">
           <label class="col-sm-6 col-md-6 col-lg-6 " style="margin-left: -1rem;"> Employee Name</label>
-          <input type="text" class="form-control  col-sm-9 col-md-9 col-lg-9" [disabled]=!editflag
+          <input type="text" class="form-control  col-sm-9 col-md-9 col-lg-9" style="background-color:white" [disabled]=!editflag
             (keypress)="charValidation($event)" maxlength="19" [(ngModel)]="requestdetailsbyID.employeename">
         </div>
         <div class="form-group">
@@ -24,14 +25,14 @@
         <div class="form-group">
           <label class="col-sm-6 col-md-6 col-lg-6 " style="margin-left: -1rem;">Work Assigned to</label>
           <input type="text" [(ngModel)]="requestdetailsbyID.assignedname" maxlength="75" [disabled]="!editflag"
-            style="background-color: #D4F4FF !important;width: 75%;" class="form-control" />
+            style="background-color: white !important;width: 75%;" class="form-control" />
         </div>
       </div>
   
       <div class="col-md-6">
         <div class="form-group">
           <label class="col-sm-6 col-md-6 col-lg-6 " style="margin-left: -1rem;"> Employee Number</label>
-          <input type="text" class="form-control  col-sm-9 col-md-9 col-lg-9" maxlength="19" [disabled]=!editflag
+          <input type="text" class="form-control  col-sm-9 col-md-9 col-lg-9"style="background-color: white" maxlength="19" [disabled]=!editflag
             [(ngModel)]="requestdetailsbyID.employee_id">
         </div>
         <div class="form-group">
@@ -42,7 +43,7 @@
         <div class="form-group">
           <label class="col-sm-6 col-md-6 col-lg-6 " style="margin-left: -1rem;">Comments</label><br>
           <textarea class="form-control rounded-1 col-sm-9 col-md-9 col-lg-9" maxlength="200" [disabled]=!editflag
-            [(ngModel)]="requestdetailsbyID.comments" rows="5" style="resize: none;width: 75% !important"></textarea>
+            [(ngModel)]="requestdetailsbyID.comments" rows="5" style="resize: none;width: 75%;background-color: white !important"></textarea>
         </div>
       </div>
   
@@ -69,7 +70,7 @@
         class="col-md-6">
         <div class="form-group">
           <label class="col-sm-6 col-md-6 col-lg-6 " style="margin-left: -1rem; width: 20%;">Status</label>
-          <input type="text" style="background-color: #d4f4ff !important;" [disabled]=!editflag
+          <input type="text" style="background-color: white !important;" [disabled]=!editflag
             class="form-control col-sm-9 col-md-9 col-lg-9" [(ngModel)]="requestdetailsbyID.RequestStatus">
         </div>
         <div class="form-group" style="margin-top: 1.3rem">
@@ -82,7 +83,7 @@
       <div class="form-group col-md-6">
         <div *ngIf="requestdetailsbyID.RequestStatus=='Pending'" class="form-group">
           <label class="col-sm-6 col-md-6 col-lg-6 " style="margin-left: -1rem; width: 20%;">Status*</label>
-          <select style="background-color: #d4f4ff !important;" class="form-control col-sm-9 col-md-9 col-lg-9"
+          <select style="background-color: white !important;" class="form-control col-sm-9 col-md-9 col-lg-9"
             [(ngModel)]="requestdetailsbyID.Status">
             <option value="">--Select--</option>
             <option value="Approved">Approved</option>

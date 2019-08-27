@@ -1,26 +1,28 @@
 <div style="padding-left: 9rem;padding-right: 9rem;">
-        <div class="row col-md-12 ">
-          <h4 style="margin-left: 42%;">ISSUE DETAILS</h4>
-        </div>
+    <br><br>
+    <div class="row col-md-12 ">
+      <h4 style="margin-left: 40%; font-weight: bold;">ISSUE DETAILS</h4>
+    </div>
+    <br>
       
     <div *ngIf="IssueDetailsforManager" style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
         <div class="col-md-6" style="margin-top: 2%">
             <h3 style="text-align: right"></h3>
             <div class="form-group">
               <label>Ticket Number</label><br>
-              <input type="text" style="width: 76%;max-width: 100%;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="IssueDetailsforManager.ticketnumber">
+              <input type="text" style="width: 76%;max-width: 100%;background-color:white;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="IssueDetailsforManager.ticketnumber">
             </div>
             <div class="form-group">
                 <label>Product</label><br>
-                <input type="text" style="width: 76%;max-width: 100%;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="IssueDetailsforManager.projectname">
+                <input type="text" style="width: 76%;max-width: 100%;background-color:white;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="IssueDetailsforManager.projectname">
             </div>
             <div class="form-group">
                 <label>Priority Level</label><br>
-                <input type="text" style="width: 76%;max-width: 100%;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="IssueDetailsforManager.prioritytype">
+                <input type="text" style="width: 76%;max-width: 100%;background-color:white;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="IssueDetailsforManager.prioritytype">
             </div>
             <div class="form-group">
               <label>Issue Reported on</label><br>
-              <input type="text" style="width: 76%;max-width: 100%;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="IssueDetailsforManager.submitteddate">
+              <input type="text" style="width: 76%;max-width: 100%;background-color:white;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="IssueDetailsforManager.submitteddate">
             </div>
             <!-- <div class="form-group" *ngIf ="!marked">
                 <label>Assign to</label><br>
@@ -46,7 +48,7 @@
             </div> -->
             <div class="form-group">
                 <label>Issue type</label><br>
-                <select style="width: 76%;max-width: 100%;" class="form-control" [(ngModel)]="IssueTypeid" required>
+                <select style="width: 76%;max-width: 100%;background-color:white;" class="form-control" [(ngModel)]="IssueTypeid" required>
                     <option value="">--Select--</option>
                     <option *ngFor="let i of Issuetype" [value]="i.issuetype_id">
                         {{i.issuetype}}
@@ -56,7 +58,7 @@
 
             <div class="form-group">
                 <label>Assign to</label><br>
-                <select style="width: 76%;max-width: 100%;" class="form-control" [(ngModel)]="employee" required>
+                <select style="width: 76%;max-width: 100%;background-color:white;" class="form-control" [(ngModel)]="employee" required>
                     <option value="">--Select--</option>
                     <option *ngFor="let i of AllEmployees" [value]="i.employee_id">
                         {{i.employeename}}
@@ -83,11 +85,10 @@
 
         <div class="col-md-6" style="background-color: antiquewhite; margin-top: 5%">
             <h3 style="text-align: right"></h3>
-            <label>Messages*</label>
-            <div *ngFor="let message of messages" class="form-group">
-              <textarea class="form-control rounded-1" maxlength="100" disabled rows="5" style="resize: none;">{{ message.firstname }}: {{ message.comments }}</textarea>
+            <label>Description</label>
+            <div class="form-group">
+              <textarea class="form-control rounded-1" maxlength="100" [(ngModel)]="IssueDetailsforManager.description" disabled rows="5" style="resize: none;background-color:white;"></textarea>
             </div>
-              <!-- <textarea class="form-control rounded-1" *ngIf ="!marked" placeholder="Enter your Message here" maxlength="10" rows="5" style="resize: none;" [(ngModel)]="newmessage"></textarea> -->
         </div>
           <br><br><br>
           <div class="row col-md-12" style="margin-left: 42%" *ngIf ="!marked">
