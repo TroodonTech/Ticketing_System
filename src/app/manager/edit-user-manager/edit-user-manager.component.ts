@@ -44,12 +44,12 @@ export class EditUserManagerComponent implements OnInit {
     .subscribe((data) => {
         this.employeedetails = data;
         alert(' Updated Successfully');
-        this.router.navigate(['/ManagerDashboard', { outlets: { ManagerOut: ['ViewUser'] } }]);
+        this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewUser'] } }]);
       });
   }
 
   goBack() {
-    this.router.navigate(['/ManagerDashboard', { outlets: { ManagerOut: ['ViewUser'] } }]);
+    this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewUser'] } }]);
   }
 
   ngOnInit() {
