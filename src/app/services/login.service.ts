@@ -8,6 +8,8 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
+     /////////////////////////////////Author:Aswathy///////////////
+
   getProductNames(){
     return this.
     http.get('http://localhost:3000/getProductNames');

@@ -11,6 +11,8 @@ const url = 'http://localhost:3000/imgupload';
 })
 export class ReportIssueComponent implements OnInit {
 
+    /////////////////////////////////Author:Aswathy///////////////
+
   role;
   username;
   employeeid;

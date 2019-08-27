@@ -12,6 +12,8 @@ import { DatepickerOptions } from 'ng2-datepicker';
 })
 export class IssueActionComponent implements OnInit {
 
+    /////////////////////////////////Author:Aswathy///////////////
+
   role;
   username;
   employeeid;

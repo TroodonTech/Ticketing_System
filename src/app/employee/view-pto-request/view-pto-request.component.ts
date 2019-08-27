@@ -8,6 +8,8 @@ import { PtorequestService } from '../../services/ptorequest.service';
 })
 export class ViewPtoRequestComponent implements OnInit {
 
+     /////////////////////////////////Author:Aswathy///////////////
+
   role: String;
   name: String;
   username;
