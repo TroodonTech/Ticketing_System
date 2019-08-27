@@ -38,7 +38,7 @@ const routes: Routes = [
 
       },
       {
-        path: 'EditUser',
+        path: 'EditUser/:employee_id',
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/edit-user-manager/edit-user-manager.module#EditUserManagerModule',
 

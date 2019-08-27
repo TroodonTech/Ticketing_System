@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminDashboardComponent } from './admin-dashboard.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import{ } from '../../../admin/edit-user/edit-user.module'
+import{RequestviewModule } from '../../../admin/requestview/requestview.module'
 
 const routes: Routes = [
   {
@@ -44,6 +44,11 @@ const routes: Routes = [
         path: 'ViewProject',
         outlet: 'AdminOut',
         loadChildren: '../../../admin/viewproject/viewproject.module#ViewprojectModule'
+      },
+      {
+        path: 'Request',
+        outlet: 'AdminOut',
+        loadChildren: '../../../admin/requestview/requestview.module#RequestviewModule'
       }
     ]
   }

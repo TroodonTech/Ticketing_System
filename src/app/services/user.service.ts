@@ -32,6 +32,7 @@ export class UserService {
   insert(ProjectName, Projectdesc){
     const url='http://localhost:3000/addproject'
     const obj={
+      
       ProjectName:ProjectName,
       Projectdesc:Projectdesc,
       
@@ -60,7 +61,7 @@ export class UserService {
 
 getProjectDetails(){
   return this.
-  http.get('http://localhost:3000/getEmpDetails');
+  http.get('http://localhost:3000/getProjectDetails');
 }
 deleteUser(deleteRequestKey) {
   return this
@@ -80,5 +81,10 @@ Edituser(FirstName, LastName,MiddleName, Address, Phone, EmailID,UserRoleType ,e
     employee_id: employee_id$
   };
   return this.http.post(url, obj);
+}
+getrequest() {
+  return this
+    .http
+    .get('http://localhost:3000/getrequest' );
 }
 }

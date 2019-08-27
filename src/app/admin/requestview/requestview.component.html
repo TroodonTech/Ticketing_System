@@ -1,0 +1,38 @@
+
+<div style="padding-left: 9rem;padding-right: 9rem;">
+    <div class="row col-md-12 ">
+      <h4 style="margin-left: 40%;">VIEW REQUEST DETAILS
+      </h4>
+    </div>
+    <!-- <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12"> -->
+      <div style="margin-left: 6rem; margin-top:1.5rem; width:80% ; text-align:center;">
+        <table class="table table-responsive table-hover table-bordered table" style="display: inline-table" >
+          <thead class="tableHead">
+            <th> IssueNo </th>
+            <th> IssueType </th>
+            <th> TicketNo</th>
+            <th>Status</th>
+            <th>Address</th>
+            <th>ProjectName</th>
+            <th>Convertedby</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let e of requestdetails">
+              <td>{{ e.issueno }}</td>
+              <td>{{ e.issuetype }}</td>
+              <td>{{ e.ticketnumber }}</td>
+              <td>{{ e.status }}</td>
+              <td>{{ e.projectname }}</td>
+              <td>{{ e.convertedby }}</td>
+             
+              
+             
+            </tr>
+          
+           
+          </tbody>
+      </table>
+    </div>
+  </div>
+  
+  
