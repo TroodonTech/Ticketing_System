@@ -77,7 +77,7 @@ deleteUser(deleteRequestKey) {
     .http
     .get('http://localhost:3000/deleteuser?deleteRequestKey=' + deleteRequestKey);
 }
-Edituser(FirstName, LastName,MiddleName, Address, Phone, EmailID,UserRoleType ,employee_id$) {
+Edituser(FirstName, LastName,MiddleName, Address, Phone, EmailID,UserRoleType ,employee_id$,pvalue) {
   const url = 'http://localhost:3000/Edituser'
   const obj = {
     FirstName: FirstName,
@@ -87,7 +87,8 @@ Edituser(FirstName, LastName,MiddleName, Address, Phone, EmailID,UserRoleType ,e
     Phone: Phone,
     EmailID: EmailID,
     UserRoleType: UserRoleType,
-    employee_id: employee_id$
+    employee_id: employee_id$,
+    pvalue:pvalue
   };
   return this.http.post(url, obj);
 }

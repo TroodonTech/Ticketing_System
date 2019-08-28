@@ -32,18 +32,21 @@
         <div class="form-group" >
             <label>UserRoleType</label><br>
             <select name="Gender" style="width: 76%;max-width: 100%;" [(ngModel)]="employeedetails.userroletype_id" 
-            class="form-control col-sm-9 col-md-9 col-lg-9" (change)="checkforclient()">
+            class="form-control col-sm-9 col-md-9 col-lg-9" >
              <option *ngFor="let r of RoleTypeList" [value]="r.userroletype_id">
                  {{r.userrolename}}
              </option>
              </select>
-             <!-- <div *ngIf="checkclient" >
-              <label>Product</label><br>
-              <select name="Gender" style="width: 76%;max-width: 100%;" [(ngModel)]="Product" 
+             <div  >
+              <label>Project</label><br>
+              <select name="Gender" style="width: 76%;max-width: 100%;" [(ngModel)]="employeedetails.project_id" 
               class="form-control col-sm-9 col-md-9 col-lg-9" >
                <option value="">--Select--</option>
+               <option *ngFor="let p of projectList" [value]="p.project_id">
+                {{p.projectname}}
+            </option>
                </select>
-            </div> -->
+            </div>
   
             </div>
           

@@ -18,6 +18,8 @@ export class EditUserManagerComponent implements OnInit {
   EmailID: any;
   employeedetails;
   RoleTypeList;
+  project_id;
+  checkclient;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -39,20 +41,31 @@ export class EditUserManagerComponent implements OnInit {
     this.route.params.subscribe(params => this.employee_id$ = params.employee_id);
   }
   editEmployee() {
-
-    this.UserService.Edituser(this.FirstName, this.LastName, this.MiddleName, this.Address, this.Phone, this.EmailID,this.UserRoleType ,this.employee_id$)
+    if (this.project_id== null)
+    {var pvalue=1}
+    else{pvalue==this.project_id}
+    this.UserService.Edituser(this.FirstName, this.LastName, this.MiddleName, this.Address, this.Phone, this.EmailID,this.UserRoleType ,this.employee_id$,pvalue)
     .subscribe((data) => {
         this.employeedetails = data;
         alert(' Updated Successfully');
         this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewUser'] } }]);
       });
   }
+  checkforclient(){
+    debugger;
+    if(this.UserRoleType=='2'){
+      this.checkclient=true;
 
+    }
+    else{this.checkclient=false}
+  }
+  
   goBack() {
-    this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewUser'] } }]);
+    this.router.navigate(['/AdminDashboard', { outlets: { AdminOut: ['ViewUser'] } }]);
   }
 
   ngOnInit() {
+    this.checkclient=false;
 
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
@@ -68,7 +81,7 @@ export class EditUserManagerComponent implements OnInit {
       this.RoleTypeList = data;
       console.log(data);
     });
-    this.UserService.getEmpDetails(this.employeeid)
+    this.UserService.getEmpDetailsedit(this.employee_id$)
     .subscribe((data) => {
       this.employeedetails = data[0];
     });
