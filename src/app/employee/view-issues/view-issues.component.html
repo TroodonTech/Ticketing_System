@@ -35,9 +35,12 @@
             <td>{{ x.projectname }}</td>
             <td>{{ x.prioritytype }}</td>
             <td>{{ x.description }}</td>
-            <td>{{ x.status }}</td>
-            <td>
+            <td>{{ x.statuslabel }}</td>
+            <td *ngIf="x.statuslabel=='Pending'">
               <a [routerLink]="['IssueAction', x.issue_id, x.assignedby]" class="btn btn-primary"><b>VIEW</b></a>&nbsp;&nbsp;
+            </td>
+            <td *ngIf="x.statuslabel=='Submitted'">
+              <a [routerLink]="['IssueActionEmp', x.issue_id, x.assignedby]" class="btn btn-primary"><b>VIEW</b></a>&nbsp;&nbsp;
             </td>
           </tr>
           <tr *ngIf="issuedetails?.length == 0">

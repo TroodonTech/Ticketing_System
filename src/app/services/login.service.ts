@@ -8,13 +8,8 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-     /////////////////////////////////Author:Aswathy///////////////
+     /////////////////////////////////Author:Raima///////////////
 
-  getProductNames(){
-    return this.
-    http.get('http://localhost:3000/getProductNames');
-  }
-  
   login(username, password) {
     const url = 'http://localhost:3000/authenticate'
     const obj = {
