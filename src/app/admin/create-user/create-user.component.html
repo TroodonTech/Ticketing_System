@@ -1,7 +1,7 @@
 
 <div style="padding-left: 9rem;padding-right: 9rem; padding-top:4rem !important; padding-bottom:0rem !important;">
   <div style=" padding-top:5rem !important; padding-bottom:5rem !important;
-  color: #cddcdf;" class="row bg-info col-md-12">
+  color: #000000;" class="row bg-info col-md-12">
       <div class="row col-md-12 ">
           <h4 style="margin-left: 35%;font-size: 2.5rem;color: #174a5e; font-weight: bold;"><strong>USER DETAILS</strong></h4>
         </div><br>
@@ -20,7 +20,7 @@
       <div class="form-group">
           <label>Address </label>
           <textarea style="width: 76% !important;max-width: 100%;" class="form-control rounded-0  col-sm-9 col-md-9 col-lg-9"
-            maxlength="85" [(ngModel)]="Address"  id="exampleFormControlTextarea1" rows="5"></textarea>
+            maxlength="85" [(ngModel)]="Address"  id="exampleFormControlTextarea1" rows="8"></textarea>
         </div>
 
     </div>
@@ -40,6 +40,7 @@
                {{r.userrolename}}
            </option>
            </select>
+           <br>
            <div *ngIf="checkclient" >
             <label>Project</label><br>
             <select name="Gender" style="width: 76%;max-width: 100%;" [(ngModel)]="Project" 
