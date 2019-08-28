@@ -29,16 +29,6 @@
                 <input type="text" style="width: 76%;max-width: 100%;"  class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="IssueDetailsforManager.assignedname">
             </div> -->
             <!-- <div class="form-group" *ngIf ="!marked">
-                <label>Status</label><br>
-                <select style="width: 76%;max-width: 100%;" class="form-control" [(ngModel)]="IssueDetailsforEmp.status" required>
-                    <option value="">--Select--</option>
-                    <option value="Pending">Pending</option>
-                    <option value="In Progress">In Progress</option>
-                    <option value="Declined">Decline</option>
-                </select>
-            </div> -->
-
-            <!-- <div class="form-group" *ngIf ="!marked">
                 <label>Fix Start Date</label><br>
                 <ng-datepicker [options]="options" position="top-right" [(ngModel)]="startdate"></ng-datepicker>
             </div>
@@ -65,28 +55,25 @@
                     </option>
                 </select>
             </div>
-
-
-            <div class="form-group">
-              <label>Duplicate</label>
-              <input type="checkbox" [(ngModel)]="theCheckbox" (change)="toggleVisibility($event)" />
-            </div>
-
-            <div class="form-group" *ngIf ="marked">
-              <label>Duplicate of Reference Number</label>
-              <select style="background-color:white !important;width: 75%;" class="form-control" [(ngModel)]="duplicateissueid" required>
-                <option value="">--Select--</option>
-                <option *ngFor="let i of IssueNumber" [value]="i.issue_id">
-                    {{i.ticketnumber}}
-                </option>
-              </select>
-            </div>
       </div>
 
-        <div class="col-md-6" style="background-color: antiquewhite; margin-top: 5%">
-            <h3 style="text-align: right"></h3>
-            <label>Description</label>
+        <div class="col-md-6" style="margin-top: 5%">
             <div class="form-group">
+                <label>Duplicate</label>
+                <input type="checkbox" [(ngModel)]="theCheckbox" (change)="toggleVisibility($event)" />
+              </div>
+  
+              <div class="form-group" *ngIf ="marked">
+                <label>Duplicate of Reference Number</label>
+                <select style="background-color:white !important;width: 75%;" class="form-control" [(ngModel)]="duplicateissueid" required>
+                  <option value="">--Select--</option>
+                  <option *ngFor="let i of IssueNumber" [value]="i.issue_id">
+                      {{i.ticketnumber}}
+                  </option>
+                </select>
+              </div>
+            <div class="form-group">
+              <label>Description</label>
               <textarea class="form-control rounded-1" maxlength="100" [(ngModel)]="IssueDetailsforManager.description" disabled rows="5" style="resize: none;background-color:white;"></textarea>
             </div>
         </div>

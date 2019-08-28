@@ -97,15 +97,32 @@ export class IssueActionComponent implements OnInit {
     this.route.params.subscribe(params => this.assignedby$ = params.assignedby);
    }
 
-   issueAction(){
+   FixedissueAction(){
+     
+    if (!(this.issuetype_id)) {
+      alert("Please enter issuetype");
+      return;
+    }
 
     if (!(this.status)) {
       alert("Please enter any Status");
       return;
     }
+    if (!(this.startdate)) {
+      alert("Please enter start date");
+      return;
+    }
+    if (!(this.enddate)) {
+      alert("Please enter any end date");
+      return;
+    }    
+    if (!(this.newmessage)) {
+      alert("Please enter any message");
+      return;
+    }
 
     this.issueservice
-    .issueAction(this.status,this.convert_DT(this.startdate),this.convert_DT(this.enddate),this.newmessage,this.employeeid,this.issueid$)
+    .clientfixedissueAction(this.issuetype_id,this.status,this.convert_DT(this.startdate),this.convert_DT(this.enddate),this.newmessage,this.employeeid,this.issueid$)
     .subscribe((data: any[]) => {
       alert("Updated successfully!")
       this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewIssues'] } }]);
@@ -113,51 +130,58 @@ export class IssueActionComponent implements OnInit {
 
    }
 
-   IssuefromEmpAction(){
+   issueAction(){
+
     if (!(this.issuetype_id)) {
-      alert("Please enter any issuetype");
+      alert("Please enter issuetype");
       return;
     }
+
     if (!(this.status)) {
       alert("Please enter any Status");
       return;
     }
+   
+    if (!(this.newmessage)) {
+      alert("Please enter any message");
+      return;
+    }
 
-    // this.issueservice
-    // .issuefromEmpAction(this.status,this.convert_DT(this.startdate),this.convert_DT(this.enddate),this.newmessage,this.employeeid,this.issueid$)
-    // .subscribe((data: any[]) => {
-    //   alert("Updated successfully!")
-    //   this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewIssues'] } }]);
-    // });
+    this.issueservice
+    .clientissueAction(this.issuetype_id,this.status,this.newmessage,this.employeeid,this.issueid$)
+    .subscribe((data: any[]) => {
+      alert("Updated successfully!")
+      this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewIssues'] } }]);
+    });
 
    }
-   goBack() {
+  goBack() {
       this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewIssues'] } }]);
     }
 
-    duplicateAction(){
+  duplicateAction(){
 
-      if (!(this.duplicateissueid)) {
-        alert("Please enter the Reference Number");
-        return;
-      }
-
-      this.issueservice
-      .duplicateAction(this.issueid$,this.duplicateissueid)
-      .subscribe((data: any[]) => {
-        alert("Updated successfully!")
-        this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewIssues'] } }]);
-      });
+    if (!(this.duplicateissueid)) {
+      alert("Please enter the Reference Number");
+      return;
     }
 
-    changetoRequest(){
-      this.issueservice
-      .changetoRequest(this.issueid$,this.employeeid)
-      .subscribe((data: any[]) => {
-        alert("Changed Issue to Request successfully!")
-        this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewIssues'] } }]);
-      });
-    }
+    this.issueservice
+    .duplicateAction(this.issueid$,this.duplicateissueid)
+    .subscribe((data: any[]) => {
+      alert("Updated successfully!")
+      this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewIssues'] } }]);
+    });
+  }
+
+  changetoRequest(){
+    this.issueservice
+    .changetoRequest(this.issueid$,this.employeeid)
+    .subscribe((data: any[]) => {
+      alert("Changed Issue to Request successfully!")
+      this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewIssues'] } }]);
+    });
+  }
 
   ngOnInit() {
     var token = localStorage.getItem('token');

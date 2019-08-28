@@ -97,8 +97,8 @@ export class IssueService {
     http.get('http://localhost:3000/getIssueDetailsforEmp?issueid=' +issueid + '&assignedby=' + assignedby);
   }
 
-  issueAction(status,startdate,enddate,newmessage,employeeid,issueid){
-    const url = 'http://localhost:3000/issueAction';
+  FixedissueAction(status,startdate,enddate,newmessage,employeeid,issueid){
+    const url = 'http://localhost:3000/fixedissueAction';
     const obj = {
       status:status,
       startdate:startdate,
@@ -111,6 +111,45 @@ export class IssueService {
     return this.http.post(url, obj);
   }
 
+  issueAction(status,newmessage,employeeid,issueid){
+    const url = 'http://localhost:3000/issueAction';
+    const obj = {
+      status:status,
+      newmessage: newmessage,
+      employeeid: employeeid,
+      issueid:issueid
+    };
+
+    return this.http.post(url, obj);
+  }
+
+  clientfixedissueAction(issuetype,status,startdate,enddate,newmessage,employeeid,issueid){
+    const url = 'http://localhost:3000/clientfixedissueAction';
+    const obj = {
+      issuetype:issuetype,
+      status:status,
+      startdate:startdate,
+      enddate:enddate,
+      newmessage: newmessage,
+      employeeid: employeeid,
+      issueid:issueid
+    };
+
+    return this.http.post(url, obj);
+  }
+
+  clientissueAction(issuetype,status,newmessage,employeeid,issueid){
+    const url = 'http://localhost:3000/clientissueAction';
+    const obj = {
+      issuetype:issuetype,
+      status:status,
+      newmessage: newmessage,
+      employeeid: employeeid,
+      issueid:issueid
+    };
+
+    return this.http.post(url, obj);
+  }
   getIssueNumber(issueid,employeeid){
     return this.
     http.get('http://localhost:3000/getIssueNumber?issueid=' +issueid + '&employeeid=' + employeeid);
@@ -120,11 +159,15 @@ export class IssueService {
     return this.
     http.get('http://localhost:3000/duplicateAction?issueid=' +issueid + '&duplicateissueid=' +duplicateissueid);
   }
-  getAllIssues(vpto){
+  getAllIssues(issue){
     const url ='http://localhost:3000/getAllIssues';
     return this
       .http
-      .post(url,vpto);
+      .post(url,issue);
+  }
+  getStatus(){
+    return this.
+    http.get('http://localhost:3000/getStatus');
   }
   deleteIssues(deleteKey){
     return this.
@@ -152,14 +195,15 @@ export class IssueService {
     };
     return this.http.post(url, obj);
   }
-  submitIssuebyManager(issuetype,employee,Description,priority,employeeid){
+  submitIssuebyManager(issuetype,employee,Description,priority,employeeid,Product){
     const url = 'http://localhost:3000/submitIssuebyManager';
     const obj = {
       issuetype:issuetype,
       employee:employee,
       Description:Description,
       priority: priority,
-      employeeid:employeeid
+      employeeid:employeeid,
+      Product:Product
     };
     return this.http.post(url, obj);
   }

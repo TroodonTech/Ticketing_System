@@ -23,8 +23,8 @@ app.listen(app.get('port'), function () {
 var config = {};
 config.db = {};
 
-config.db.host = "192.168.1.113";
-//  config.db.host = "localhost";
+// config.db.host = "192.168.1.113";
+ config.db.host = "localhost";
 config.db.user = "root";
 config.db.password = "root";
 config.db.database = "ticketingsystem";
@@ -280,8 +280,8 @@ app.get('/getIssueDetailsforEmp', function (req, res) {
 
 });
 
-app.options('/issueAction', supportCrossOriginScript);
-app.post('/issueAction', supportCrossOriginScript, function (req, res) {
+app.options('/fixedissueAction', supportCrossOriginScript);
+app.post('/fixedissueAction', supportCrossOriginScript, function (req, res) {
     var status=req.body.status;
     var startdate=req.body.startdate;
     var enddate=req.body.enddate;
@@ -289,7 +289,7 @@ app.post('/issueAction', supportCrossOriginScript, function (req, res) {
     var employeeid = req.body.employeeid;
     var issueid = req.body.issueid;
 
-    connection.query('set @status=?;set @startdate=?;set @enddate=?;set @newmessage=?;set @employeeid=?;set @issueid=?; call usp_saveissueAction(@status,@startdate,@enddate,@newmessage,@employeeid,@issueid)', [status,startdate,enddate,newmessage,employeeid,issueid], function (err, rows) {
+    connection.query('set @status=?;set @startdate=?;set @enddate=?;set @newmessage=?;set @employeeid=?;set @issueid=?; call usp_savefixedissueAction(@status,@startdate,@enddate,@newmessage,@employeeid,@issueid)', [status,startdate,enddate,newmessage,employeeid,issueid], function (err, rows) {
         if (err) {
             console.log("Problem with MySQL" + err);
         }
@@ -297,6 +297,73 @@ app.post('/issueAction', supportCrossOriginScript, function (req, res) {
             console.log("NewItem  is  " + JSON.stringify(rows[6]));
 
             res.end(JSON.stringify(rows[6]));
+        }
+        res.end();
+    });
+
+});
+
+app.options('/clientissueAction', supportCrossOriginScript);
+app.post('/clientissueAction', supportCrossOriginScript, function (req, res) {
+    var issuetype=req.body.issuetype
+    var status=req.body.status;
+    var newmessage = req.body.newmessage;
+    var employeeid = req.body.employeeid;
+    var issueid = req.body.issueid;
+
+    connection.query('set@issuetype=?; set @status=?;set @newmessage=?;set @employeeid=?;set @issueid=?; call usp_clientissueAction(@issuetype,@status,@newmessage,@employeeid,@issueid)', [issuetype,status,newmessage,employeeid,issueid], function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("NewItem  is  " + JSON.stringify(rows[5]));
+
+            res.end(JSON.stringify(rows[5]));
+        }
+        res.end();
+    });
+
+});
+
+app.options('/clientfixedissueAction', supportCrossOriginScript);
+app.post('/clientfixedissueAction', supportCrossOriginScript, function (req, res) {
+    var issuetype=req.body.issuetype;
+    var status=req.body.status;
+    var startdate=req.body.startdate;
+    var enddate=req.body.enddate;
+    var newmessage = req.body.newmessage;
+    var employeeid = req.body.employeeid;
+    var issueid = req.body.issueid;
+
+    connection.query('set@issuetype=?;set @status=?;set @startdate=?;set @enddate=?;set @newmessage=?;set @employeeid=?;set @issueid=?; call usp_clientfixedissueAction(@issuetype,@status,@startdate,@enddate,@newmessage,@employeeid,@issueid)', [issuetype,status,startdate,enddate,newmessage,employeeid,issueid], function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("NewItem  is  " + JSON.stringify(rows[7]));
+
+            res.end(JSON.stringify(rows[7]));
+        }
+        res.end();
+    });
+
+});
+
+app.options('/issueAction', supportCrossOriginScript);
+app.post('/issueAction', supportCrossOriginScript, function (req, res) {
+    var status=req.body.status;
+    var newmessage = req.body.newmessage;
+    var employeeid = req.body.employeeid;
+    var issueid = req.body.issueid;
+
+    connection.query('set @status=?;set @newmessage=?;set @employeeid=?;set @issueid=?; call usp_saveissueAction(@status,@newmessage,@employeeid,@issueid)', [status,newmessage,employeeid,issueid], function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("NewItem  is  " + JSON.stringify(rows[4]));
+
+            res.end(JSON.stringify(rows[4]));
         }
         res.end();
     });
@@ -643,14 +710,15 @@ app.post('/submitIssuebyManager', supportCrossOriginScript, function (req, res) 
     var Description = req.body.Description;
     var priority = req.body.priority;
     var employeeid = req.body.employeeid;
+    var Product = req.body.Product;
 
-        connection.query('set @issuetype=?;set @employee=?;set @Description=?;set @priority=?;set @employeeid=?;call usp_submitIssuebyManager(@issuetype,@employee,@Description,@priority,@employeeid)', [issuetype,employee, Description, priority,employeeid], function (err, rows) {
+        connection.query('set @issuetype=?;set @employee=?;set @Description=?;set @priority=?;set @employeeid=?;set@Product=?;call usp_submitIssuebyManager(@issuetype,@employee,@Description,@priority,@employeeid,@Product)', [issuetype,employee, Description, priority,employeeid,Product], function (err, rows) {
             if (err) {
                 console.log("Problem with MySQL" + err);
             }
             else {
 
-                res.end(JSON.stringify(rows[5]));
+                res.end(JSON.stringify(rows[6]));
             }
         });
 
@@ -730,6 +798,22 @@ app.post('/submitIssuebyEmployee', supportCrossOriginScript, function (req, res)
             }
         });
 
+});
+
+app.get('/getStatus', function (req, res) {
+
+        connection.query('call usp_getStatus()', function (err, rows) {
+            if (err) {
+                console.log("Problem with MySQL" + err);
+            }
+            else {
+
+
+                res.end(JSON.stringify(rows[0]));
+
+
+            }
+        });
 });
 //////////////////////////////code by aswathy ends//////////////////////////////////////////
 

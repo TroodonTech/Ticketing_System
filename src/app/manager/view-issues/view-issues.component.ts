@@ -25,8 +25,8 @@ export class ViewIssuesComponent implements OnInit {
   fromdate;
   todate;
   IssueStatus;
-
-  vpto;
+  statuslabels;
+  issue;
 
   options: DatepickerOptions = {
     minYear: 1970,
@@ -53,11 +53,11 @@ export class ViewIssuesComponent implements OnInit {
   deleteIssues() {
     this.IssueService.deleteIssues(this.deleteKey)
       .subscribe((data) => {
-        alert('Issue Deleted Successfully');
-        this.IssueService.getAllIssues(this.vpto)
-        .subscribe((data: any[]) => {
-          this.issuedetails = data;
-        });
+        // alert('Issue Deleted Successfully');
+        // this.IssueService.getAllIssues(this.issue)
+        // .subscribe((data: any[]) => {
+        //   this.issuedetails = data;
+        // });
       });
   }
 
@@ -79,6 +79,44 @@ export class ViewIssuesComponent implements OnInit {
   }
   constructor(private IssueService: IssueService,private router: Router) { }
 
+  public convert_DT(str) {
+    var date = new Date(str),
+      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+      day = ("0" + date.getDate()).slice(-2);
+    return [date.getFullYear(), mnth, day].join("-");
+  }
+
+  viewissues(fromdate, todate, IssueStatus) {
+
+    if ((todate) && (this.convert_DT(fromdate) > this.convert_DT(todate))) {
+      todate = null;
+      alert("Please check your Start Date!");
+      return;
+    }
+    if (!(this.IssueStatus)) {
+      alert("Please choose Status");
+      return;
+    }
+    else {
+      var fdate;
+      var tdate;
+      fdate = this.convert_DT(fromdate);
+      tdate = this.convert_DT(todate);
+
+      this.issue = {
+        employeekey: this.employeeid,
+        fromdate: fdate,
+        todate: tdate,
+        Status: IssueStatus
+      };
+
+      this.IssueService.getAllIssues(this.issue)
+      .subscribe((data: any[]) => {
+        this.issuedetails = data;
+      });
+    }
+  }
+
   ngOnInit() {
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
@@ -92,65 +130,28 @@ export class ViewIssuesComponent implements OnInit {
 
     this.fromdate = new Date(Date.now());
     this.todate = new Date(Date.now());
-    this.IssueStatus = "";
-
     this.fromdate = this.convert_DT(this.fromdate);
     this.todate = this.convert_DT(this.todate);
+    this.IssueStatus = "";
 
-    var pstatus = null;
+    // var pstatus = null;
+    // this.vpto = {
+    //   employeekey: this.employeeid,
+    //   fromdate: this.fromdate,
+    //   todate: this.todate,
+    //   Status: pstatus
+    // };
 
-    this.vpto = {
-      employeekey: this.employeeid,
-      fromdate: this.fromdate,
-      todate: this.todate,
-      Status: pstatus
-    };
+    // this.IssueService.getAllIssues(this.vpto)
+    //   .subscribe((data: any[]) => {
+    //     this.issuedetails = data;
+    //   });
 
-    this.IssueService.getAllIssues(this.vpto)
-      .subscribe((data: any[]) => {
-        this.issuedetails = data;
-      });
+    this.IssueService.getStatus()
+    .subscribe((data: any[]) => {
+      this.statuslabels = data;
+    });
 
   }
-  public convert_DT(str) {
-    var date = new Date(str),
-      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
-      day = ("0" + date.getDate()).slice(-2);
-    return [date.getFullYear(), mnth, day].join("-");
-  }
-  viewissues(fromdate, todate, IssueStatus) {
-
-    if ((todate) && (this.convert_DT(fromdate) > this.convert_DT(todate))) {
-      todate = null;
-      alert("Please check your Start Date!");
-      return;
-    }
-    else {
-      var fdate;
-      var tdate;
-      fdate = this.convert_DT(fromdate);
-      tdate = this.convert_DT(todate);
-
-      var pstatus;
-      if (!IssueStatus) {
-        pstatus = null;
-      }
-      else {
-        pstatus = IssueStatus;
-      }
-
-      this.vpto = {
-        employeekey: this.employeeid,
-        fromdate: fdate,
-        todate: tdate,
-        Status: pstatus
-      };
-
-      this.IssueService.getAllIssues(this.vpto)
-      .subscribe((data: any[]) => {
-        this.issuedetails = data;
-      });
-    }
-  }
-
+  
 }
