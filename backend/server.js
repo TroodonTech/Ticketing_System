@@ -1118,14 +1118,15 @@ app.post('/Edituser', supportCrossOriginScript, function (req, res) {
     var EmailID = req.body.EmailID;
     var UserRoleType = req.body.UserRoleType;
     var employee_id = req.body.employee_id;
+    var pvalue = req.body.pvalue;
 
-            connection.query("set @FirstName=?;set @LastName=?;set @MiddleName=?;set @Address=?;set @Phone=?;set @EmailID=?;set @UserRoleType=?;set @employee_id=?;call usp_Edituser(@FirstName,@LastName,@MiddleName,@Address,@Phone,@EmailID,@UserRoleType,@employee_id)", [FirstName, LastName, MiddleName, Address, Phone, EmailID, UserRoleType,employee_id], function (err, rows) {
+            connection.query("set @FirstName=?;set @LastName=?;set @MiddleName=?;set @Address=?;set @Phone=?;set @EmailID=?;set @UserRoleType=?;set @employee_id=?;set @pvalue=?;call usp_Edituser(@FirstName,@LastName,@MiddleName,@Address,@Phone,@EmailID,@UserRoleType,@employee_id,@pvalue)", [FirstName, LastName, MiddleName, Address, Phone, EmailID, UserRoleType,employee_id,pvalue], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
                 else {
 
-                    res.end(JSON.stringify(rows[8]));
+                    res.end(JSON.stringify(rows[9]));
                 }
             });
 

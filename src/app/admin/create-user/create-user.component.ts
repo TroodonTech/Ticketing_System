@@ -69,10 +69,11 @@ export class CreateUserComponent implements OnInit {
       return;
     }
     if (this.project_id== null)
-    {var pvalue=0}
+    {var pvalue=1}
     else{pvalue==this.project_id}
 
-    this.UserService.insertion(this.FirstName, this.LastName, this.MiddleName, this.Address, this.Phone, this.EmailID,this.UserRoleType,pvalue)
+    this.UserService.insertion(this.FirstName, this.LastName, this.MiddleName,
+       this.Address, this.Phone, this.EmailID,this.UserRoleType,pvalue)
     .subscribe((data: any[]) => {
       alert("Successfull");
       var EmailID= this.EmailID;

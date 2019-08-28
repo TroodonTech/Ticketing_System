@@ -15,6 +15,7 @@
           <th>Contact No</th>
           <th>Address</th>
           <th>MailID</th>
+          <th>Project Name</th>
           <th>UPDATE</th>
         </thead>
         <tbody>
@@ -26,6 +27,7 @@
             <td>{{ e.phonenumber }}</td>
             <td>{{ e.address }}</td>
             <td>{{ e.mailID }}</td>
+            <td>{{ e.projectname}}</td>
             
             <td >
               <a  (click)="edit( e.employee_id); "class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;

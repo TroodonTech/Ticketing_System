@@ -18,7 +18,10 @@ export class EditUserComponent implements OnInit {
   EmailID: any;
   employeedetails;
   RoleTypeList;
-
+  project_id;
+  pvalue;
+  checkclient;
+  projectList;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -40,21 +43,23 @@ export class EditUserComponent implements OnInit {
     this.route.params.subscribe(params => this.employee_id$ = params.employee_id);
   }
   editEmployee() {
-
+    
     this.UserService.Edituser(this.FirstName, this.LastName, this.MiddleName, this.Address,
-       this.Phone, this.EmailID,this.UserRoleType ,this.employee_id$)
+       this.Phone, this.EmailID,this.UserRoleType ,this.employee_id$,this.project_id)
     .subscribe((data) => {
         this.employeedetails = data;
         alert(' Updated Successfully');
         this.router.navigate(['/AdminDashboard', { outlets: { AdminOut: ['ViewUser'] } }]);
       });
   }
-
+ 
+  
   goBack() {
     this.router.navigate(['/AdminDashboard', { outlets: { AdminOut: ['ViewUser'] } }]);
   }
 
   ngOnInit() {
+    
 
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
@@ -76,7 +81,12 @@ export class EditUserComponent implements OnInit {
       debugger;
       this.employeedetails = data[0];
     });
-
+    this.UserService
+    .getProjectDetails()
+    .subscribe((data: any[]) => {
+      this.projectList = data;
+      console.log(data);
+    });
   }
 
 }
