@@ -102,6 +102,7 @@ export class SetUPComponent implements OnInit {
     this.UserService
     .getuserrole(this.userroletype_id$)
     .subscribe((data: any[]) => {
+      debugger;
       this.RoleList = data;
       console.log(data);
     });

@@ -1,7 +1,7 @@
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
 <div *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
   <div class="row col-md-12 ">
-    <h4 style="margin-left: 42%; font-weight: bold;">VIEW USER DETAILS</h4>
+    <h4 style="margin-left: 42%; font-weight: bold; background-color:cornsilk;">VIEW USER DETAILS</h4>
   </div>
   
   
@@ -23,6 +23,7 @@
     <thead class="tableHead">
       <th> USER </th>
       <th> FirstName </th>
+      <th> MiddleName </th>
       <th> Last Name</th>
       <th>Contact No</th>
       <th>Address</th>
@@ -34,12 +35,13 @@
       <tr *ngFor="let e of employeedetailstable" >
         <td>{{ e.userrolename }}</td>
         <td>{{ e.firstname }}</td>
+        <td>{{ e.middlename }}</td>
         <td>{{ e.lastname }}</td>
         <td>{{ e.phonenumber }}</td>
         <td>{{ e.address }}</td>
         <td>{{ e.mailID }}</td>
         <td>
-          <button class="btn btn-success" style="float: left;" (click)="edit()" >EDIT</button>
+          <button class="btn btn-success" style="float: left;" (click)="edit(e.employee_id)" >EDIT</button>
           <button class="btn btn-success" style="float: right;" (click)="delete()" >DELETE</button></td>
       </tr>
       

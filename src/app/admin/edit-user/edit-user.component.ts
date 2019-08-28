@@ -41,7 +41,8 @@ export class EditUserComponent implements OnInit {
   }
   editEmployee() {
 
-    this.UserService.Edituser(this.FirstName, this.LastName, this.MiddleName, this.Address, this.Phone, this.EmailID,this.UserRoleType ,this.employee_id$)
+    this.UserService.Edituser(this.FirstName, this.LastName, this.MiddleName, this.Address,
+       this.Phone, this.EmailID,this.UserRoleType ,this.employee_id$)
     .subscribe((data) => {
         this.employeedetails = data;
         alert(' Updated Successfully');
@@ -64,13 +65,15 @@ export class EditUserComponent implements OnInit {
 
     // this.requestdetails.assignedname="";
     this.UserService
-    .getuserroletype()
+    .getuserroletypeadmin()
     .subscribe((data: any[]) => {
+      debugger;
       this.RoleTypeList = data;
-      console.log(data);
+      console.log(data)
     });
-    this.UserService.getEmpDetails(this.employeeid)
+    this.UserService.getEmpDetailsedit(this.employee_id$)
     .subscribe((data) => {
+      debugger;
       this.employeedetails = data[0];
     });
 

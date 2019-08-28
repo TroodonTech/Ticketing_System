@@ -68,6 +68,7 @@ export class ViewUserManagerComponent implements OnInit {
     this.address = profile.address;
     this.mailID = profile.mailID;
     this.employeeid = profile.employeeid;
+    debugger;
     this.UserService.getEmpDetails(this.employeeid)
       .subscribe((data: any[]) => {
         this.employeedetailstable = data;

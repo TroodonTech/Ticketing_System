@@ -934,6 +934,25 @@ app.get('/getEmpDetails', function (req, res) {
 });
 
 
+////////////////////////for edit employee
+app.get('/getEmpDetailsedit', function (req, res) {
+    var employeeid = url.parse(req.url, true).query['employeeid'];
+
+    connection.query('set @employeeid=?; call usp_getEmpDetailsedit(@employeeid)', [employeeid], function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("addnamess  is  " + JSON.stringify(rows[1]));
+
+            res.end(JSON.stringify(rows[1]));
+        }
+        res.end();
+    });
+
+});
+
+
  
 //////////////////////image upload
 

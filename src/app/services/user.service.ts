@@ -63,6 +63,10 @@ export class UserService {
     return this.
     http.get('http://localhost:3000/getEmpDetails?employeeid=' + employeeid);
 }
+getEmpDetailsedit(employeeid){
+  return this.
+  http.get('http://localhost:3000/getEmpDetailsedit?employeeid=' + employeeid);
+}
 
 getProjectDetails(){
   return this.
