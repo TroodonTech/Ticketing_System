@@ -4,7 +4,7 @@
       <h4 style="margin-left: 45%; font-weight: bold;">ISSUE DETAILS</h4>
     </div>
     <br>
-    <div *ngIf="HistoryDetails" style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
+    <div *ngIf="HistoryDetails" style="margin-left: 1.5rem;margin-right: 1.5rem;background-color: cornsilk;" class="row col-md-12">
       <div class="col-md-6" style="margin-top: 2%">
         <h3 style="text-align: right"></h3>
         <div class="form-group">
@@ -17,7 +17,7 @@
         </div> -->
         <div class="form-group">
           <label>Status</label><br>
-          <input type="text" style="width: 76%;max-width: 100%;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="HistoryDetails.status">
+          <input type="text" style="width: 76%;max-width: 100%;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="HistoryDetails.statuslabel">
         </div>
         <div class="form-group">
             <label>Priority Level</label><br>
@@ -34,15 +34,16 @@
         <div *ngFor="let message of messages" class="form-group">
           <textarea class="form-control rounded-1" maxlength="10" disabled rows="5" style="resize: none;">{{ message.firstname }}: {{ message.comments }}</textarea>
         </div>
-        <div *ngIf="HistoryDetails.status !=='Fixed'">
+        <div *ngIf="HistoryDetails.statuslabel !=='Resolved'">
           <textarea class="form-control rounded-1" placeholder="Enter your Message here" maxlength="10" rows="5" style="resize: none;" [(ngModel)]="newmessage"></textarea>
       </div>
       </div>
       <br><br><br>
-      <div class="row col-md-12" style="margin-left: 42%">
+      <div class="row col-md-12" style="margin-left: 42%" *ngIf="HistoryDetails.statuslabel !=='Resolved'">
         <a style="color:white !important" class="btn btn-success" (click)="saveMessage()"><b>Send</b></a>&nbsp;&nbsp;&nbsp;
-      <!-- </div>
-      <div style="text-align:left" class="col-md-3"> -->
+        <a (click)='goBack()' class="btn btn-warning" style="color:white !important"><b>Go Back</b></a>
+      </div>
+      <div class="row col-md-12" style="margin-left: 42%" *ngIf="HistoryDetails.statuslabel =='Resolved'">
         <a (click)='goBack()' class="btn btn-warning" style="color:white !important"><b>Go Back</b></a>
       </div>
     </div>

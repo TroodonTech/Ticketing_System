@@ -74,7 +74,8 @@ export class ReportIssueComponent implements OnInit {
     }
     this.issueservice.submitIssue(this.Description,this.priority,this.employeeid)
     .subscribe((data: any[]) => {
-      debugger;
+      alert('Issue Reported Successfully');
+      this.router.navigate(['/ClientDashboard', { outlets: { ClientOut: ['ViewIssues'] } }]);
       console.log( data[0].issue_id);
        this.addUrl = '?IssueID='+ data[0].issue_id;
       this.uploader.onBeforeUploadItem = (item) => {

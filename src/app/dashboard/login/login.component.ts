@@ -11,7 +11,7 @@ import { LoginService } from '../../services/login.service';
 })
 export class LoginComponent implements OnInit {
 
-     /////////////////////////////////Author:Aswathy///////////////
+     /////////////////////////////////Author:Raima///////////////
 
   tokenobj;
   role: String;

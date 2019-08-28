@@ -6,13 +6,13 @@ import { ActivatedRoute } from '@angular/router';
 import { DatepickerOptions } from 'ng2-datepicker';
 
 @Component({
-  selector: 'app-issue-action',
-  templateUrl: './issue-action.component.html',
-  styleUrls: ['./issue-action.component.scss']
+  selector: 'app-issue-action-emp',
+  templateUrl: './issue-action-emp.component.html',
+  styleUrls: ['./issue-action-emp.component.scss']
 })
-export class IssueActionComponent implements OnInit {
+export class IssueActionEmpComponent implements OnInit {
 
-    /////////////////////////////////Author:Aswathy///////////////
+  /////////////////////////////////Author:Aswathy///////////////
 
   role;
   username;
