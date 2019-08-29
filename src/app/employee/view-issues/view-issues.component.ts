@@ -20,8 +20,6 @@ export class ViewIssuesComponent implements OnInit {
   employeeid;
   issuedetails;
   checkflag;
-  checkValue = [];
-  DuplicateValues = [];
   marked = false;
   showHide1: boolean;
   showHide2: boolean;
@@ -73,57 +71,6 @@ export class ViewIssuesComponent implements OnInit {
   }
   constructor(private IssueService: IssueService,private router: Router,private formBuilder: FormBuilder) { }
 
-  // toggleVisibility(e) {
-  //   if (e.target.checked) {
-  //     this.marked = true;
-  //   } else {
-  //     this.marked = false;
-  //   }
-  // }
-
-  // Duplicate() {
-
-  //   var DuplicateList = [];
-  //   var DuplicateString;
-
-  //   if (this.checkValue.length > 0) {
-  //     for (var j = 0; j < this.checkValue.length; j++) {
-  //       if (this.checkValue[j] === true)
-  //       DuplicateList.push(this.DuplicateValues[j]);
-  //     }
-  //     DuplicateString = DuplicateList.join(',');
-  //   }
-  //   this.IssueService.DuplicateIssues(DuplicateString)
-  //   .subscribe((data: any[]) => {
-  //     alert('Duplicated Issues Successfully')
-  //   });
-  //   // this.checkvaluetag="workorderrequest"
-  //   // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['QrCodeViewList', DuplicateString] } }]);
-  // }
-
-  // checkBoxValueForDuplicate(index, DuplicateCheckValue, issue_id) {
-  //   this.checkValue[index] = DuplicateCheckValue;
-  //   this.DuplicateValues[index] = issue_id;
-  //   for(var i=0;i<this.checkValue.length;)
-  //   {
-  //       if(this.checkValue[i]==true)
-  //       {
-  //         this.checkflag=true;
-  //         return;
-  //       }
-  //       else
-  //       {
-  //         if(i==(this.checkValue.length-1))
-  //         {
-  //           this.checkValue=[];
-  //           this.checkflag=false;
-  //           return;
-  //         }
-  //         i++;
-  //       }
-  //     }
-  // }
-
   previousPage() {
 
     this.pageno = +this.pageno - 1;
@@ -131,7 +78,7 @@ export class ViewIssuesComponent implements OnInit {
       .getIssuesforEmp(this.employeeid, this.pageno, this.items_perpage)
       .subscribe((data: any[]) => {
         this.issuedetails = data;
-       
+        this.pagination = +this.issuedetails[0].totalItems / (+this.pageno * (+this.items_perpage));
         if (this.pageno == 1) {
           this.showHide2 = true;
           this.showHide1 = false;
@@ -149,9 +96,6 @@ export class ViewIssuesComponent implements OnInit {
       .getIssuesforEmp(this.employeeid, this.pageno, this.items_perpage)
       .subscribe((data: any[]) => {
         this.issuedetails = data;
-        for (var i = 0; i < this.issuedetails.length; i++) {
-          this.issuedetails[i].CheckValue = false;
-        }
         this.pagination = +this.issuedetails[0].totalItems / (+this.pageno * (+this.items_perpage));
         if (this.pagination > 1) {
           this.showHide2 = true;
@@ -169,6 +113,7 @@ export class ViewIssuesComponent implements OnInit {
     var value = SearchValue.trim();
       this.IssueService
         .searchResultOfIssue(value).subscribe((data: any[]) => {
+          debugger;
           this.issuedetails = data;
         });
   }
@@ -188,6 +133,15 @@ export class ViewIssuesComponent implements OnInit {
     this.IssueService.getIssuesforEmp(this.employeeid, this.pageno, this.items_perpage)
       .subscribe((data: any[]) => {
         this.issuedetails = data;
+        this.pagination = +this.issuedetails[0].totalItems / (+this.pageno * (+this.items_perpage));
+        if (this.pagination > 1) {
+          this.showHide2 = true;
+          // this.showHide1 = false;
+        }
+        else {
+          this.showHide2 = false;
+          // this.showHide1 = true;
+        }
       });
 
     this.searchform = this.formBuilder.group({

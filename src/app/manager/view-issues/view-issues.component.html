@@ -56,10 +56,10 @@ class="row col-md-12">
         <td>{{ x.projectname }}</td>
         <td>{{ x.prioritytype }}</td>
         <td>{{ x.statuslabel }}</td>
-        <td *ngIf="x.statuslabel=='In Progress'||x.statuslabel=='Delayed'||x.statuslabel=='Resolved'">
+        <td *ngIf="x.statuslabel=='In Progress'||x.statuslabel=='Delayed'||x.statuslabel=='Resolved'||x.statuslabel=='Submitted'">
           <a [routerLink]="['IssueDetails', x.issue_id]" class="btn btn-primary"><b>View</b></a>&nbsp;&nbsp;
         </td>
-        <td *ngIf="x.statuslabel=='Pending'||x.statuslabel=='Submitted'">
+        <td *ngIf="x.statuslabel=='Pending'">
           <a [routerLink]="['IssueAssign', x.issue_id]" class="btn btn-primary"><b>Assign</b></a>&nbsp;&nbsp;
           <a class="btn btn-danger" (click)="basicModal.show();deletePass(x.issue_id); "><b>Delete</b></a>
         </td>

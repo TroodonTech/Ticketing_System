@@ -87,18 +87,14 @@ export class IssueAssignComponent implements OnInit {
 
    issueAssign(){
 
-    if (!(this.IssueDetailsforManager.status)) {
-      alert("Please enter any Status");
+    if (!(this.IssueTypeid)) {
+      alert("Please enter Issue Type");
       return;
     }
-    // else if (!(this.startdate)) {
-    //   alert("Please enter the fix start date");
-    //   return;
-    // }
-    // else if(!(this.enddate)) {
-    //   alert("Please enterthe fix  end date");
-    //   return;
-    // }
+    if (!(this.employee)) {
+      alert("Please choose an employee ");
+      return;
+    }
 
     this.issueservice
     .issueAssign(this.IssueTypeid,this.employee,this.employeeid,this.issueid$)
