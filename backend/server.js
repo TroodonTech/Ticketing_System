@@ -23,8 +23,8 @@ app.listen(app.get('port'), function () {
 var config = {};
 config.db = {};
 
-config.db.host = "192.168.1.113";
-//  config.db.host = "localhost";
+//config.db.host = "192.168.1.113";
+  config.db.host = "localhost";
 config.db.user = "root";
 config.db.password = "root";
 config.db.database = "ticketingsystem";
@@ -898,6 +898,9 @@ app.post( '/setUsernamePassword', function (req, res) {
 
 
 //sent mail
+config.sendGrid = {};
+config.sendGrid.ApiKey='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';
+
 var nodemailer = require('nodemailer');
 var sgTransport = require('nodemailer-sendgrid-transport');
 
@@ -956,7 +959,7 @@ app.get('/getEmpDetailsedit', function (req, res) {
  
 //////////////////////image upload
 
-
+// config.app.views = '../dist/mdb-angular-free';
 let imgstorage1 = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, '../dist/mdb-angular-free/imageupload');

@@ -19,18 +19,16 @@
   </div> -->
 
   <div style="margin-left: 1.5rem;margin-right: 1.5rem; font-weight: bold; background-color:cornsilk"></div>
-  <table class="table table-hover table-responsive table-bordered table">
+  <table class="table table-hover  table-bordered table" style=" background-color:cornsilk">
     <thead class="tableHead">
       <th> Project Name </th>
       <th> Project Description </th>
-      
-    
+
     </thead>
     <tbody>
-      <tr *ngFor="let e of projectdetailstable" >
+      <tr *ngFor="let p of projectdetailstable" >
         <td>{{ p.projectname }}</td>
         <td>{{ p.projectdesc }}</td>
-        
       </tr>
       
     </tbody>

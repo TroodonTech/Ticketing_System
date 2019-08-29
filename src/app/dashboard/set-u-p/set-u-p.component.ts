@@ -15,8 +15,8 @@ export class SetUPComponent implements OnInit {
   username;
   userroletype_id$: Object;
   password;
-  managerMail: Object;
-  userMail: Object;
+  managerMail;
+  userMail;ct;
   employeeid;
   name;
   RoleList;
@@ -46,15 +46,18 @@ export class SetUPComponent implements OnInit {
   setUsernamePassword() {
     if (!this.username) {
       alert("User Name can't be empty");
-    } else {
-      this.UserService.checkUserName(this.username, this.userroletype_id$, )
-        .subscribe((data: any[]) => {
-          if (data[0].result == 'Exists') {
-            debugger;
-            alert("User Name already exists");
-          } else {
+     } 
+    // else {
+    //   this.UserService.checkUserName(this.username, this.userroletype_id$, )
+    //     .subscribe((data: any[]) => {
+    //       if (data[0].result == 'Exists') {
+    //         debugger;
+    //         alert("User Name already exists");
+    //       } 
+    else {
             this.UserService.setLoginCreds(this.username, this.password, this.userroletype_id$)
               .subscribe((data: any[]) => {
+                debugger;
                 if(this.employeeid==3){
                 this.router.navigate(['ManagerDashBoard', { outlets: { ManagerOut: ['ViewUser'] } }]);
               }
@@ -62,7 +65,7 @@ export class SetUPComponent implements OnInit {
               else{
                 this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['ViewUser'] } }]);
               }
-                    this.userMail =  this.EmailID$;
+                   
 
                     if (this.managerMail == null) {
                       alert("Login Credentials created for user Successfully! Mail not send , Mail-Id not found !");
@@ -72,9 +75,11 @@ export class SetUPComponent implements OnInit {
                       const obj = {
                         from: this.managerMail,
                         to: this.userMail,
+                      
                         subject: 'Login Credentials',
                         text: message
                       };
+                      debugger
                       const url = 'http://localhost:3000/sendmail';
                       return this.http.post(url, obj)
                         .subscribe(res => console.log('Mail Sent Successfully...'));
@@ -83,9 +88,9 @@ export class SetUPComponent implements OnInit {
                 
               });
           }
-        });
+        // });
     }
-  }
+  // }
 
   ngOnInit() {
 
@@ -103,7 +108,7 @@ export class SetUPComponent implements OnInit {
     .getuserrole(this.userroletype_id$)
     .subscribe((data: any[]) => {
       debugger;
-      this.RoleList = data;
+      this.RoleList = data[0];
       console.log(data);
     });
   }

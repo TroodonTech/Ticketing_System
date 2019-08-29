@@ -1,8 +1,8 @@
 
 <div style="padding-left: 9rem;padding-right: 9rem; padding-top:4rem !important; padding-bottom:0rem !important;">
-    <div style=" padding-top:5rem !important; padding-bottom:5rem !important;"class="row bg-info col-md-12">
+    <div style=" padding-top:5rem !important; padding-bottom:5rem !important;"class="row col-md-12">
         <div class="row col-md-12 ">
-            <h4 style="margin-left: 35%;font-size: 2.5rem;color: #174a5e; font-weight: bold;"><strong>USER DETAILS</strong></h4>
+            <h4 style="margin-left: 35%;font-size: 2.5rem;color: #174a5e; font-weight: bold;"><strong> EDIT USER DETAILS</strong></h4>
           </div><br>
     
       <div  *ngIf="employeedetails" style=" padding-top:2rem !important; "class="col-md-6">
@@ -27,11 +27,11 @@
         <div class="form-group">
           <label>Middle Name</label>
           <input type="text" style="width: 76%;max-width: 100%;" name="MiddleName" class="form-control  col-sm-9 col-md-9 col-lg-9"
-            (keypress)="charValidation($event)" maxlength="19" [(ngModel)]="employeedetails.middlename">
+            maxlength="19" [(ngModel)]="employeedetails.middlename">
         </div>
         <div class="form-group" >
             <label>UserRoleType</label><br>
-            <select name="Gender" style="width: 76%;max-width: 100%;" [(ngModel)]="employeedetails.userroletype_id" 
+            <select name="userrolename" style="width: 76%;max-width: 100%;" [(ngModel)]="employeedetails.userroletype_id" 
             class="form-control col-sm-9 col-md-9 col-lg-9" >
              <option *ngFor="let r of RoleTypeList" [value]="r.userroletype_id">
                  {{r.userrolename}}
@@ -39,7 +39,7 @@
              </select>
              <div  >
               <label>Project</label><br>
-              <select name="Gender" style="width: 76%;max-width: 100%;" [(ngModel)]="employeedetails.project_id" 
+              <select name="projectname" style="width: 76%;max-width: 100%;" [(ngModel)]="employeedetails.project_id" 
               class="form-control col-sm-9 col-md-9 col-lg-9" >
                <option value="">--Select--</option>
                <option *ngFor="let p of projectList" [value]="p.project_id">

@@ -40,7 +40,7 @@ export class CreateprojectComponent {
       alert("Successfull");
      
      
-      // this.router.navigate(['/AdminDashBoard', { outlets: { AdminOut: ['CreateProject'] } }]);
+       this.router.navigate(['/AdminDashboard', { outlets: { AdminOut: ['ViewProject'] } }]);
       // this.router.navigate(['ManagerDashboard', { outlets: { ManagerOut: ['SetUP'] } }]);
     });
   }

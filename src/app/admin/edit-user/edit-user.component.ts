@@ -43,9 +43,11 @@ export class EditUserComponent implements OnInit {
     this.route.params.subscribe(params => this.employee_id$ = params.employee_id);
   }
   editEmployee() {
-    
-    this.UserService.Edituser(this.FirstName, this.LastName, this.MiddleName, this.Address,
-       this.Phone, this.EmailID,this.UserRoleType ,this.employee_id$,this.project_id)
+    debugger;
+    this.UserService.Edituser(this.employeedetails.firstname, this.employeedetails.lastname, 
+      this.employeedetails.middlename, this.employeedetails.address,
+       this.employeedetails.phonenumber, this.employeedetails.mailID,this.employeedetails.userroletype_id ,
+       this.employee_id$,this.employeedetails.project_id)
     .subscribe((data) => {
         this.employeedetails = data;
         alert(' Updated Successfully');

@@ -37,13 +37,14 @@ export class ViewUserComponent implements OnInit {
   constructor(private route: ActivatedRoute, private UserService: UserService, private router: Router) {}
   edit(key){
     this.employee_id = key;
-    this.router.navigate(['/AdminDashboard', { outlets: { AdminOut: ['EditUser',this.employee_id] } }]);
+    this.router.navigate(['/AdminDashboard', { outlets: { AdminOut: ['EditUser',this.employee_id] } }]);}
+    deletePass(key) {
+      debugger;
+      this.employee_id = key;
   }
-  deletePass(key) {
-    debugger;
-    this.employee_id = key;
+  
 
-  }
+  
   deleteRequest() {
     debugger
     this.UserService.deleteUser(this.employee_id)

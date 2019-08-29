@@ -65,7 +65,7 @@ export class CreateUserComponent implements OnInit {
     }
   
     if (!(this.Phone) || !this.Phone.trim()) {
-      alert("Primary Phone is not provided !");
+      alert(" PhoneNo is not provided !");
       return;
     }
     if (this.project_id== null)

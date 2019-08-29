@@ -1,51 +1,64 @@
-<img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
-<div *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
-  <div class="row col-md-12 ">
-    <h4 style="margin-left: 42%; font-weight: bold; background-color:cornsilk;">VIEW USER DETAILS</h4>
-  </div>
-  
-  
-  <br>
-  <!-- <div class="col-md-12">
-    <form [formGroup]="searchform">
-      <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: -0.9rem;margin-right: 1.5rem;">
-        <input class="form-control" name="searchempdetails" maxlength="20" specialIsAlphaNumeric minlength="3" type="text"
-          placeholder="Search Employee Number,Department,Last Name,First Name,Job Title,Contact No" aria-label="Search"
-          [(ngModel)]="SearchEmpDetails" formControlName="SearchEmpDetails" (input)="searchEmployeeDetails($event.target.value);"
-          style="width: 103.1%;">
-        <div *ngIf="searchform.controls.SearchEmpDetails.errors?.minlength">Minimum 3 characters required.</div>
-      </div>
-    </form>
-  </div> -->
 
-  <div style="margin-left: 1.5rem;margin-right: 1.5rem; background-color:cornsilk"></div>
-  <table class="table table-hover table-responsive table-bordered table">
-    <thead class="tableHead">
-      <th> USER </th>
-      <th> FirstName </th>
-      <th> MiddleName </th>
-      <th> Last Name</th>
-      <th>Contact No</th>
-      <th>Address</th>
-      <th>MailID</th>
-      <th>UPDATE</th>
-    
-    </thead>
-    <tbody>
-      <tr *ngFor="let e of employeedetailstable" >
-        <td>{{ e.userrolename }}</td>
-        <td>{{ e.firstname }}</td>
-        <td>{{ e.middlename }}</td>
-        <td>{{ e.lastname }}</td>
-        <td>{{ e.phonenumber }}</td>
-        <td>{{ e.address }}</td>
-        <td>{{ e.mailID }}</td>
-        <td>
-          <button class="btn btn-success" style="float: left;" (click)="edit(e.employee_id)" >EDIT</button>
-          <button class="btn btn-success" style="float: right;" (click)="delete()" >DELETE</button></td>
-      </tr>
-      
-    </tbody>
-  </table>
-  
+<div >
+  <div class="row col-md-12 ">
+    <h4 style="margin-left: 40%;">VIEW USER DETAILS
+    </h4>
+  </div>
+  <!-- <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12"> -->
+    <div style="margin-left: 6rem; margin-top:1.5rem;  font-weight: bold; text-align:center; background-color:cornsilk">
+      <table class="  table-hover  table" style="display: inline-table" >
+        <thead class="tableHead">
+          <th> USER </th>
+          <th> FirstName </th>
+          <th> Last Name</th>
+          <th> Middle Name</th>
+          <th>Contact No</th>
+          <th>Address</th>
+          <th>MailID</th>
+          <th>Project Name</th>
+          <th>UPDATE</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let e of employeedetailstable">
+            <td>{{ e.userrolename }}</td>
+            <td>{{ e.firstname }}</td>
+            <td>{{ e.lastname }}</td>
+            <td>{{ e.middlename }}</td>
+            <td>{{ e.phonenumber }}</td>
+            <td>{{ e.address }}</td>
+            <td>{{ e.mailID }}</td>
+            <td>{{ e.projectname}}</td>
+            
+            <td >
+              <a  (click)="edit( e.employee_id); "class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;
+              <a class="btn btn-danger" (click)="basicModal.show();deletePass( e.employee_id); "><b>Delete</b></a>
+            </td>
+          </tr>
+        
+          <div mdbModal #basicModal="mdbModal" class="modal fade" role="dialog" aria-labelledby="myBasicModalLabel"
+          aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                  <h4 class="modal-title w-100" id="myModalLabel"></h4>
+                </div>
+                <div class="modal-body">
+                  Are you sure you want to delete this?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close"
+                    (click)="basicModal.hide(); deleteRequest()" mdbWavesEffect>Yes</button>
+                  <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.hide()"
+                    mdbWavesEffect>No</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tbody>
+    </table>
+  </div>
 </div>
+

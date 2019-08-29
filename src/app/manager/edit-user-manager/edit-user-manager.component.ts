@@ -20,6 +20,7 @@ export class EditUserManagerComponent implements OnInit {
   RoleTypeList;
   project_id;
   checkclient;
+  projectList;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -41,27 +42,20 @@ export class EditUserManagerComponent implements OnInit {
     this.route.params.subscribe(params => this.employee_id$ = params.employee_id);
   }
   editEmployee() {
-    if (this.project_id== null)
-    {var pvalue=1}
-    else{pvalue==this.project_id}
-    this.UserService.Edituser(this.FirstName, this.LastName, this.MiddleName, this.Address, this.Phone, this.EmailID,this.UserRoleType ,this.employee_id$,pvalue)
+    debugger;
+    this.UserService.Edituser(this.employeedetails.firstname, this.employeedetails.lastname, 
+      this.employeedetails.middlename, this.employeedetails.address,
+       this.employeedetails.phonenumber, this.employeedetails.mailID,this.employeedetails.userroletype_id ,
+       this.employee_id$,this.employeedetails.project_id)
     .subscribe((data) => {
         this.employeedetails = data;
         alert(' Updated Successfully');
         this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewUser'] } }]);
       });
   }
-  checkforclient(){
-    debugger;
-    if(this.UserRoleType=='2'){
-      this.checkclient=true;
-
-    }
-    else{this.checkclient=false}
-  }
   
   goBack() {
-    this.router.navigate(['/AdminDashboard', { outlets: { AdminOut: ['ViewUser'] } }]);
+    this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewUser'] } }]);
   }
 
   ngOnInit() {
@@ -85,7 +79,12 @@ export class EditUserManagerComponent implements OnInit {
     .subscribe((data) => {
       this.employeedetails = data[0];
     });
-
+    this.UserService
+    .getProjectDetails()
+    .subscribe((data: any[]) => {
+      this.projectList = data;
+      console.log(data);
+    });
   }
 
 }
