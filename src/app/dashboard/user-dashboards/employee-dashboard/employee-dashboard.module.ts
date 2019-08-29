@@ -12,6 +12,7 @@ import { IssueActionModule } from "../../../employee/issue-action/issue-action.m
 import { EditPtoRequestModule } from "../../../employee/edit-pto-request/edit-pto-request.module";
 import { PtoRequestDetailsModule } from "../../../employee/pto-request-details/pto-request-details.module";
 import { IssueActionEmpModule } from "../../../employee/issue-action-emp/issue-action-emp.module";
+import { IssueResolvedModule } from "../../../employee/issue-resolved/issue-resolved.module";
 
 const routes: Routes = [
   {
@@ -42,6 +43,11 @@ const routes: Routes = [
         path: 'ViewIssues/IssueActionEmp/:issueid/:assignedby',
         outlet: 'EmployeeOut',
         loadChildren: '../../../employee/issue-action-emp/issue-action-emp.module#IssueActionEmpModule'
+      },
+      {
+        path: 'ViewIssues/IssueResolved/:issueid/:assignedby',
+        outlet: 'EmployeeOut',
+        loadChildren: '../../../employee/issue-resolved/issue-resolved.module#IssueResolvedModule'
       },
       {
         path: 'PtoRequest',

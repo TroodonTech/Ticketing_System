@@ -97,15 +97,27 @@ export class IssueActionEmpComponent implements OnInit {
     this.route.params.subscribe(params => this.assignedby$ = params.assignedby);
    }
 
-   issueAction(){
+   FixedissueAction(){
 
     if (!(this.status)) {
       alert("Please enter any Status");
       return;
     }
+    if (!(this.startdate)) {
+      alert("Please enter start date");
+      return;
+    }
+    if (!(this.enddate)) {
+      alert("Please enter any end date");
+      return;
+    }    
+    if (!(this.newmessage)) {
+      alert("Please enter any message");
+      return;
+    }
 
     this.issueservice
-    .issueAction(this.status,this.convert_DT(this.startdate),this.convert_DT(this.enddate),this.newmessage,this.employeeid,this.issueid$)
+    .FixedissueAction(this.status,this.convert_DT(this.startdate),this.convert_DT(this.enddate),this.newmessage,this.employeeid,this.issueid$)
     .subscribe((data: any[]) => {
       alert("Updated successfully!")
       this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewIssues'] } }]);
@@ -113,24 +125,27 @@ export class IssueActionEmpComponent implements OnInit {
 
    }
 
-   IssuefromEmpAction(){
-    if (!(this.issuetype_id)) {
-      alert("Please enter any issuetype");
-      return;
-    }
+   issueAction(){
+
     if (!(this.status)) {
       alert("Please enter any Status");
       return;
     }
+   
+    if (!(this.newmessage)) {
+      alert("Please enter any message");
+      return;
+    }
 
-    // this.issueservice
-    // .issuefromEmpAction(this.status,this.convert_DT(this.startdate),this.convert_DT(this.enddate),this.newmessage,this.employeeid,this.issueid$)
-    // .subscribe((data: any[]) => {
-    //   alert("Updated successfully!")
-    //   this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewIssues'] } }]);
-    // });
+    this.issueservice
+    .issueAction(this.status,this.newmessage,this.employeeid,this.issueid$)
+    .subscribe((data: any[]) => {
+      alert("Updated successfully!")
+      this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewIssues'] } }]);
+    });
 
    }
+
    goBack() {
       this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewIssues'] } }]);
     }

@@ -22,6 +22,8 @@ export class CreateIssueComponent implements OnInit {
   Description;
   AllEmployees;
   employee;
+  ProductNames;
+  Product;
 
 
   url_base64_decode(str) {
@@ -77,10 +79,20 @@ export class CreateIssueComponent implements OnInit {
       alert("Please choose Priority");
       return;
     }
-    this.issueservice.submitIssuebyManager(this.issuetype,this.employee,this.Description,this.priority,this.employeeid)
+    else if(!(this.Product)){
+      alert("Please choose Project");
+      return;
+    }
+    this.issueservice.submitIssuebyManager(this.issuetype,this.employee,this.Description,this.priority,this.employeeid,this.Product)
     .subscribe((data: any[]) => {
       alert('Issue Reported Successfully!');
-      this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewIssues'] } }]);
+
+      this.issuetype="";
+      this.priority="";
+      this.employee="";
+      this.Product="";
+      this.Description=null;
+      // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['CreateIssue'] } }]);
     });
 
   }
@@ -96,6 +108,7 @@ export class CreateIssueComponent implements OnInit {
     this.issuetype="";
     this.priority="";
     this.employee="";
+    this.Product="";
 
     this.issueservice
     .getIssuetype()
@@ -111,6 +124,12 @@ export class CreateIssueComponent implements OnInit {
     .getAllEmployees()
     .subscribe((data: any[]) => {
       this.AllEmployees = data;
+    });
+
+    this.issueservice
+    .getProductNames()
+    .subscribe((data: any[]) => {
+      this.ProductNames = data;
     });
 
   }

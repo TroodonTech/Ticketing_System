@@ -8,29 +8,28 @@
 class="row col-md-12">
     <div class="col-md-6">
     <div class="form-group">
-        <label>From Date</label>
+        <label>From Date*</label>
         <ng-datepicker [options]="options" position="top-right" [(ngModel)]="fromdate"></ng-datepicker>
     </div>
     </div>
 
     <div class="col-md-6">
     <div class="form-group">
-        <label>To Date</label>
+        <label>To Date*</label>
         <ng-datepicker [options]="options" position="top-right" [(ngModel)]="todate"></ng-datepicker>
     </div>
     </div>
     <div class="col-md-6">
     <div class="form-group">
-        <label>Status</label>
+        <label>Status*</label>
         <select [(ngModel)]="IssueStatus" style="background-color: white;width: 75%;" class="form-control">
-        <option value="" selected>--Select--</option>
-        <option value="Not Assigned">Not Assigned</option>
-        <option value="Pending">Pending</option>
-        <option value="Fixed">Fixed</option>
-        <option value="In Progress">In Progress</option>
-        <option value="Declined">Declined</option>
+          <option value="">--Select--</option>
+          <option *ngFor="let i of statuslabels" [value]="i.status_id">
+              {{i.statuslabel}}
+          </option>
         </select>
     </div>
+
     </div>
     <div class="row col-md-12">
     <div style="margin-left: 45%">
@@ -40,7 +39,7 @@ class="row col-md-12">
     </div>
 </div>
 <br><br>
-<div style="margin-left: 1.5rem;margin-right: 1.5rem; text-align: center;width:100%">
+<div *ngIf="issuedetails" style="margin-left: 1.5rem;margin-right: 1.5rem; text-align: center;width:100%">
   <table class="table table-responsive table-hover table-bordered table" style="display: inline-table; background-color:cornsilk;">
     <thead class="tableHead">
       <th> Reference Number </th>
@@ -56,11 +55,11 @@ class="row col-md-12">
         <td>{{ x.submitteddate }}</td>
         <td>{{ x.projectname }}</td>
         <td>{{ x.prioritytype }}</td>
-        <td>{{ x.status }}</td>
-        <td *ngIf="x.status=='In Progress'||x.status=='Declined'||x.status=='Fixed'">
+        <td>{{ x.statuslabel }}</td>
+        <td *ngIf="x.statuslabel=='In Progress'||x.statuslabel=='Delayed'||x.statuslabel=='Resolved'||x.statuslabel=='Submitted'">
           <a [routerLink]="['IssueDetails', x.issue_id]" class="btn btn-primary"><b>View</b></a>&nbsp;&nbsp;
         </td>
-        <td *ngIf="x.status=='Not Assigned'">
+        <td *ngIf="x.statuslabel=='Pending'">
           <a [routerLink]="['IssueAssign', x.issue_id]" class="btn btn-primary"><b>Assign</b></a>&nbsp;&nbsp;
           <a class="btn btn-danger" (click)="basicModal.show();deletePass(x.issue_id); "><b>Delete</b></a>
         </td>

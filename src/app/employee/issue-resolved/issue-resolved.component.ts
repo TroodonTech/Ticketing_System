@@ -1,38 +1,41 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from "@angular/router";
 import { IssueService } from "../../services/issue.service";
 import { ActivatedRoute } from '@angular/router';
 import { DatepickerOptions } from 'ng2-datepicker';
 
 @Component({
-  selector: 'app-issue-assign',
-  templateUrl: './issue-assign.component.html',
-  styleUrls: ['./issue-assign.component.scss']
+  selector: 'app-issue-resolved',
+  templateUrl: './issue-resolved.component.html',
+  styleUrls: ['./issue-resolved.component.scss']
 })
-export class IssueAssignComponent implements OnInit {
+export class IssueResolvedComponent implements OnInit {
 
-     /////////////////////////////////Author:Aswathy///////////////
+  /////////////////////////////////Author:Aswathy///////////////
 
   role;
   username;
   employeeid;
   name;
   issueid$;
+  assignedby$;
   messages;
   newmessage;
   HistoryDetails;
-  IssueDetailsforManager;
+  IssueDetailsforEmp;
   assignedbydetails;
   startdate;
   enddate;
   marked = false;
+  request = false;
   IssueNumber;
   theCheckbox;
   duplicateissueid;
-  Issuetype;
-  IssueTypeid;
-  AllEmployees;
-  employee;
+  status;
+  assignedbyflag = true;
+  IssueType;
+  issuetype_id;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -73,54 +76,13 @@ export class IssueAssignComponent implements OnInit {
     useEmptyBarTitle: false, // Defaults to true. If set to false then barTitleIfEmpty will be disregarded and a date will always be shown 
   };
 
-  toggleVisibility(e) {
-    if (e.target.checked) {
-      this.marked = true;
-    } else {
-      this.marked = false;
-    }
-  }
-
   constructor(private issueservice:IssueService,private route:ActivatedRoute, private router: Router) {
-    this.route.params.subscribe(params => this.issueid$ = params.issue_id);
+    this.route.params.subscribe(params => this.issueid$ = params.issueid);
+    this.route.params.subscribe(params => this.assignedby$ = params.assignedby);
    }
 
-   issueAssign(){
-
-    if (!(this.IssueTypeid)) {
-      alert("Please enter Issue Type");
-      return;
-    }
-    if (!(this.employee)) {
-      alert("Please choose an employee ");
-      return;
-    }
-
-    this.issueservice
-    .issueAssign(this.IssueTypeid,this.employee,this.employeeid,this.issueid$)
-    .subscribe((data: any[]) => {
-      alert("Updated successfully!")
-      this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewIssues'] } }]);
-    });
-
-   }
    goBack() {
-      this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewIssues'] } }]);
-    }
-
-    duplicateAction(){
-
-      if (!(this.duplicateissueid)) {
-        alert("Please enter the Reference Number");
-        return;
-      }
-
-      this.issueservice
-      .duplicateAction(this.issueid$,this.duplicateissueid)
-      .subscribe((data: any[]) => {
-        alert("Updated successfully!")
-        this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewIssues'] } }]);
-      });
+      this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewIssues'] } }]);
     }
 
   ngOnInit() {
@@ -133,14 +95,19 @@ export class IssueAssignComponent implements OnInit {
     this.name = profile.name;
 
     this.duplicateissueid="";
-    this.IssueTypeid="";
-    this.employee="";
+    this.status="";
+    this.issuetype_id="";
 
     this.issueservice
-    .getIssueDetailsforManager(this.issueid$)
+    .getIssueDetailsforEmp(this.issueid$,this.assignedby$)
     .subscribe((data: any[]) => {
-      this.IssueDetailsforManager = data[0];
-
+      this.IssueDetailsforEmp = data[0];
+      if(this.IssueDetailsforEmp.assignedname=='client client'){
+          this.assignedbyflag=false;
+      }
+      else{
+        this.assignedbyflag=false;
+      }
     });
 
     this.issueservice
@@ -153,19 +120,12 @@ export class IssueAssignComponent implements OnInit {
     .getIssueNumber(this.issueid$,this.employeeid)
     .subscribe((data: any[]) => {
       this.IssueNumber = data;
-
     });
 
     this.issueservice
-    .getIssuetype()
+    .getIssueType()
     .subscribe((data: any[]) => {
-      this.Issuetype = data;
-    });
-
-    this.issueservice
-    .getAllEmployees()
-    .subscribe((data: any[]) => {
-      this.AllEmployees = data;
+      this.IssueType = data;
     });
   }
 
