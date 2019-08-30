@@ -20,6 +20,7 @@ export class SetUPComponent implements OnInit {
   employeeid;
   name;
   RoleList;
+  userrolename;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -44,7 +45,7 @@ export class SetUPComponent implements OnInit {
   }
 
   setUsernamePassword() {
-    if (!this.username) {
+    if (!this.userrolename) {
       alert("User Name can't be empty");
      } 
     // else {
@@ -55,7 +56,7 @@ export class SetUPComponent implements OnInit {
     //         alert("User Name already exists");
     //       } 
     else {
-            this.UserService.setLoginCreds(this.username, this.password, this.userroletype_id$)
+            this.UserService.setLoginCreds(this.userrolename, this.password, this.userroletype_id$)
               .subscribe((data: any[]) => {
                 debugger;
                 if(this.employeeid==3){
@@ -67,10 +68,10 @@ export class SetUPComponent implements OnInit {
               }
                    
 
-                    if (this.managerMail == null) {
+                    if (!this.managerMail) {
                       alert("Login Credentials created for user Successfully! Mail not send , Mail-Id not found !");
                     } else {
-                      var message = 'Your Username is ' + this.username + ' and ' + 'Your Password is ' + this.password ;
+                      var message = 'Your Username is ' + this.userrolename + ' and ' + 'Your Password is ' + this.password ;
                       console.log(message);
                       const obj = {
                         from: this.managerMail,
@@ -79,7 +80,7 @@ export class SetUPComponent implements OnInit {
                         subject: 'Login Credentials',
                         text: message
                       };
-                      debugger
+                    debugger;
                       const url = 'http://localhost:3000/sendmail';
                       return this.http.post(url, obj)
                         .subscribe(res => console.log('Mail Sent Successfully...'));

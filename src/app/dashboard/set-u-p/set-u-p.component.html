@@ -1,6 +1,6 @@
 <div style="margin-left: 15rem;margin-right: 15rem;">
     <br>
-    <div class="col-md-12 bg-info" style="padding-top: 2rem">
+    <div class="col-md-12" style="padding-top: 2rem;background-color: cornsilk !important">
 
 
         <div style="text-align:center;padding-bottom: 2rem">
@@ -10,14 +10,17 @@
       <div class="row col-md-12"style="padding-bottom:0.5rem">
         <h5 style="text-align:right" class="col-md-4"><label >User Name: </label></h5>
         <div class="col-md-8" style="text-align:left">
-          <input type="text" class="form-control" id="username" [(ngModel)]="RoleList.userrolename">
+          <input type="text" class="form-control" id="userrolename" [(ngModel)]="userrolename">
         </div>
       </div>
       <div class="row col-md-12"style="padding-bottom:0.5rem">
         <h5 style="text-align:right" class="col-md-4"><label for="Password">Password: </label></h5>
         <div class="col-md-8" style="text-align:left">
-          <input type="text"  class="form-control" id="Password"
-            [(ngModel)]="password">
+          <input type="text" minlength="5"class="form-control" id="Password"
+            [(ngModel)]="password" #Email="ngModel">
+            <div *ngIf="Email.errors?.minlength" style="color: red;">
+             Password should have min 5 characters
+            </div>
         </div>
       </div>
       <div class="row col-md-12"style="padding-bottom:0.5rem">
@@ -47,7 +50,7 @@
       <div class="row col-md-12"style="padding-bottom:2rem">
         <div class="col col-md-4"></div>
         <div style="text-align:right" class="col-md-4">
-          <a style="color:white !important" class="btn btn-success" (click)="setUsernamePassword()"><b>Save & Send Email</b>
+          <a style="color:white !important" class="btn btn-success" (click)="setUsernamePassword(userrolename)"><b>Save & Send Email</b>
           </a></div>
         <div class="col col-md-2"></div>
       </div>
