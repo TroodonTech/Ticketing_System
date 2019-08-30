@@ -37,7 +37,7 @@ export class ViewprojectComponent implements OnInit {
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
 
     
-    this.UserService.getProjectDetails()
+    this.UserService.getProjectDetailsview()
       .subscribe((data: any[]) => {
         this.projectdetailstable = data;
       });

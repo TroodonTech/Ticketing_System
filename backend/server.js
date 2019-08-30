@@ -48,7 +48,7 @@ function supportCrossOriginScript(req, res, next) {
 
 
 
-////////////////////code by aswathy starts/////////////////////////////////////////////////////
+////////////////////code by raima starts/////////////////////////////////////////////////////
 
 
 var user_return = '';
@@ -96,6 +96,11 @@ app.post('/authenticate', supportCrossOriginScript, function (req, res) {
         res.end();
     });
 });
+
+/////////////////code by raima ends//////////////////////////////
+
+
+////////////////////code by aswathy starts/////////////////////////////////////////////////////
 
 app.get('/getProductNames', function (req, res) {
 
@@ -1149,6 +1154,22 @@ app.post( '/imgupload', imgupload1.single('photo'), function (req, res) {
 app.get('/getProjectDetails', function (req, res) {
 
     connection.query('call usp_getProjectDetails()', function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("addnamess  is  " + JSON.stringify(rows[0]));
+
+            res.end(JSON.stringify(rows[0]));
+        }
+        res.end();
+    });
+
+});
+/////////////////////project view
+app.get('/getProjectDetailsview', function (req, res) {
+
+    connection.query('call usp_getProjectDetailsview()', function (err, rows) {
         if (err) {
             console.log("Problem with MySQL" + err);
         }

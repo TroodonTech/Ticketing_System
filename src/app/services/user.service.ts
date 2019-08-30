@@ -72,6 +72,10 @@ getProjectDetails(){
   return this.
   http.get('http://localhost:3000/getProjectDetails');
 }
+getProjectDetailsview(){
+  return this.
+  http.get('http://localhost:3000/getProjectDetailsview');
+}
 deleteUser(deleteRequestKey) {
   return this
     .http
