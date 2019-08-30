@@ -33,9 +33,10 @@ export class IssueActionEmpComponent implements OnInit {
   theCheckbox;
   duplicateissueid;
   status;
-  assignedbyflag = true;
   IssueType;
   issuetype_id;
+  assignedbyflag;
+  assignedtoflag;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -191,11 +192,17 @@ export class IssueActionEmpComponent implements OnInit {
     .getIssueDetailsforEmp(this.issueid$,this.assignedby$)
     .subscribe((data: any[]) => {
       this.IssueDetailsforEmp = data[0];
-      if(this.IssueDetailsforEmp.assignedname=='client client'){
+      if(this.IssueDetailsforEmp.assignedby=='2'){
           this.assignedbyflag=false;
       }
       else{
-        this.assignedbyflag=false;
+        this.assignedbyflag=true;
+      }
+      if(this.IssueDetailsforEmp.assignedby=='3'){
+        this.assignedtoflag=true;
+      }
+      else{
+        this.assignedtoflag=false;
       }
     });
 

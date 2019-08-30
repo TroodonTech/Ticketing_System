@@ -22,6 +22,7 @@ export class IssueReportComponent implements OnInit {
   fromdate;
   todate;
   viewIssueReport;
+  fixedflag;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -84,6 +85,14 @@ export class IssueReportComponent implements OnInit {
     .generateIssueReport(this.convert_DT(from_date), this.convert_DT( to_date))
     .subscribe((data: any[]) => {
       this.viewIssueReport = data;
+      // for (var i = 0; i < this.viewIssueReport.length; i++) {
+      //   if(this.viewIssueReport[i].status_id='5'){
+      //     this.fixedflag=true;
+      //   }
+      //   else{
+      //     this.fixedflag=false;
+      //   }
+      // }
     });
   }
 

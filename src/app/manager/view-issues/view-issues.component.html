@@ -1,25 +1,25 @@
 <div style="padding-left: 9rem;padding-right: 9rem;">
-    <br><br>
-<div class="row col-md-12 ">
-  <h4 style="margin-left: 40%; font-weight: bold;">VIEW ISSUES</h4>
-</div>
-<br>
-<div style="margin-left: 1.5rem;margin-right: 1.5rem;padding-bottom: 1rem;padding-top: 1rem; background-color:cornsilk"
-class="row col-md-12">
-    <div class="col-md-6">
+  <div style="margin-left: 1.5rem;margin-right: 1.5rem;padding-bottom: 1rem;padding-top: 1rem; background-color:cornsilk"
+  class="row col-md-12">
+  <br><br><br>
+    <div class="row col-md-12 ">
+      <h4 style="margin-left: 45%; font-weight: bold;">VIEW ISSUES</h4>
+    </div>
+    <br><br><br>
+  <div class="col-md-6">
     <div class="form-group">
         <label>From Date*</label>
         <ng-datepicker [options]="options" position="top-right" [(ngModel)]="fromdate"></ng-datepicker>
     </div>
-    </div>
+  </div>
 
-    <div class="col-md-6">
+  <div class="col-md-6">
     <div class="form-group">
         <label>To Date*</label>
         <ng-datepicker [options]="options" position="top-right" [(ngModel)]="todate"></ng-datepicker>
     </div>
-    </div>
-    <div class="col-md-6">
+  </div>
+  <div class="col-md-6">
     <div class="form-group">
         <label>Status*</label>
         <select [(ngModel)]="IssueStatus" style="background-color: white;width: 75%;" class="form-control">
@@ -29,14 +29,13 @@ class="row col-md-12">
           </option>
         </select>
     </div>
-
-    </div>
-    <div class="row col-md-12">
+  </div>
+  <div class="row col-md-12">
     <div style="margin-left: 45%">
         <button type="button" class="btn btn-success"
         (click)="viewissues(fromdate,todate,IssueStatus)"><b>GENERATE</b></button>
     </div>
-    </div>
+  </div>
 </div>
 <br><br>
 <div *ngIf="issuedetails" style="margin-left: 1.5rem;margin-right: 1.5rem; text-align: center;width:100%">
