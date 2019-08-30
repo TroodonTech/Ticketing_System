@@ -1,10 +1,9 @@
-<div style="padding-left: 9rem;padding-right: 9rem;">
-    <br><br>
-    <div class="row col-md-12 ">
-      <h4 style="margin-left: 45%; font-weight: bold;">ISSUE DETAILS</h4>
-    </div>
-      
+<div style="padding-left: 9rem;padding-right: 9rem;">    
     <div *ngIf="IssueDetailsforEmp" style="margin-left: 1.5rem;margin-right: 1.5rem;background-color: cornsilk;" class="row col-md-12">
+        <br><br>
+        <div class="row col-md-12 ">
+          <h4 style="margin-left: 45%; font-weight: bold;">ISSUE DETAILS</h4>
+        </div>
         <div class="col-md-6" style="margin-top: 2%">
             <h3 style="text-align: right"></h3>
             <div class="form-group">
@@ -24,9 +23,13 @@
               <input type="text" style="width: 76%;max-width: 100%;background-color:white;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="IssueDetailsforEmp.submitteddate">
             </div>
             <div *ngIf="assignedbyflag" class="form-group">
-                <label>Assigned By</label><br>
+                <label>Reported by</label><br>
                 <input type="text" style="width: 76%;max-width: 100%;background-color:white;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="IssueDetailsforEmp.assignedname">
             </div>
+            <div *ngIf="assignedtoflag" class="form-group">
+              <label>Assigned to</label><br>
+              <input type="text" style="width: 76%;max-width: 100%;background-color:white;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="IssueDetailsforEmp.assignedtoname">
+          </div>
             <div class="form-group">
               <label>Issue type</label><br>
               <input type="text" style="width: 76%;max-width: 100%;background-color:white;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="IssueDetailsforEmp.issuetype">
@@ -85,10 +88,10 @@
               <textarea class="form-control rounded-1" *ngIf ="!marked" placeholder="Enter your Message here" maxlength="100" rows="5" style="resize: none;background-color:white;" [(ngModel)]="newmessage"></textarea>
         </div>
           <br><br><br>
-          <!-- <div class="row col-md-12" style="margin-left: 42%" *ngIf ="!marked  && !request && status=='5'">
+          <div class="row col-md-12" style="margin-left: 42%" *ngIf ="!marked  && !request && status=='5'">
             <a style="color:white !important" class="btn btn-success" (click)="FixedissueAction()"><b>Save</b></a>&nbsp;&nbsp;&nbsp;
             <a (click)='goBack()' class="btn btn-warning" style="color:white !important"><b>Go Back</b></a>
-          </div> -->
+          </div>
           <div class="row col-md-12" style="margin-left: 42%" *ngIf ="!marked  && !request && status=='3' || status=='4' || status==''">
             <a style="color:white !important" class="btn btn-success" (click)="issueAction()"><b>Save</b></a>&nbsp;&nbsp;&nbsp;
             <a (click)='goBack()' class="btn btn-warning" style="color:white !important"><b>Go Back</b></a>

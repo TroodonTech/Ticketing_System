@@ -200,7 +200,7 @@ export class IssueActionComponent implements OnInit {
     .getIssueDetailsforEmp(this.issueid$,this.assignedby$)
     .subscribe((data: any[]) => {
       this.IssueDetailsforEmp = data[0];
-      if(this.IssueDetailsforEmp.assignedname=='client client'){
+      if(this.IssueDetailsforEmp.assignedby=='2'){
           this.assignedbyflag=false;
       }
       else{
