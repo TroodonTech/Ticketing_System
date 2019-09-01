@@ -39,14 +39,10 @@ export class ViewUserComponent implements OnInit {
     this.employee_id = key;
     this.router.navigate(['/AdminDashboard', { outlets: { AdminOut: ['EditUser',this.employee_id] } }]);}
     deletePass(key) {
-      debugger;
       this.employee_id = key;
   }
-  
 
-  
   deleteRequest() {
-    debugger
     this.UserService.deleteUser(this.employee_id)
       .subscribe((data) => {
         alert('Deleted Successfully');
@@ -61,13 +57,11 @@ export class ViewUserComponent implements OnInit {
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
-    this.userrolename = profile.userrolename;
-    this.firstname = profile.firstname;
-    this.lastname = profile.lastname;
-    this.phonenumber = profile.phonenumber;
-    this.address = profile.address;
-    this.mailID = profile.mailID;
+    this.role = profile.role;
+    this.username = profile.username;
     this.employeeid = profile.employeeid;
+    this.name = profile.name;
+    
     this.UserService.getEmpDetails(this.employeeid)
       .subscribe((data: any[]) => {
         this.employeedetailstable = data;
