@@ -57,10 +57,10 @@ export class ViewUserComponent implements OnInit {
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
-    this.role = profile.role;
-    this.username = profile.username;
+    
+    
     this.employeeid = profile.employeeid;
-    this.name = profile.name;
+   
     
     this.UserService.getEmpDetails(this.employeeid)
       .subscribe((data: any[]) => {

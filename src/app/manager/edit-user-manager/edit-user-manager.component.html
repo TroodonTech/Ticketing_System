@@ -1,11 +1,12 @@
-
-<div style="padding-left: 9rem;padding-right: 9rem; padding-top:4rem !important; padding-bottom:0rem !important;">
-  <div style=" padding-top:5rem !important; padding-bottom:5rem !important;"class="row col-md-12">
-      <div class="row col-md-12 ">
-          <h4 style="margin-left: 35%;font-size: 2.5rem;color: #174a5e; font-weight: bold;"><strong> EDIT USER DETAILS</strong></h4>
-        </div><br>
-  
-    <div  *ngIf="employeedetails" style=" padding-top:2rem !important; "class="col-md-6">
+<div style="padding-left: 9rem;padding-right: 9rem;">
+  <br><br>
+  <div class="row col-md-12 ">
+    <h4 style="margin-left: 45%; font-weight: bold;">EDIT USER</h4>
+  </div>
+  <br>
+  <div style="margin-left: 1.5rem;margin-right: 1.5rem;background-color: cornsilk;" class="row col-md-12">
+    <div class="col-md-6" style=" padding-top:2rem !important; ">
+      <h3 style="text-align: right"></h3>
       <div class="form-group">
         <label>First Name*</label>
         <input type="text" style="width: 76%;max-width: 100%;" name="FirstName" class="form-control  col-sm-9 col-md-9 col-lg-9"
@@ -70,13 +71,10 @@
     
     </div>
     <BR>
-      <div class="row col-md-12">
-          <!-- <div> -->
-          <button type="button" style="margin-left: 42%;" class="btn btn-success" (click)="editEmployee();"><b>EDIT
-              EMPLOYEE</b></button>
-              <a (click)='goBack()' class="btn btn-warning" style="color:white !important;"><b>GO BACK</b></a>
-          <!-- </div> -->
+      <div class="row col-md-12"style="padding-bottom:1rem">
+          <button type="button" style="margin-left: 35%;" class="btn btn-success" (click)="editEmployee();"><b>UPDATE</b></button>
+          <a (click)='goBack()' class="btn btn-warning" style="color:white !important;margin-left: 3%"><b>GO BACK</b></a>
         </div>
-<BR>
+  <BR>
 </div>
 </div>
