@@ -1,5 +1,5 @@
 <div style="padding-left: 9rem;padding-right: 9rem;">
-    <br><br>
+    <br>
     <div class="row col-md-12 ">
       <h4 style="margin-left: 40%; font-weight: bold;">ISSUE DETAILS</h4>
     </div>
@@ -77,11 +77,11 @@
             </div>
         </div>
           <br><br><br>
-          <div class="row col-md-12" style="margin-left: 42%" *ngIf ="!marked">
+          <div class="row col-md-12" style="margin-left: 39%;padding-bottom: 1rem" *ngIf ="!marked">
             <a style="color:white !important" class="btn btn-success" (click)="issueAssign()"><b>Save</b></a>&nbsp;&nbsp;&nbsp;
             <a (click)='goBack()' class="btn btn-warning" style="color:white !important"><b>Go Back</b></a>
           </div>
-          <div class="row col-md-12" style="margin-left: 42%" *ngIf ="marked">
+          <div class="row col-md-12" style="margin-left: 38%;padding-bottom: 1rem" *ngIf ="marked">
             <a style="color:white !important" class="btn btn-success" (click)="duplicateAction()"><b>Duplicate</b></a>&nbsp;&nbsp;&nbsp;
             <a (click)='goBack()' class="btn btn-warning" style="color:white !important"><b>Go Back</b></a>
           </div>
