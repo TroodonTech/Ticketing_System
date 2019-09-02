@@ -9,30 +9,30 @@
       <h3 style="text-align: right"></h3>
         <div class="form-group">
           <label>First Name*</label>
-          <input type="text" style="width: 76%;max-width: 100%;" name="FirstName" class="form-control  col-sm-9 col-md-9 col-lg-9"
+          <input type="text" style="width: 76%;max-width: 100%;background-color: white;" name="FirstName" class="form-control"
             (keypress)="charValidation($event)" maxlength="19"  [(ngModel)]="FirstName">
         </div>
         <div class="form-group">
           <label>Last Name*</label>
-          <input type="text" style="width: 76%;max-width: 100%;" name="LastName" class="form-control  col-sm-9 col-md-9 col-lg-9"
+          <input type="text" style="width: 76%;max-width: 100%;" name="LastName" class="form-control"
             (keypress)="charValidation($event)" maxlength="19"  [(ngModel)]="LastName">
         </div>
         <div class="form-group">
           <label>Address </label>
-          <textarea style="width: 76% !important;max-width: 100%;" class="form-control rounded-0  col-sm-9 col-md-9 col-lg-9"
+          <textarea style="width: 76% !important;max-width: 100%;" class="form-control rounded-0 "
             maxlength="85" [(ngModel)]="Address"  id="exampleFormControlTextarea1" rows="8"></textarea>
         </div>
     </div>
     <div style=" padding-top:2rem !important; "class="col-md-6">
       <div class="form-group">
         <label>Middle Name</label>
-        <input type="text" style="width: 76%;max-width: 100%;" name="MiddleName" class="form-control  col-sm-9 col-md-9 col-lg-9"
+        <input type="text" style="width: 76%;max-width: 100%;" name="MiddleName" class="form-control"
           (keypress)="charValidation($event)" maxlength="19" [(ngModel)]="MiddleName">
       </div>
       <div class="form-group" >
-        <label>UserRoleType</label><br>
+        <label>User Role Type</label><br>
         <select name="Gender" style="width: 76%;max-width: 100%;" [(ngModel)]="UserRoleType" 
-        class="form-control col-sm-9 col-md-9 col-lg-9" (change)="checkforclient()">
+        class="form-control" (change)="checkforclient()">
           <option value="">--Select--</option>
           <option *ngFor="let r of RoleTypeList" [value]="r.userroletype_id">
               {{r.userrolename}}
@@ -42,7 +42,7 @@
         <div *ngIf="checkclient" >
           <label>Project</label><br>
           <select name="Gender" style="width: 76%;max-width: 100%;" [(ngModel)]="Project" 
-          class="form-control col-sm-9 col-md-9 col-lg-9" >
+          class="form-control" >
             <option value="">--Select--</option>
             <option *ngFor="let p of projectList" [value]="p.project_id">
             {{p.projectname}}</option>                
@@ -52,7 +52,7 @@
       <div class="form-group">
         <label> Phone Number*</label>
         <input type="text" style="width: 76%;max-width: 100%;" name="PrimaryPhone" [(ngModel)]="Phone" minlength=10
-          (keypress)="numberValid($event)" maxlength="15" class="form-control col-sm-9 col-md-9 col-lg-9" 
+          (keypress)="numberValid($event)" maxlength="15" class="form-control" 
           #Primaryphone="ngModel">
         <div *ngIf="Primaryphone.errors?.minlength" style="color: red;">
           Primary Phone Number must be at least 10 digit long.
@@ -61,7 +61,7 @@
       <div class="form-group">
         <label>Email</label><br>
         <input type="text" style="width: 76%;max-width: 100%;" name="EmailID" [(ngModel)]="EmailID" maxlength="40"
-          class="form-control col-sm-9 col-md-9 col-lg-9"  email #prmEmail="ngModel">
+          class="form-control"  email #prmEmail="ngModel">
         <div *ngIf="prmEmail.errors?.email" style="color: red;">
           Email not valid.
         </div>
