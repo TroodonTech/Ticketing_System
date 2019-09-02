@@ -9,7 +9,7 @@
       <h3 style="text-align: right"></h3>
         <div class="form-group">
           <label>First Name*</label>
-          <input type="text" style="width: 76%;max-width: 100%;" name="FirstName" class="form-control  col-sm-9 col-md-9 col-lg-9"
+          <input type="text" style="width: 76%;max-width: 100%;background-color: white;" name="FirstName" class="form-control  col-sm-9 col-md-9 col-lg-9"
             (keypress)="charValidation($event)" maxlength="19"  [(ngModel)]="FirstName">
         </div>
         <div class="form-group">
@@ -68,7 +68,7 @@
       </div>
     </div>
     <BR>
-    <div class="row col-md-12">
+    <div class="row col-md-12 " style="padding-bottom: 1rem">
       <button type="button" style="margin-left: 42%;" class="btn btn-success" (click)="createEmployee();"><b>SUBMIT</b></button>
     </div>
     <BR>

@@ -53,6 +53,12 @@ export class CreateUserManagerComponent implements OnInit {
       alert("User Role Type is not provided !");
       return;
     }
+    if(this.UserRoleType=='2')
+    {
+      if(!(this.project_id)){ 
+        alert("Project is not provided !");
+       return;
+      }};
   
     if (!(this.FirstName )|| !this.FirstName.trim()) {
       alert("First Name is not provided !");
@@ -62,9 +68,17 @@ export class CreateUserManagerComponent implements OnInit {
       alert("Last Name is not provided !");
       return;
     }
+    if (!(this.Address) || !this.Address.trim()) {
+      alert("Address is not provided !");
+      return;
+    }
   
     if (!(this.Phone) || !this.Phone.trim()) {
-      alert("Primary Phone is not provided !");
+      alert(" PhoneNo is not provided !");
+      return;
+    }
+    if (!(this.EmailID) || !this.EmailID.trim()) {
+      alert("Email is not provided !");
       return;
     }
     if (this.project_id== null)
