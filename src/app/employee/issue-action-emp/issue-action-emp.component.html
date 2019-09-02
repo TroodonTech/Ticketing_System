@@ -1,6 +1,6 @@
 <div style="padding-left: 9rem;padding-right: 9rem;">    
     <br><br>
-    <div class="row col-md-12 ">
+    <div class="row col-md-12" style="padding-bottom: 1rem" >
       <h4 style="margin-left: 45%; font-weight: bold;">ISSUE DETAILS</h4>
     </div>
     <div *ngIf="IssueDetailsforEmp" style="margin-left: 1.5rem;margin-right: 1.5rem;background-color: cornsilk;" class="row col-md-12">
@@ -88,20 +88,20 @@
               <textarea class="form-control rounded-1" *ngIf ="!marked" placeholder="Enter your Message here" maxlength="100" rows="5" style="resize: none;background-color:white;" [(ngModel)]="newmessage"></textarea>
         </div>
           <br><br><br>
-          <div class="row col-md-12" style="margin-left: 42%" *ngIf ="!marked  && !request && status=='5'">
+          <div class="row col-md-12" style="margin-left: 42%;padding-bottom: 2rem" *ngIf ="!marked  && !request && status=='5'">
             <a style="color:white !important" class="btn btn-success" (click)="FixedissueAction()"><b>Save</b></a>&nbsp;&nbsp;&nbsp;
             <a (click)='goBack()' class="btn btn-warning" style="color:white !important"><b>Go Back</b></a>
           </div>
-          <div class="row col-md-12" style="margin-left: 42%" *ngIf ="!marked && !request && status=='' || status=='3' || status=='4'">
+          <div class="row col-md-12" style="margin-left: 42% ;padding-bottom: 2rem" *ngIf ="!marked && !request && status=='' || status=='3' || status=='4'">
             <a style="color:white !important" class="btn btn-success" (click)="issueAction()"><b>Save</b></a>&nbsp;&nbsp;&nbsp;
             <a (click)='goBack()' class="btn btn-warning" style="color:white !important"><b>Go Back</b></a>
           </div>
-          <div class="row col-md-12" style="margin-left: 42%" *ngIf ="marked">
+          <div class="row col-md-12" style="margin-left: 42% ;padding-bottom: 2rem" *ngIf ="marked">
             <a style="color:white !important" class="btn btn-success" (click)="duplicateAction()"><b>Duplicate</b></a>&nbsp;&nbsp;&nbsp;
             <a (click)='goBack()' class="btn btn-warning" style="color:white !important"><b>Go Back</b></a>
           </div>
 
-          <div class="row col-md-12" style="margin-left: 42%" *ngIf ="request">
+          <div class="row col-md-12" style="margin-left: 42% ;padding-bottom: 2rem" *ngIf ="request">
             <a style="color:white !important" class="btn btn-success" (click)="changetoRequest()"><b>Change</b></a>&nbsp;&nbsp;&nbsp;
             <a (click)='goBack()' class="btn btn-warning" style="color:white !important"><b>Go Back</b></a>
           </div>
