@@ -1,12 +1,12 @@
 <div style="padding-left: 9rem;padding-right: 9rem;">
-  <br><br>
+  <br>
   <div class="row col-md-12 ">
     <h4 style="margin-left: 45%; font-weight: bold;">ISSUE DETAILS</h4>
   </div>
   <br>
   <div *ngIf="HistoryDetails" style="margin-left: 1.5rem;margin-right: 1.5rem;background-color: cornsilk;" class="row col-md-12">
     <div class="col-md-6" style="margin-top: 2%">
-      <h3 style="text-align: right"></h3>
+      <h3 style="text-align: center"></h3>
       <div class="form-group">
         <label>Ticket Number</label><br>
         <input type="text" style="width: 76%;max-width: 100%; background-color: white;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="HistoryDetails.ticketnumber">
@@ -35,13 +35,15 @@
     </div>
     </div>
     <br><br><br>
-    <div class="row col-md-12" style="margin-left: 35%" *ngIf="HistoryDetails.statuslabel !=='Resolved'">
+   
+    <div class="row col-md-12" style="margin-left: 35% ;padding-bottom: 1rem;padding-top: 1rem" *ngIf="HistoryDetails.statuslabel !=='Resolved'">
       <a style="color:white !important" class="btn btn-success" (click)="saveMessage()"><b>Send</b></a>&nbsp;&nbsp;&nbsp;
       <a (click)='goBack()' class="btn btn-warning" style="color:white !important"><b>Go Back</b></a>
     </div>
-    <div class="row col-md-12" style="margin-left: 35%" *ngIf="HistoryDetails.statuslabel =='Resolved'">
+    <div class="row col-md-12" style="margin-left: 35%;padding-bottom: 1rem;padding-top: 1rem" *ngIf="HistoryDetails.statuslabel =='Resolved'">
       <a (click)='goBack()' class="btn btn-warning" style="color:white !important"><b>Go Back</b></a>
     </div>
+  
   </div>
 </div>
 
