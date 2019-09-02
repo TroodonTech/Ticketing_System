@@ -4,9 +4,9 @@
       <h4 style="margin-left: 40%; font-weight: bold;">PTO REQUEST DETAILS</h4>
     </div>
     <br>
-    <div *ngIf="requestdetails" style="margin-left: 1.5rem;margin-right: 1.5rem; margin-top: 2rem;background-color:cornsilk;"
+    <div *ngIf="requestdetails" style="margin-left: 1.5rem;margin-right: 1.5rem;background-color:cornsilk;"
       class="row col-md-12">
-      <div class="col-md-6">
+      <div class="col-md-6" style="margin-top: 2rem;">
         <div class="form-group">
           <label class="col-sm-6 col-md-6 col-lg-6 " style="margin-left: -1rem;">Start Date</label>
           <ng-datepicker [options]="options" style="background-color:white;" position="top-right" [disabled]="!editflag"
@@ -23,7 +23,7 @@
             style="background-color: white !important;width: 75%;" class="form-control" />
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6" style="margin-top: 2rem;">
         <div class="form-group">
           <label class="col-sm-6 col-md-6 col-lg-6 " style="margin-left: -1rem;">Submitted Date</label>
           <ng-datepicker [options]="options" style="background-color:white;" position="top-right" [disabled]="!editflag"
@@ -35,7 +35,7 @@
             [(ngModel)]="requestdetails.comments" rows="5" style="resize: none;width: 75% !important;background-color:white;"></textarea>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6" >
         <div class="form-group">
           <label class="col-sm-6 col-md-6 col-lg-6 " style="margin-left: -1rem;">Status Date</label>
           <ng-datepicker [options]="options" tyle="background-color:white;" position="top-right" [disabled]="!editflag"
