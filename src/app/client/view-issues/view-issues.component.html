@@ -10,7 +10,7 @@
         <thead class="tableHead">
           <th> Reference Number </th>
           <th> Submitted Date </th>
-          <th> Issue Decription</th>
+          <!-- <th> Issue Decription</th> -->
           <th> Priority </th>
           <th> Status </th>
           <th> Details </th>
@@ -19,7 +19,7 @@
           <tr *ngFor="let x of historydetails">
             <td>{{ x.ticketnumber }}</td>
             <td>{{ x.submitteddate }}</td>
-            <td>{{ x.description }}</td>
+            <!-- <td>{{ x.description }}</td> -->
             <td>{{ x.prioritytype }}</td>
             <td>{{ x.statuslabel }}</td>
             <td>
@@ -27,7 +27,7 @@
             </td>
           </tr>
           <tr *ngIf="historydetails?.length == 0">
-            <td colspan="6" class="no-data-available">No records found</td>
+            <td colspan="5" class="no-data-available">No records found</td>
           </tr>
         </tbody>
       </table>
