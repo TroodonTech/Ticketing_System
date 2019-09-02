@@ -8,7 +8,7 @@
     <thead class="tableHead">
       <th> Reference Number </th>
       <th> Issue Type </th>
-      <th> Ticket Number</th>
+      <th> Issue Description </th>
       <th> Status </th>
       <th> Project Name </th>
       <th> Converted by </th>
@@ -17,7 +17,7 @@
       <tr *ngFor="let e of requestdetails">
         <td>{{ e.issueno }}</td>
         <td>{{ e.issuetype }}</td>
-        <td>{{ e.ticketnumber }}</td>
+        <td>{{ e.description }}</td>
         <td>{{ e.statuslabel }}</td>
         <td>{{ e.projectname }}</td>
         <td>{{ e.convertedby }}</td>
