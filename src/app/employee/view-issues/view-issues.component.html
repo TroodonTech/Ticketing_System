@@ -22,7 +22,7 @@
           <th> Issue Type</th>
           <th> Project Name</th>
           <th> Priority </th>
-          <th> Description </th>
+          <!-- <th> Description </th> -->
           <th> Status </th>
           <th> Details </th>
         </thead>
@@ -33,7 +33,7 @@
             <td>{{ x.issuetype }}</td>
             <td>{{ x.projectname }}</td>
             <td>{{ x.prioritytype }}</td>
-            <td>{{ x.description }}</td>
+            <!-- <td>{{ x.description }}</td> -->
             <td>{{ x.statuslabel }}</td>
             <td *ngIf="x.statuslabel=='Pending'">
               <a [routerLink]="['IssueAction', x.issue_id, x.assignedby]" class="btn btn-primary"><b>VIEW</b></a>&nbsp;&nbsp;
@@ -46,7 +46,7 @@
             </td>
           </tr>
           <tr *ngIf="issuedetails?.length == 0">
-            <td colspan="7" class="no-data-available">No records found</td>
+            <td colspan="6" class="no-data-available">No records found</td>
           </tr>
         </tbody>
       </table>
