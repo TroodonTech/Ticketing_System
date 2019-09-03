@@ -1,14 +1,16 @@
-<div class="row col-md-12" style="padding-left:4rem;height:10%;">
-  <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark navbar-fixed-top" style="margin-left:1rem;width:100%;">
+<div class="row col-md-12" style="padding-left:4rem;height:10%; 
+background-size: cover;height: 10rem; ">
+  <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark navbar-fixed-top"
+   style="margin-left:1rem;width:100%;background-image:url('assets/bck.jpg'); ">
     <div class="col-md-2">
-      <img src="assets/Troodon-sticker-new.png" style="width:100%;height:100%;">  
+      <img src="assets/Troodon-sticker-new.png" style="width:130%;height:40%;">  
     </div>
     <div class="collapse navbar-collapse" id="navbarSupportedContent" style="padding-left: 5rem">
       <ul class="navbar-nav mr-auto">
 
         <li class="nav-item">
           <a class="nav-link" [routerLink]="[{outlets:{EmployeeOut:['welcomePage']}}]">
-            <i class="fa fa-home"></i>
+            <i class="fa fa-home"style=" font-size: 170%;"></i>
             Home
             <span class="sr-only">(current)</span>
           </a>
@@ -16,7 +18,7 @@
 
         <li class="nav-item dropdown btn-group" dropdown>
           <a dropdownToggle type="button" class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-user">
+            <i class="fa fa-user"style=" font-size: 170%;">
               <span class="badge badge-primary"> </span>
             </i>
             ISSUES
@@ -30,7 +32,7 @@
 
         <li class="nav-item dropdown btn-group" dropdown>
           <a dropdownToggle type="button" class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-user">
+            <i class="fa fa-user"style=" font-size: 170%;">
               <span class="badge badge-primary"> </span>
             </i>
             PTO
@@ -41,24 +43,24 @@
           </div> 
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/" >
-            <i class="fa fa-sign-out"></i>
-          LOG OUT
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
+       
         </ul>
       </div>
-      <div style="float: right;padding-left: 8rem;" class="col-md-3 col-sm-3 col-lg-3">
-        <span style="color: white"> <b>Welcome <u> {{name}}   !</u></b></span>
+      <div style="float: right;padding-left: 5rem;" class="col-md-3 col-sm-3 col-lg-3">
+        <span style="color: white"> <b>Welcome  {{name}}   !</b></span>
+        <br>
+        <a class="nav-link" style="padding-top: 1rem;padding-left:0rem;color: white" routerLink="/">
+          <i class="fa fa-sign-out"style=" font-size: 170%;"></i>
+          <u> LOG OUT </u>
+          <span class="sr-only">(current)</span>
+        </a>
       </div>
   </nav>
 </div>
 
 <div style=" padding-top:2rem !important;  size: 100%;"class="container">
     <router-outlet name="EmployeeOut"></router-outlet>
-  <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark " >
+  <mdb-navbar SideClass="navbar-expand-lg navbar-dark " >
   </mdb-navbar> 
 </div>
       
