@@ -174,15 +174,17 @@ app.post('/submitIssue', supportCrossOriginScript, function (req, res) {
 app.get('/getHistory', function (req, res) {
 
     var employeeid = url.parse(req.url, true).query['employeeid'];
+    var pageno = url.parse(req.url, true).query['pageno'];
+    var items_perpage = url.parse(req.url, true).query['items_perpage'];
     
-    connection.query('set @employeeid=?; call usp_getHistory(@employeeid)',[employeeid], function (err, rows) {
+    connection.query('set @employeeid=?;set @pageno=?;set @items_perpage=?; call usp_getHistory(@employeeid,@pageno,@items_perpage)',[employeeid,pageno,items_perpage], function (err, rows) {
         if (err) {
             console.log("Problem with MySQL" + err);
         }
         else {
-            console.log("prodnames  is  " + JSON.stringify(rows[1]));
+            console.log("prodnames  is  " + JSON.stringify(rows[3]));
 
-            res.end(JSON.stringify(rows[1]));
+            res.end(JSON.stringify(rows[3]));
         }
         res.end();
     });

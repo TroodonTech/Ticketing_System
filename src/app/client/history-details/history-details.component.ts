@@ -21,6 +21,7 @@ export class HistoryDetailsComponent implements OnInit {
   messages;
   newmessage;
   HistoryDetails;
+  private readonly: boolean = true;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');

@@ -28,7 +28,7 @@
       <h3 style="text-align: right"></h3>
       <label>Messages*</label>
       <div *ngFor="let message of messages" class="form-group">
-        <textarea class="form-control rounded-1" maxlength="10" disabled rows="5" style="resize: none;background-color: white;">{{ message.firstname }}: {{ message.comments }}</textarea>
+        <textarea class="form-control rounded-1" maxlength="100" disabled readonly="{{ readonly }}>" rows="5" style="resize: none;background-color: white;">{{ message.firstname }}: {{ message.comments }}</textarea>
       </div>
       <div *ngIf="HistoryDetails.statuslabel !=='Resolved'">
         <textarea class="form-control rounded-1" placeholder="Enter your Message here" maxlength="100" rows="5" style="resize: none;" [(ngModel)]="newmessage"></textarea>

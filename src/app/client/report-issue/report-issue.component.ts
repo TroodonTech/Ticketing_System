@@ -64,7 +64,8 @@ export class ReportIssueComponent implements OnInit {
 
   ReportIssue() {
 
-    if(!(this.Description)){
+    var Description1 = this.Description.trim();
+    if(!(Description1)){
       alert("Please enter Description");
       return;
     }
@@ -72,7 +73,7 @@ export class ReportIssueComponent implements OnInit {
       alert("Please choose Priority");
       return;
     }
-    this.issueservice.submitIssue(this.Description,this.priority,this.employeeid)
+    this.issueservice.submitIssue(Description1,this.priority,this.employeeid)
     .subscribe((data: any[]) => {
       alert('Issue Reported Successfully');
       this.router.navigate(['/ClientDashboard', { outlets: { ClientOut: ['ViewIssues'] } }]);
