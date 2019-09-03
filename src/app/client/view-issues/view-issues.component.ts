@@ -17,6 +17,11 @@ export class ViewIssuesComponent implements OnInit {
   employeeid;
   historydetails;
   id;
+  showHide1: boolean;
+  showHide2: boolean;
+  pagination;
+  pageno= 1;
+  items_perpage = 10;
 
   options: DatepickerOptions = {
     minYear: 1970,
@@ -61,6 +66,41 @@ export class ViewIssuesComponent implements OnInit {
   }
   constructor(private IssueService: IssueService) { }
 
+  previousPage() {
+
+  this.pageno = +this.pageno - 1;
+  this.IssueService.getHistory(this.employeeid, this.pageno, this.items_perpage)
+    .subscribe((data: any[]) => {
+      this.historydetails = data;
+      this.pagination = +this.historydetails[0].totalItems / (+this.pageno * (+this.items_perpage));
+      if (this.pageno == 1) {
+        this.showHide2 = true;
+        this.showHide1 = false;
+      } else {
+        this.showHide2 = true;
+        this.showHide1 = true;
+      }
+    });
+  }
+
+  nextPage() {
+
+  this.pageno = +this.pageno + 1;
+  this.IssueService.getHistory(this.employeeid, this.pageno, this.items_perpage)
+    .subscribe((data: any[]) => {
+      this.historydetails = data;
+      this.pagination = +this.historydetails[0].totalItems / (+this.pageno * (+this.items_perpage));
+      if (this.pagination > 1) {
+        this.showHide2 = true;
+        this.showHide1 = true;
+      }
+      else {
+        this.showHide2 = false;
+        this.showHide1 = true;
+      }
+    });
+  }
+
   ngOnInit() {
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
@@ -70,9 +110,16 @@ export class ViewIssuesComponent implements OnInit {
     this.employeeid = profile.employeeid;
     this.name = profile.name;
 
-    this.IssueService.getHistory(this.employeeid)
+    this.IssueService.getHistory(this.employeeid, this.pageno, this.items_perpage)
       .subscribe((data: any[]) => {
         this.historydetails = data;
+        this.pagination = +this.historydetails[0].totalItems / (+this.pageno * (+this.items_perpage));
+        if (this.pagination > 1) {
+          this.showHide2 = true;
+        }
+        else {
+          this.showHide2 = false;
+        }
       });
   }
 }

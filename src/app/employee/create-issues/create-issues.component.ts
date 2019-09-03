@@ -67,7 +67,8 @@ export class CreateIssuesComponent implements OnInit {
       alert("Please choose Issue Type");
       return;
     }
-    if(!(this.Description)){
+    var Description1 = this.Description.trim();
+    if(!(Description1)){
       alert("Please enter Description");
       return;
     }
@@ -75,7 +76,7 @@ export class CreateIssuesComponent implements OnInit {
       alert("Please choose Priority");
       return;
     }
-    this.issueservice.submitIssuebyEmployee(this.issuetype,this.Description,this.priority,this.employeeid,this.Product)
+    this.issueservice.submitIssuebyEmployee(this.issuetype,Description1,this.priority,this.employeeid,this.Product)
     .subscribe((data: any[]) => {
       alert('Issue submitted Successfully!');
       this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewIssues'] } }]);

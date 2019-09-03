@@ -71,7 +71,8 @@ export class CreateIssueComponent implements OnInit {
       alert("Please choose any Employee");
       return;
     }
-    if(!(this.Description)){
+    var Description1 = this.Description.trim();
+    if(!(Description1)){
       alert("Please enter Description");
       return;
     }
@@ -83,7 +84,7 @@ export class CreateIssueComponent implements OnInit {
       alert("Please choose Project");
       return;
     }
-    this.issueservice.submitIssuebyManager(this.issuetype,this.employee,this.Description,this.priority,this.employeeid,this.Product)
+    this.issueservice.submitIssuebyManager(this.issuetype,this.employee,Description1,this.priority,this.employeeid,this.Product)
     .subscribe((data: any[]) => {
       alert('Issue Reported Successfully!');
 

@@ -48,9 +48,9 @@ export class IssueService {
 
     return this.http.post(url, obj);
   }
-  getHistory(employeeid){
+  getHistory(employeeid,pageno,items_perpage){
     return this.
-    http.get('http://localhost:3000/getHistory?employeeid=' +employeeid);
+    http.get('http://localhost:3000/getHistory?employeeid=' +employeeid+ '&pageno=' + pageno + '&items_perpage=' + items_perpage);
   }
   getHistoryDetails(issueid){
     return this.
