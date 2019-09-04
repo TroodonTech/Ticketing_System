@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { ActivatedRoute, Router } from "@angular/router";
 @Component({
   selector: 'app-client-welcome',
   templateUrl: './client-welcome.component.html',
@@ -7,8 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClientWelcomeComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private route: ActivatedRoute, private router: Router) { }
+  reportissue(){
+    this.router.navigate(['ClientDashboard', { outlets: { ClientOut: ['ReportIssue'] } }]);}
   ngOnInit() {
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { ActivatedRoute, Router } from "@angular/router";
 @Component({
   selector: 'app-employee-welcome',
   templateUrl: './employee-welcome.component.html',
@@ -7,8 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmployeeWelcomeComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private route: ActivatedRoute, private router: Router) { }
+  reportissue(){
+    this.router.navigate(['EmployeeDashboard', { outlets: { EmployeeOut: ['CreateIssues'] } }]);}
+  PTOrequest(){
+    this.router.navigate(['EmployeeDashboard', { outlets: { EmployeeOut: ['PtoRequest'] } }]);}
   ngOnInit() {
   }
 
