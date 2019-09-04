@@ -17,6 +17,9 @@ export class ViewUserManagerComponent implements OnInit {
   employeedetailstable;
   employeeid;
   employee_id;
+  role;
+  username;
+  name;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -61,13 +64,10 @@ export class ViewUserManagerComponent implements OnInit {
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
-    this.userrolename = profile.userrolename;
-    this.firstname = profile.firstname;
-    this.lastname = profile.lastname;
-    this.phonenumber = profile.phonenumber;
-    this.address = profile.address;
-    this.mailID = profile.mailID;
+    this.role = profile.role;
+    this.username = profile.username;
     this.employeeid = profile.employeeid;
+    this.name = profile.name;
  
     this.UserService.getEmpDetails(this.employeeid)
       .subscribe((data: any[]) => {
