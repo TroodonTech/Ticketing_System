@@ -5,17 +5,17 @@
   </div>
   <br>
     <div style="margin-left: 1.5rem;margin-right: 1.5rem;background-color: cornsilk;padding-bottom: 2rem" class="row col-md-12">
-      <div class="col-md-6">
+      <div class="col-md-6" style="padding-top: 2rem;">
         <h3 style="text-align: right"></h3>
         <div class="form-group">
             <label>Issue Description*</label>
             <textarea class="form-control rounded-1" maxlength="100" [(ngModel)]="Description" rows="5" style="resize: none;"></textarea>
           </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6" style="padding-top: 2rem;">
         <h3 style="text-align: right"></h3>
         <div class="form-group">
-            <label>Priority Level</label><br>
+            <label>Priority Level*</label><br>
             <select class="form-control" [(ngModel)]="priority" required>
               <option value="">--Select--</option>
               <option *ngFor="let p of getpriorityList" [value]="p.priority_id">

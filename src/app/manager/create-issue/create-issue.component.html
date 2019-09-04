@@ -1,14 +1,14 @@
 <div style="padding-left: 9rem;padding-right: 9rem;">
-  <br><br>
+  <br>
   <div class="row col-md-12 ">
     <h4 style="margin-left: 45%; font-weight: bold;">REPORT ISSUE</h4>
   </div>
   <br>
   <div style="margin-left: 1.5rem;margin-right: 1.5rem;background-color: cornsilk;" class="row col-md-12">
-      <div class="col-md-6">
+      <div class="col-md-6" style="padding-top: 2rem;">
       <h3 style="text-align: right"></h3>
       <div class="form-group">
-        <label>Issue type</label><br>
+        <label>Issue type*</label><br>
         <select style="background-color: white !important;width: 76%;max-width: 100%;" class="form-control" [(ngModel)]="issuetype" required>
           <option value="">--Select--</option>
           <option *ngFor="let i of IssueTypeList" [value]="i.issuetype_id">
@@ -17,7 +17,7 @@
         </select>
       </div>
       <div class="form-group">
-          <label>Assign to</label><br>
+          <label>Assign to*</label><br>
           <select style="width: 76%;max-width: 100%;" class="form-control" [(ngModel)]="employee" required>
               <option value="">--Select--</option>
               <option *ngFor="let i of AllEmployees" [value]="i.employee_id">
@@ -26,7 +26,7 @@
           </select>
       </div>
       <div class="form-group">
-          <label>Priority Level</label><br>
+          <label>Priority Level*</label><br>
           <select style="background-color: white !important;width: 76%;max-width: 100%;" class="form-control" [(ngModel)]="priority" required>
               <option value="">--Select--</option>
               <option *ngFor="let p of getpriorityList" [value]="p.priority_id">
@@ -36,10 +36,10 @@
       </div>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-6" style="padding-top: 2rem;">
       <h3 style="text-align: right"></h3>
       <div class="form-group">
-        <label>Project</label><br>
+        <label>Project*</label><br>
         <select style="background-color: white !important;width: 76%;max-width: 100%;" class="form-control" [(ngModel)]="Product" required>
             <option value="">--Select--</option>
             <option *ngFor="let p of ProductNames" [value]="p.project_id">
