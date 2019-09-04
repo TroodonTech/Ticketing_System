@@ -33,10 +33,10 @@ export class CreateprojectComponent {
   constructor(private route: ActivatedRoute, private UserService: UserService, private router: Router) { }
 
   createProject(){
-    debugger;
+    
     this.UserService.insert(this.ProjectName, this.Projectdesc)
     .subscribe((data: any[]) => {
-      debugger;
+      
       alert("Successfull");
      
      

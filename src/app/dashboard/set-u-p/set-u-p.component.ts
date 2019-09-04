@@ -58,7 +58,7 @@ export class SetUPComponent implements OnInit {
     else {
             this.UserService.setLoginCreds(this.userrolename, this.password, this.userroletype_id$)
               .subscribe((data: any[]) => {
-                debugger;
+             
                 if(this.employeeid==3){
                 this.router.navigate(['ManagerDashBoard', { outlets: { ManagerOut: ['ViewUser'] } }]);
               }
@@ -80,7 +80,7 @@ export class SetUPComponent implements OnInit {
                         subject: 'Login Credentials',
                         text: message
                       };
-                    debugger;
+                 
                       const url = 'http://localhost:3000/sendmail';
                       return this.http.post(url, obj)
                         .subscribe(res => console.log('Mail Sent Successfully...'));
@@ -108,7 +108,7 @@ export class SetUPComponent implements OnInit {
     this.UserService
     .getuserrole(this.userroletype_id$)
     .subscribe((data: any[]) => {
-      debugger;
+    
       this.RoleList = data[0];
       console.log(data);
     });

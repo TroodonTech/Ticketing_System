@@ -84,7 +84,7 @@ export class IssueDetailsComponent implements OnInit {
     this.issueservice
     .getIssueDetailsforManager(this.issueid$)
     .subscribe((data: any[]) => {
-      debugger;
+    
       this.IssueDetailsforManager = data[0];
     });
 

@@ -95,7 +95,7 @@ export class CreateUserManagerComponent implements OnInit {
     });
   }
   checkforclient(){
-    debugger;
+   
     if(this.UserRoleType=='2'){
       this.checkclient=true;
 

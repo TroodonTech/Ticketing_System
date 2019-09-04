@@ -113,7 +113,7 @@ export class ViewIssuesComponent implements OnInit {
     var value = SearchValue.trim();
       this.IssueService
         .searchResultOfIssue(value).subscribe((data: any[]) => {
-          debugger;
+       
           this.issuedetails = data;
         });
   }

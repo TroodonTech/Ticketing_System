@@ -40,12 +40,12 @@ export class ViewUserManagerComponent implements OnInit {
     this.employee_id = key;
     this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['EditUser',this.employee_id] } }]);}
     deletePass(key) {
-      debugger;
+     
       this.employee_id = key;
   
     }
     deleteRequest() {
-      debugger
+     
       this.UserService.deleteUser(this.employee_id)
         .subscribe((data) => {
           alert('Deleted Successfully');
@@ -68,7 +68,7 @@ export class ViewUserManagerComponent implements OnInit {
     this.address = profile.address;
     this.mailID = profile.mailID;
     this.employeeid = profile.employeeid;
-    debugger;
+ 
     this.UserService.getEmpDetails(this.employeeid)
       .subscribe((data: any[]) => {
         this.employeedetailstable = data;

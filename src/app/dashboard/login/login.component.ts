@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
 
   login(username, password) {
     if (!username) {
-      debugger;
+  
       alert("Enter User Name");
     }
     else if (!password) {

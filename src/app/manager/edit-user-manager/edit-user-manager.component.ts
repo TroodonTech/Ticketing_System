@@ -42,7 +42,7 @@ export class EditUserManagerComponent implements OnInit {
     this.route.params.subscribe(params => this.employee_id$ = params.employee_id);
   }
   editEmployee() {
-    debugger;
+ 
     this.UserService.Edituser(this.employeedetails.firstname, this.employeedetails.lastname, 
       this.employeedetails.middlename, this.employeedetails.address,
        this.employeedetails.phonenumber, this.employeedetails.mailID,this.employeedetails.userroletype_id ,
