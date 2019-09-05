@@ -1,15 +1,32 @@
-<div class="row">
-  <div class="col-md-3">
-    <a> <img class="img-fluid d-block " src="assets/bug.jpg" style="width: 40%;border-radius: 50px;" 
-      (click)="callCreateWO()"></a>
-    <label value="Click here:" control="open-button"style="font-weight: bold;">Create User</label>
-    <br>
-    <a><img class="img-fluid d-block" src="assets/bug.jpg" style="width: 40%;border-radius: 50px;"
-       (click)="callCreateProject()"></a>
-       <label value="Click here:" control="open-button"style="font-weight: bold;">Add Project</label>
+<div class="r1">
+    <div class="row">
+      <div class="col-md-3" style="padding-left: 5%;">
+        <br>
+        <div style="width:83%; border-radius:25%; background-color: rgb(208, 202, 233)">
+          <img src="assets/adduser.png" style="width:80%;margin-left: 5%;margin-top: 5%;" (click)="callCreateUser()">
+          <label style="font-weight:bold;margin-left: 20%;">Create User</label>
+        </div> 
+        <br>
+        <div style="width:83%; border-radius:25%;background-color: rgb(208, 202, 233)">
+          <img src="assets/project.png" style="width:80%;margin-left: 10%;margin-top: 5%;" (click)="callCreateProject()">
+          <label style="font-weight: bold;margin-left: 20%;">Add Project</label>
+        </div>
+      </div>
+      <div class="col-md-1"></div>
+      <div class="col-md-8" style="padding-top: 8%;">
+    
+        <table class="table table-responsive table-bordered table" style="display: inline-table;">
+          <thead class="tableHead" style="text-align: center; background-color:white">
+              <th> Recent Requests </th>
+          </thead>
+          <tbody style="background-color:rgb(208, 202, 233)">
+              <tr *ngFor="let x of RecentRequestList" class="r2">
+                  <td>{{ x.description }}</td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-</div>
-<div >
-    <img src="assets/welcome.png" style="margin-left: 25rem" st>
-  </div>
-
+    
+  

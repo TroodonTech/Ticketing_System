@@ -219,4 +219,16 @@ export class IssueService {
     return this.
     http.get('http://localhost:3000/generateIssueReport?fromdate=' +fromdate + '&todate=' + todate);
   }
+  getRecentIssue(employeeid){
+    return this.
+    http.get('http://localhost:3000/getRecentIssue?employeeid=' + employeeid);
+  }
+  getRecentIssueforClient(employeeid){
+    return this.
+    http.get('http://localhost:3000/getRecentIssueforClient?employeeid=' + employeeid);
+  }
+  getRecentRequest(employeeid){
+    return this.
+    http.get('http://localhost:3000/getRecentRequest?employeeid=' + employeeid);
+  }
 }

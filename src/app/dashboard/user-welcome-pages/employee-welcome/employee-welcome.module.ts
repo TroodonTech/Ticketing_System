@@ -14,7 +14,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [EmployeeWelcomeComponent],
   imports: [
-    CommonModule,RouterModule.forChild(routes),
+    CommonModule,RouterModule.forChild(routes)
   ]
 })
 export class EmployeeWelcomeModule { }

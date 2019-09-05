@@ -102,6 +102,60 @@ app.post('/authenticate', supportCrossOriginScript, function (req, res) {
 
 ////////////////////code by aswathy starts/////////////////////////////////////////////////////
 
+app.get('/getRecentIssue', function (req, res) {
+
+    var employeeid = url.parse(req.url, true).query['employeeid'];
+
+    connection.query('set @employeeid=?; call usp_getRecentIssue(@employeeid)',[employeeid], function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("addnamess  is  " + JSON.stringify(rows[1]));
+
+            res.end(JSON.stringify(rows[1]));
+        }
+        res.end();
+    });
+
+});
+
+app.get('/getRecentIssueforClient', function (req, res) {
+
+    var employeeid = url.parse(req.url, true).query['employeeid'];
+
+    connection.query('set @employeeid=?; call usp_getRecentIssueforClient(@employeeid)',[employeeid], function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("addnamess  is  " + JSON.stringify(rows[1]));
+
+            res.end(JSON.stringify(rows[1]));
+        }
+        res.end();
+    });
+
+});
+
+app.get('/getRecentRequest', function (req, res) {
+
+    var employeeid = url.parse(req.url, true).query['employeeid'];
+
+    connection.query('set @employeeid=?; call usp_getRecentRequest(@employeeid)',[employeeid], function (err, rows) {
+        if (err) {
+            console.log("Problem with MySQL" + err);
+        }
+        else {
+            console.log("addnamess  is  " + JSON.stringify(rows[1]));
+
+            res.end(JSON.stringify(rows[1]));
+        }
+        res.end();
+    });
+
+});
+
 app.get('/getProductNames', function (req, res) {
 
     connection.query('call usp_getProductNames()', function (err, rows) {
