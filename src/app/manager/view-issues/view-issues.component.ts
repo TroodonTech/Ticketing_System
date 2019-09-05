@@ -134,19 +134,20 @@ export class ViewIssuesComponent implements OnInit {
     this.todate = this.convert_DT(this.todate);
     this.IssueStatus = "";
 
-    // var pstatus = null;
-    // this.vpto = {
-    //   employeekey: this.employeeid,
-    //   fromdate: this.fromdate,
-    //   todate: this.todate,
-    //   Status: pstatus
-    // };
+    var IssueStatus = null;
 
-    // this.IssueService.getAllIssues(this.vpto)
-    //   .subscribe((data: any[]) => {
-    //     this.issuedetails = data;
-    //   });
+    this.issue = {
+      employeekey: this.employeeid,
+      fromdate: this.fromdate,
+      todate: this.todate,
+      Status: IssueStatus
+    };
 
+    this.IssueService.getAllIssues(this.issue)
+    .subscribe((data: any[]) => {
+      this.issuedetails = data;
+    });
+    
     this.IssueService.getStatus()
     .subscribe((data: any[]) => {
       this.statuslabels = data;
