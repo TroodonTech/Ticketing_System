@@ -92,7 +92,7 @@
             <a style="color:white !important" class="btn btn-success" (click)="FixedissueAction()"><b>Save</b></a>&nbsp;&nbsp;&nbsp;
             <a (click)='goBack()' class="btn btn-warning" style="color:white !important"><b>Go Back</b></a>
           </div>
-          <div class="row col-md-12" style="margin-left: 42% ;padding-bottom: 2rem" *ngIf ="!marked && !request && status=='' || status=='3' || status=='4'">
+          <div class="row col-md-12" style="margin-left: 42% ;padding-bottom: 2rem" *ngIf ="!marked && !request && (status=='' || status=='3' || status=='4')">
             <a style="color:white !important" class="btn btn-success" (click)="issueAction()"><b>Save</b></a>&nbsp;&nbsp;&nbsp;
             <a (click)='goBack()' class="btn btn-warning" style="color:white !important"><b>Go Back</b></a>
           </div>
