@@ -25,6 +25,7 @@ export class CreateUserComponent implements OnInit {
   projectList;
   project_id;
   pvalue;
+  Project;
 
 
   url_base64_decode(str) {
@@ -49,14 +50,14 @@ export class CreateUserComponent implements OnInit {
   constructor(private route: ActivatedRoute, private UserService: UserService, private router: Router) { }
 
   createEmployee() {
-    
+    var pvalue
     if (!(this.UserRoleType)) {
       alert("User Role Type is not provided !");
       return;
     }
     if(this.UserRoleType=='2')
     {
-      if(!(this.project_id)){ 
+      if(!(this.Project)){ 
         alert("Project is not provided !");
        return;
       }};
@@ -82,18 +83,21 @@ export class CreateUserComponent implements OnInit {
       alert("Email is not provided !");
       return;
     }
-    if (this.project_id== null)
-    {var pvalue=1}
-    else{pvalue==this.project_id}
+    if (!(this.Project)){
+     pvalue=1
+    }
+    else{
+      pvalue=this.Project
+    }
 
     this.UserService.insertion(this.FirstName, this.LastName, this.MiddleName,
        this.Address, this.Phone, this.EmailID,this.UserRoleType,pvalue)
     .subscribe((data: any[]) => {
+      debugger;
       alert("User Created Successfully");
       var EmailID= this.EmailID;
       var userroletype_id=this.UserRoleType;
       this.router.navigate(['/AdminDashboard', { outlets: { AdminOut: ['SetUP',userroletype_id,EmailID] } }]);
-      // this.router.navigate(['ManagerDashboard', { outlets: { ManagerOut: ['SetUP'] } }]);
     });
   }
   checkforclient(){

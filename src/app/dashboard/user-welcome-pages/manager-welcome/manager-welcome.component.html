@@ -23,6 +23,9 @@
               <tr *ngFor="let x of RecentIssueList" class="r2">
                   <td>{{ x.description }}</td>
               </tr>
+              <tr *ngIf="RecentIssueList?.length == 0">
+                <td colspan="1" style="text-align: center" class="no-data-available">No records found</td>
+              </tr>
           </tbody>
         </table>
       </div>

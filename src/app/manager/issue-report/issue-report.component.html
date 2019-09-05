@@ -26,7 +26,7 @@
     </div>
     <br>
   </div>
-
+<br>
 
   <div style="text-align:center" *ngIf="viewIssueReport?.length> 0">
     <button type="button" class="btn btn-success" (click)="exportToExcel()"><b>EXPORT TO EXCEL</b></button>
@@ -34,14 +34,14 @@
   <br>
 
   <div style="margin-left: 1.5rem;margin-right: 1.5rem; text-align: center; width:100%">
-    <table class="table table-responsive table-hover table-bordered table" *ngIf="viewIssueReport"style="display: inline-table; background-color:cornsilk">
+    <table class="table table-responsive table-hover table-bordered table" *ngIf="viewIssueReport"style="display: inline-table;text-align:center;background-color:cornsilk">
       <thead class="tableHead">
         <th> Reference Number </th>
         <th> Issue Type </th>
         <th> Description </th>
         <th> Status </th>
         <th> Project Name </th>
-        <th> Assigned To </th>
+        <th> Issue Raised by </th>
         <th>Fix Start Date</th>
         <th>Fix End Date</th>
       </thead>

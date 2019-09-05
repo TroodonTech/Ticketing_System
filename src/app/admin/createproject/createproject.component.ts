@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import{UserService} from '../../services/user.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-createproject',
@@ -28,20 +28,14 @@ export class CreateprojectComponent {
     return window.atob(output);
   }
 
-  
-
   constructor(private route: ActivatedRoute, private UserService: UserService, private router: Router) { }
 
   createProject(){
     
     this.UserService.insert(this.ProjectName, this.Projectdesc)
     .subscribe((data: any[]) => {
-      
-      alert("Successfull");
-     
-     
-       this.router.navigate(['/AdminDashboard', { outlets: { AdminOut: ['ViewProject'] } }]);
-      // this.router.navigate(['ManagerDashboard', { outlets: { ManagerOut: ['SetUP'] } }]);
+      alert("Project Created Successfully.!");
+      this.router.navigate(['/AdminDashboard', { outlets: { AdminOut: ['ViewProject'] } }]);
     });
   }
   

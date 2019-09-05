@@ -45,7 +45,7 @@ export class ViewUserComponent implements OnInit {
   deleteRequest() {
     this.UserService.deleteUser(this.employee_id)
       .subscribe((data) => {
-        alert('Deleted Successfully');
+        alert('User Deleted Successfully');
         this.UserService.getEmpDetails(this.employeeid)
       .subscribe((data: any[]) => {
         this.employeedetailstable = data;
