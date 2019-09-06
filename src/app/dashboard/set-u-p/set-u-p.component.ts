@@ -48,13 +48,13 @@ export class SetUPComponent implements OnInit {
     if (!this.userrolename) {
       alert("User Name can't be empty");
      } 
-    // else {
-    //   this.UserService.checkUserName(this.username, this.userroletype_id$, )
-    //     .subscribe((data: any[]) => {
-    //       if (data[0].result == 'Exists') {
-    //         debugger;
-    //         alert("User Name already exists");
-    //       } 
+    else {
+      this.UserService.checkUserName(this.userrolename, this.userroletype_id$, )
+        .subscribe((data: any[]) => {
+          if (data[0].result == 'Exists') {
+            debugger;
+            alert("User Name already exists");
+          } 
     else {
             this.UserService.setLoginCreds(this.userrolename, this.password, this.userroletype_id$)
               .subscribe((data: any[]) => {
@@ -89,9 +89,9 @@ export class SetUPComponent implements OnInit {
                 
               });
           }
-        // });
+         });
     }
-  // }
+   }
 
   ngOnInit() {
 

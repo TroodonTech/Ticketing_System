@@ -1167,9 +1167,9 @@ let imgstorage1 = multer.diskStorage({
             else {
                 console.log("filename  is  " + JSON.stringify(rows[2]));
     
-                res.end(JSON.stringify(rows[2]));
+               
             }
-            res.end();
+           
         });
 
 
