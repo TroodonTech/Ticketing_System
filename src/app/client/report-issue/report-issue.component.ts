@@ -80,9 +80,12 @@ export class ReportIssueComponent implements OnInit {
       alert("Please choose Priority");
       return;
     }
+    debugger;
+    
     var curr_date = this.convert_DT(new Date());
     this.issueservice.submitIssue(Description1,this.priority,this.employeeid,curr_date)
     .subscribe((data: any[]) => {
+      debugger;
       alert('Issue Reported Successfully');
       this.router.navigate(['/ClientDashboard', { outlets: { ClientOut: ['ViewIssues'] } }]);
       console.log( data[0].issue_id);
