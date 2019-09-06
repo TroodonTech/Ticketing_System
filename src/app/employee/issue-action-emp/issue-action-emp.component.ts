@@ -22,9 +22,7 @@ export class IssueActionEmpComponent implements OnInit {
   assignedby$;
   messages;
   newmessage;
-  HistoryDetails;
   IssueDetailsforEmp;
-  assignedbydetails;
   startdate;
   enddate;
   marked = false;
@@ -37,6 +35,7 @@ export class IssueActionEmpComponent implements OnInit {
   issuetype_id;
   assignedbyflag;
   assignedtoflag;
+  imageflag=false;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -209,6 +208,13 @@ export class IssueActionEmpComponent implements OnInit {
       }
       else{
         this.assignedtoflag=false;
+      }
+
+      if(this.IssueDetailsforEmp.imagename!=null){
+        this.imageflag=true;
+      }
+      else{
+        this.imageflag=false;
       }
     });
 

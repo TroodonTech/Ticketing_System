@@ -40,7 +40,10 @@
                 <label>Fix End Date</label><br>
                 <ng-datepicker [options]="options" position="top-right" disabled [(ngModel)]="IssueDetailsforEmp.fixendDT"></ng-datepicker>
             </div>
-
+            <div *ngIf="imageflag">
+              <label>Image</label>
+        
+            </div>
       </div>
 
         <div class="col-md-6" style="background-color: beige; margin-top: 5%">

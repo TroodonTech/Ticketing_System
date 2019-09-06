@@ -36,6 +36,7 @@ export class IssueResolvedComponent implements OnInit {
   assignedbyflag = true;
   IssueType;
   issuetype_id;
+  imageflag=false;
 
   options: DatepickerOptions = {
     minYear: 1970,
@@ -91,6 +92,14 @@ export class IssueResolvedComponent implements OnInit {
     .getIssueDetailsforEmp(this.issueid$,this.assignedby$)
     .subscribe((data: any[]) => {
       this.IssueDetailsforEmp = data[0];
+
+      if(this.HistoryDetails.imagename!=null){
+        this.imageflag=true;
+      }
+      else{
+        this.imageflag=false;
+      }
+
       if(this.IssueDetailsforEmp.assignedby=='2'){
           this.assignedbyflag=false;
       }

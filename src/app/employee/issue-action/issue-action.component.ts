@@ -36,6 +36,7 @@ export class IssueActionComponent implements OnInit {
   assignedbyflag = true;
   IssueType;
   issuetype_id;
+  imageflag=false;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -200,6 +201,7 @@ export class IssueActionComponent implements OnInit {
     .getIssueDetailsforEmp(this.issueid$,this.assignedby$)
     .subscribe((data: any[]) => {
       this.IssueDetailsforEmp = data[0];
+
       if(this.IssueDetailsforEmp.status_id=='1'||this.IssueDetailsforEmp.status_id=='2'){
         this.status="";
       }
@@ -212,6 +214,13 @@ export class IssueActionComponent implements OnInit {
       }
       else{
         this.assignedbyflag=false;
+      }
+
+      if(this.IssueDetailsforEmp.imagename!=null){
+        this.imageflag=true;
+      }
+      else{
+        this.imageflag=false;
       }
     });
 
