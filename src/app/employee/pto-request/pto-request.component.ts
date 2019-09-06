@@ -75,33 +75,13 @@ export class PtoRequestComponent implements OnInit {
       return;
     }
 
-
-
-
-    // if (!(this.comments)) {
-    //   alert('Comments are not provided !');
-    //   return;
-    // } else {
-    //   var requestcomments1 = this.comments.trim();
-    //   if (!(requestcomments1)) {
-    //     alert('Comments are not provided !');
-    //     return;
-    //   }
-    // }
-
     var curr_date = this.convert_DT(new Date());
     if (this.convert_DT(curr_date) > this.convert_DT(this.startdate)) {
-      // console.log(this.convert_DT(curr_date));
-      // console.log(this.convert_DT(this.startdate));
-      // console.log("Start Date can't be previous days...!");
       alert("Start Date can't be less than Today...!");
       return;
     }
 
     if (this.convert_DT(this.enddate) < this.convert_DT(this.startdate)) {
-      // console.log(this.convert_DT(this.startdate));
-      // console.log(this.convert_DT(this.enddate));
-      // console.log("End Date can't be before start date...!");
       alert("End Date can't be less than start date...!");
       return;
     }
@@ -138,6 +118,4 @@ export class PtoRequestComponent implements OnInit {
         this.employeenames = data;
       });
   }
-
-
 }

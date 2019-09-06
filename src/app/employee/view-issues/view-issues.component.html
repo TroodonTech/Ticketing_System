@@ -9,7 +9,7 @@
           <form [formGroup]="searchform">
             <div class="active-pink-3 active-pink-4 mb-4" style="width:100%;margin-left: 1rem;">
               <input class="form-control" name="searchdetails" maxlength="20" specialIsAlphaNumeric minlength="3"
-                type="text" placeholder="Search Issue Type, Reference Number, Project Name, Status" aria-label="Search"
+                type="text" placeholder="Search Issue Type, Submitted Date, Reference Number, Project Name, Status" aria-label="Search"
                 [(ngModel)]="SearchDetails" formControlName="SearchDetails"
                 (input)="searchDetails($event.target.value);" style="width: 100%;margin-left: -0.9rem;">
             </div>

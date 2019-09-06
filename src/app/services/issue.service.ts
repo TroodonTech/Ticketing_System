@@ -36,14 +36,14 @@ export class IssueService {
     return this.
     http.get('http://localhost:3000/getpriority');
   }
-  submitIssue(descrip,priority,employeeid){
+  submitIssue(descrip,priority,employeeid,curr_date){
 
     const url = 'http://localhost:3000/submitIssue';
     const obj = {
       descrip: descrip,
       priority: priority,
       employeeid:employeeid,
-     
+      curr_date:curr_date
     };
 
     return this.http.post(url, obj);
@@ -75,14 +75,15 @@ export class IssueService {
     http.get('http://localhost:3000/getProductNames');
   }
 
-  submitIssuebyEmployee(issuetype,Description,priority,employeeid,Product){
+  submitIssuebyEmployee(issuetype,Description,priority,employeeid,Product,curr_date){
     const url = 'http://localhost:3000/submitIssuebyEmployee';
     const obj = {
       issuetype:issuetype,
       Description:Description,
       priority: priority,
       employeeid:employeeid,
-      Product:Product
+      Product:Product,
+      curr_date:curr_date
     };
     return this.http.post(url, obj);
   }
@@ -195,7 +196,7 @@ export class IssueService {
     };
     return this.http.post(url, obj);
   }
-  submitIssuebyManager(issuetype,employee,Description,priority,employeeid,Product){
+  submitIssuebyManager(issuetype,employee,Description,priority,employeeid,Product,curr_date){
     const url = 'http://localhost:3000/submitIssuebyManager';
     const obj = {
       issuetype:issuetype,
@@ -203,7 +204,8 @@ export class IssueService {
       Description:Description,
       priority: priority,
       employeeid:employeeid,
-      Product:Product
+      Product:Product,
+      curr_date:curr_date
     };
     return this.http.post(url, obj);
   }

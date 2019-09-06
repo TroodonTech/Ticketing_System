@@ -93,21 +93,25 @@ export class ViewIssuesComponent implements OnInit {
       alert("Please check your Start Date!");
       return;
     }
-    if (!(this.IssueStatus)) {
-      alert("Please choose Status");
-      return;
-    }
     else {
       var fdate;
       var tdate;
       fdate = this.convert_DT(fromdate);
       tdate = this.convert_DT(todate);
 
+      var Status;
+      if (!IssueStatus) {
+        Status = null;
+      }
+      else {
+        Status = IssueStatus;
+      }
+
       this.issue = {
         employeekey: this.employeeid,
         fromdate: fdate,
         todate: tdate,
-        Status: IssueStatus
+        Status: Status
       };
 
       this.IssueService.getAllIssues(this.issue)

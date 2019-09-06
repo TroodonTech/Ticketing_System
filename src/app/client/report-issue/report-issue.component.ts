@@ -62,6 +62,13 @@ export class ReportIssueComponent implements OnInit {
     }
   }
 
+  convert_DT(str) {
+    var date = new Date(str),
+      mnth = ("0" + (date.getMonth() + 1)).slice(- 2),
+      day = ("0" + date.getDate()).slice(- 2);
+    return [date.getFullYear(), mnth, day].join("-");
+  };
+
   ReportIssue() {
 
     var Description1 = this.Description.trim();
@@ -73,7 +80,8 @@ export class ReportIssueComponent implements OnInit {
       alert("Please choose Priority");
       return;
     }
-    this.issueservice.submitIssue(Description1,this.priority,this.employeeid)
+    var curr_date = this.convert_DT(new Date());
+    this.issueservice.submitIssue(Description1,this.priority,this.employeeid,curr_date)
     .subscribe((data: any[]) => {
       alert('Issue Reported Successfully');
       this.router.navigate(['/ClientDashboard', { outlets: { ClientOut: ['ViewIssues'] } }]);
@@ -113,7 +121,7 @@ export class ReportIssueComponent implements OnInit {
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       console.log('ImageUpload:uploaded:', item, status, response);
-      alert('Issue Reported Successfully!');
+      // alert('Issue Reported Successfully!');
       
       this.router.navigate(['/ClientDashboard', { outlets: { ClientOut: ['ViewIssues'] } }]);
     };

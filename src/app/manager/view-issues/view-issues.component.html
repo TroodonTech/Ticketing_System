@@ -21,7 +21,7 @@
   </div>
   <div class="col-md-6">
     <div class="form-group">
-        <label>Status*</label>
+        <label>Status</label>
         <select [(ngModel)]="IssueStatus" style="background-color: white;width: 75%;" class="form-control">
           <option value="">--Select--</option>
           <option *ngFor="let i of statuslabels" [value]="i.status_id">
@@ -31,7 +31,7 @@
     </div>
   </div>
   <div class="row col-md-12">
-    <div style="margin-left: 45%">
+    <div style="margin-left: 40%">
         <button type="button" class="btn btn-success"
         (click)="viewissues(fromdate,todate,IssueStatus)"><b>GENERATE</b></button>
     </div>
