@@ -24,8 +24,8 @@
         <input type="text" style="width: 76%;max-width: 100%;background-color: white;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="HistoryDetails.submitteddate">
     </div>
     <div *ngIf="imageflag">
-      <label>Image</label>
-
+      <label>Image</label><br>
+      <img src="./imageupload/{{HistoryDetails.imagename}}" style="width: 12rem;" class="img-responsive">
     </div>
     </div>
     <div class="col-md-6" style="background-color: antiquewhite; margin-top: 5%">

@@ -50,7 +50,8 @@
             <textarea class="form-control rounded-1" maxlength="100" disabled [(ngModel)]="IssueDetailsforManager.description" rows="5" style="resize: none;background-color:white;"></textarea>
           </div>
           <div *ngIf="imageflag">
-            <label>Image</label>
+            <label>Image</label><br>
+            <img src="./imageupload/{{IssueDetailsforManager.imagename}}" style="width: 12rem;" class="img-responsive">
       
           </div>
       </div>
