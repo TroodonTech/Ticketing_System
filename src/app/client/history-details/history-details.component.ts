@@ -22,6 +22,7 @@ export class HistoryDetailsComponent implements OnInit {
   newmessage;
   HistoryDetails;
   private readonly: boolean = true;
+  imageflag=false;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -77,6 +78,12 @@ export class HistoryDetailsComponent implements OnInit {
     .getHistoryDetails(this.issueid$)
     .subscribe((data: any[]) => {
       this.HistoryDetails = data[0];
+      if(this.HistoryDetails.imagename!=null){
+        this.imageflag=true;
+      }
+      else{
+        this.imageflag=false;
+      }
     });
 
     this.issueservice

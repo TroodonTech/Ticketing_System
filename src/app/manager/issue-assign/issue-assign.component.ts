@@ -33,6 +33,8 @@ export class IssueAssignComponent implements OnInit {
   IssueTypeid;
   AllEmployees;
   employee;
+  imageflag=false;
+
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -140,7 +142,12 @@ export class IssueAssignComponent implements OnInit {
     .getIssueDetailsforManager(this.issueid$)
     .subscribe((data: any[]) => {
       this.IssueDetailsforManager = data[0];
-
+      if(this.IssueDetailsforManager.imagename!=null){
+        this.imageflag=true;
+      }
+      else{
+        this.imageflag=false;
+      }
     });
 
     this.issueservice

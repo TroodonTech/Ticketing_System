@@ -77,7 +77,10 @@
               <label>Change To Request</label>
               <input type="checkbox" [(ngModel)]="theCheckbox" (change)="toggleVisibility1($event)" />
             </div>
-
+            <div *ngIf="imageflag">
+              <label>Image</label>
+        
+            </div>
       </div>
 
         <div class="col-md-6" *ngIf ="!marked  && !request" style="background-color: beige; margin-top: 5%">

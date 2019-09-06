@@ -49,6 +49,10 @@
             <label>Issue Description*</label>
             <textarea class="form-control rounded-1" maxlength="100" disabled [(ngModel)]="IssueDetailsforManager.description" rows="5" style="resize: none;background-color:white;"></textarea>
           </div>
+          <div *ngIf="imageflag">
+            <label>Image</label>
+      
+          </div>
       </div>
           <br><br><br>
           <div class="row col-md-12" style="margin-left: 40%;;padding-bottom: 1rem">

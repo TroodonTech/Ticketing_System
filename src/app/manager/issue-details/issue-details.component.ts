@@ -21,6 +21,7 @@ export class IssueDetailsComponent implements OnInit {
   issueid$;
   messages;
   IssueDetailsforManager;
+  imageflag=false;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -84,9 +85,14 @@ export class IssueDetailsComponent implements OnInit {
     this.issueservice
     .getIssueDetailsforManager(this.issueid$)
     .subscribe((data: any[]) => {
-    
-      this.IssueDetailsforManager = data[0];
-    });
+    this.IssueDetailsforManager = data[0];
+    if(this.IssueDetailsforManager.imagename!=null){
+      this.imageflag=true;
+    }
+    else{
+      this.imageflag=false;
+    }
+  });
 
     this.issueservice
     .getMessages(this.issueid$)
