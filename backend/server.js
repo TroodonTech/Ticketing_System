@@ -49,7 +49,41 @@ function supportCrossOriginScript(req, res, next) {
 
 
 ////////////////////code by raima starts/////////////////////////////////////////////////////
+var pool = mysql.createPool({
+    host: config.db.host,
+    user: config.db.user,
+    password: config.db.password,
+    database: config.db.database,
+    multipleStatements: true,
+    connectionLimit: 250,
+    queueLimit: 0,
+    debug: true
+});
+function DBPoolConnectionTry2(req, res, next) {
+    pool.getConnection(function (err, connection) {
+        if (err) {
+            connection.release();
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
 
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+        }
+    });
+}
+function DBPoolConnectionTry(req, res, next) {
+    pool.getConnection(function (err, connection) {
+        if (err) {
+            connection.release();
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+            DBPoolConnectionTry2();
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+        }
+    });
+}
+DBPoolConnectionTry();
 
 var user_return = '';
 var employeeid_return = '';
@@ -1043,7 +1077,32 @@ app.post( '/setUsernamePassword', function (req, res) {
 
 
 //sent mail
+var nodemailer = require('nodemailer');
+var sgTransport = require('nodemailer-sendgrid-transport');
+app.post( '/sendmail', function (req, res) {
+    var options = {
+        service: 'Gmail',
+        auth: {
+            api_key: ''
+        }
+    };
+    var mailer = nodemailer.createTransport(sgTransport(options));
+    mailer.sendMail(req.body, function (error, info) {
+        pool.getConnection(function (err, connection) {
+            if (err) {
 
+                console.log("Failed! Connection with Database spicnspan via connection pool failed");
+            } else {
+
+                console.log("nodemailer...from server..");
+                res.end("Success");
+
+            }
+            connection.release();
+        });
+
+    });
+});
 
 /////////////emp details
 app.get('/getEmpDetails', function (req, res) {

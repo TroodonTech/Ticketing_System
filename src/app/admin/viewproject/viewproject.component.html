@@ -1,10 +1,11 @@
-<div style="padding-left: 9rem;padding-right: 9rem;">
+<div style="margin-left: 5.5rem;margin-right: 5.5rem;">
   <br>
   <div class="row col-md-12 ">
     <h4 style="margin-left: 42%; font-weight: bold;">VIEW PROJECTS</h4>
   </div>
   <br>
-  <table class="table table-responsive table-bordered table" style="background-color: cornsilk; display: inline-table;text-align: center;">
+  <table class="table table-responsive table-bordered table" 
+  style="background-color: cornsilk; display: inline-table;text-align: center;">
     <thead class="tableHead">
       <th> Project Name </th>
       <th> Project Description </th>
@@ -12,7 +13,7 @@
     <tbody>
       <tr *ngFor="let p of projectdetailstable" >
         <td>{{ p.projectname }}</td>
-        <td>{{ p.projectdesc }}</td>
+        <td  style="word-wrap: break-word; max-width: 5px;text-align: left">{{ p.projectdesc }}</td>
       </tr>
     </tbody>
   </table>

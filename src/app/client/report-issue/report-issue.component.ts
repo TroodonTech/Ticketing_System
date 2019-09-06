@@ -73,8 +73,10 @@ export class ReportIssueComponent implements OnInit {
       alert("Please choose Priority");
       return;
     }
+    debugger;
     this.issueservice.submitIssue(Description1,this.priority,this.employeeid)
     .subscribe((data: any[]) => {
+      debugger;
       alert('Issue Reported Successfully');
       this.router.navigate(['/ClientDashboard', { outlets: { ClientOut: ['ViewIssues'] } }]);
       console.log( data[0].issue_id);
