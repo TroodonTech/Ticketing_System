@@ -113,6 +113,7 @@ export class CreateUserComponent implements OnInit {
 
     this.UserRoleType="";
     this.checkclient=false;
+    this.Project="";
 
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];

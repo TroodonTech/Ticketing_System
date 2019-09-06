@@ -23,7 +23,7 @@
               <input type="text" style="width: 76%;max-width: 100%;background-color:white;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="IssueDetailsforEmp.submitteddate">
             </div>
             <div *ngIf="assignedbyflag" class="form-group">
-                <label>Reported by</label><br>
+                <label>Assigned by</label><br>
                 <input type="text" style="width: 76%;max-width: 100%;background-color:white;" disabled class="form-control  col-sm-9 col-md-9 col-lg-9" [(ngModel)]="IssueDetailsforEmp.assignedname">
             </div>
             <div *ngIf="assignedtoflag" class="form-group">
@@ -40,6 +40,7 @@
                 <select style="width: 76%;max-width: 100%;background-color:white !important;" class="form-control"
                 [(ngModel)]="status" required>
                       <option value="">--Select--</option>
+                      <!-- <option value="2">Submitted</option> -->
                       <option value="3">In Progress</option>
                       <option value="4">Delayed</option>
                       <option value="5">Resolved</option>

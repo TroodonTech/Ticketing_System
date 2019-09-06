@@ -243,15 +243,16 @@ app.post('/submitIssue', supportCrossOriginScript, function (req, res) {
     var descrip = req.body.descrip;
     var priority = req.body.priority;
     var employeeid = req.body.employeeid;
-    
-    connection.query('set @descrip=?;set @priority=?;set @employeeid=?;  call usp_submitissue(@descrip,@priority,@employeeid)', [descrip, priority,employeeid], function (err, rows) {
+    var curr_date= req.body.curr_date;
+
+    connection.query('set @descrip=?;set @priority=?;set @employeeid=?; set @curr_date=?; call usp_submitissue(@descrip,@priority,@employeeid,@curr_date)', [descrip, priority,employeeid,curr_date], function (err, rows) {
         if (err) {
             console.log("Problem with MySQL" + err);
         }
         else {
-            console.log("NewItem  is  " + JSON.stringify(rows[3]));
+            console.log("NewItem  is  " + JSON.stringify(rows[4]));
 
-            res.end(JSON.stringify(rows[3]));
+            res.end(JSON.stringify(rows[4]));
         }
         res.end();
     });
@@ -806,14 +807,15 @@ app.post('/submitIssuebyManager', supportCrossOriginScript, function (req, res) 
     var priority = req.body.priority;
     var employeeid = req.body.employeeid;
     var Product = req.body.Product;
+    var curr_date = req.body.curr_date;
 
-        connection.query('set @issuetype=?;set @employee=?;set @Description=?;set @priority=?;set @employeeid=?;set@Product=?;call usp_submitIssuebyManager(@issuetype,@employee,@Description,@priority,@employeeid,@Product)', [issuetype,employee, Description, priority,employeeid,Product], function (err, rows) {
+        connection.query('set @issuetype=?;set @employee=?;set @Description=?;set @priority=?;set @employeeid=?;set@Product=?; set @curr_date=?; call usp_submitIssuebyManager(@issuetype,@employee,@Description,@priority,@employeeid,@Product,@curr_date)', [issuetype,employee, Description, priority,employeeid,Product,curr_date], function (err, rows) {
             if (err) {
                 console.log("Problem with MySQL" + err);
             }
             else {
 
-                res.end(JSON.stringify(rows[6]));
+                res.end(JSON.stringify(rows[7]));
             }
         });
 
@@ -882,14 +884,15 @@ app.post('/submitIssuebyEmployee', supportCrossOriginScript, function (req, res)
     var priority = req.body.priority;
     var employeeid = req.body.employeeid;
     var Product= req.body.Product;
+    var curr_date=req.body.curr_date;
 
-        connection.query('set @issuetype=?;set @Description=?;set @priority=?;set @employeeid=?; set@Product=?;call usp_submitIssuebyEmployee(@issuetype,@Description,@priority,@employeeid,@Product)', [issuetype,Description, priority,employeeid,Product], function (err, rows) {
+        connection.query('set @issuetype=?;set @Description=?;set @priority=?;set @employeeid=?; set@Product=?; set @curr_date=?; call usp_submitIssuebyEmployee(@issuetype,@Description,@priority,@employeeid,@Product,@curr_date)', [issuetype,Description, priority,employeeid,Product,curr_date], function (err, rows) {
             if (err) {
                 console.log("Problem with MySQL" + err);
             }
             else {
 
-                res.end(JSON.stringify(rows[5]));
+                res.end(JSON.stringify(rows[6]));
             }
         });
 

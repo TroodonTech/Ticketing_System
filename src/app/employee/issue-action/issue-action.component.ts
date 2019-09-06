@@ -200,6 +200,13 @@ export class IssueActionComponent implements OnInit {
     .getIssueDetailsforEmp(this.issueid$,this.assignedby$)
     .subscribe((data: any[]) => {
       this.IssueDetailsforEmp = data[0];
+      if(this.IssueDetailsforEmp.status_id=='1'||this.IssueDetailsforEmp.status_id=='2'){
+        this.status="";
+      }
+      else{
+        this.status=this.IssueDetailsforEmp.status_id;
+      }
+      
       if(this.IssueDetailsforEmp.assignedby=='2'){
           this.assignedbyflag=false;
       }

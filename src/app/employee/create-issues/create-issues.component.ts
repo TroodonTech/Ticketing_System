@@ -45,6 +45,12 @@ export class CreateIssuesComponent implements OnInit {
 
   constructor(private issueservice:IssueService, private router: Router) { }
 
+  convert_DT(str) {
+    var date = new Date(str),
+      mnth = ("0" + (date.getMonth() + 1)).slice(- 2),
+      day = ("0" + date.getDate()).slice(- 2);
+    return [date.getFullYear(), mnth, day].join("-");
+  };
   
   numberValid(event: any) {
     const pattern = /[0-9\+\-\ ]/;
@@ -76,7 +82,8 @@ export class CreateIssuesComponent implements OnInit {
       alert("Please choose Priority");
       return;
     }
-    this.issueservice.submitIssuebyEmployee(this.issuetype,Description1,this.priority,this.employeeid,this.Product)
+    var curr_date = this.convert_DT(new Date());
+    this.issueservice.submitIssuebyEmployee(this.issuetype,Description1,this.priority,this.employeeid,this.Product,curr_date)
     .subscribe((data: any[]) => {
       alert('Issue submitted Successfully!');
       this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewIssues'] } }]);
