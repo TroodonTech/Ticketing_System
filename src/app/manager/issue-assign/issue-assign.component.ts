@@ -164,7 +164,7 @@ export class IssueAssignComponent implements OnInit {
     });
 
     this.issueservice
-    .getIssuetype()
+    .getIssueType()
     .subscribe((data: any[]) => {
       this.Issuetype = data;
     });

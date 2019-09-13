@@ -744,24 +744,6 @@ app.get('/getIssueDetailsforManager', function (req, res) {
 
 });
 
-app.get('/getIssuetype', function (req, res) {
-
-    // var projectid = url.parse(req.url, true).query['projectid'];
-
-    connection.query('call usp_getIssuetype()', function (err, rows) {
-        if (err) {
-            console.log("Problem with MySQL" + err);
-        }
-        else {
-            console.log("prodnames  is  " + JSON.stringify(rows[0]));
-
-            res.end(JSON.stringify(rows[0]));
-        }
-        res.end();
-    });
-
-});
-
 app.get('/getAllEmployees', function (req, res) {
 
     

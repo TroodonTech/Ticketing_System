@@ -178,10 +178,6 @@ export class IssueService {
     return this.
     http.get('http://localhost:3000/getIssueDetailsforManager?issueid=' +issueid);
   }
-  getIssuetype(){
-    return this.
-    http.get('http://localhost:3000/getIssuetype');
-  }
   getAllEmployees(){
     return this.
     http.get('http://localhost:3000/getAllEmployees');

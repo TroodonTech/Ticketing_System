@@ -119,7 +119,7 @@ export class CreateIssueComponent implements OnInit {
     this.Product="";
 
     this.issueservice
-    .getIssuetype()
+    .getIssueType()
     .subscribe((data: any[]) => {
       this.IssueTypeList = data;
     });
